@@ -49,8 +49,8 @@ export function Taxes() {
                 <Td className="capitalize text-slate-500 dark:text-slate-400">{rate.productType}</Td>
                 <Td><Badge variant="default">{rate.taxType}</Badge></Td>
                 <Td className="font-mono text-indigo-600 dark:text-indigo-400">{(rate.taxRate * 100).toFixed(2)}%</Td>
-                <Td>{rate.isTaxInclusive ? <Badge variant="success">Yes</Badge> : <Badge variant="warning">No</Badge>}</Td>
-                <Td>{rate.isB2bExempt ? <Badge variant="success">Yes</Badge> : <Badge variant="default">No</Badge>}</Td>
+                <Td>{rate.isTaxInclusive ? <Badge variant="success">{t('taxes.yes')}</Badge> : <Badge variant="warning">{t('taxes.no')}</Badge>}</Td>
+                <Td>{rate.isB2bExempt ? <Badge variant="success">{t('taxes.yes')}</Badge> : <Badge variant="default">{t('taxes.no')}</Badge>}</Td>
                 <Td className="text-slate-500 dark:text-slate-400">{rate.effectiveDate}</Td>
               </Tr>
             ))}

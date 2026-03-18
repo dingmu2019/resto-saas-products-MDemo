@@ -12,13 +12,14 @@ export function ProductDetails() {
   const product = mockProducts.find(p => p.id === Number(id));
   const skus = mockSkus.filter(s => s.productId === Number(id));
 
-  if (!product) return <div>Product not found</div>;
+  if (!product) return <div className="p-8 text-center text-slate-500">{t('common.noData')}</div>;
 
   const getLifecycleBadge = (status: string) => {
     switch (status) {
-      case 'active': return <Badge variant="success">Active</Badge>;
-      case 'draft': return <Badge variant="warning">Draft</Badge>;
-      case 'eos': return <Badge variant="error">EOS</Badge>;
+      case 'active': return <Badge variant="success">{t('sku.active')}</Badge>;
+      case 'draft': return <Badge variant="warning">{t('sku.draft')}</Badge>;
+      case 'eos': return <Badge variant="error">{t('sku.eos')}</Badge>;
+      case 'eol': return <Badge variant="error">{t('sku.eol')}</Badge>;
       default: return <Badge>{status}</Badge>;
     }
   };
@@ -49,8 +50,8 @@ export function ProductDetails() {
             <Table>
               <Thead>
                 <Tr>
-                  <Th>SKU Code</Th>
-                  <Th>Name</Th>
+                  <Th>{t('sku.code')}</Th>
+                  <Th>{t('sku.name')}</Th>
                   <Th>{t('sku.billingModel')}</Th>
                   <Th>{t('sku.billingTerm')}</Th>
                   <Th>{t('sku.lifecycle')}</Th>
@@ -61,8 +62,8 @@ export function ProductDetails() {
                   <Tr key={sku.id}>
                     <Td className="font-mono text-xs text-slate-500">{sku.skuCode}</Td>
                     <Td className="font-medium">{sku.name}</Td>
-                    <Td className="text-slate-500">{sku.billingModel}</Td>
-                    <Td className="text-slate-500">{sku.billingTerm}</Td>
+                    <Td className="text-slate-500">{t(`sku.${sku.billingModel}`)}</Td>
+                    <Td className="text-slate-500 capitalize">{sku.billingTerm !== 'none' ? sku.billingTerm : '-'}</Td>
                     <Td>{getLifecycleBadge(sku.lifecycleStatus)}</Td>
                   </Tr>
                 ))}
@@ -82,10 +83,10 @@ export function ProductDetails() {
                 <Thead>
                   <Tr>
                     <Th>SKU</Th>
-                    <Th>Feature Code</Th>
-                    <Th>Type</Th>
+                    <Th>{t('features.code')}</Th>
+                    <Th>{t('features.type')}</Th>
                     <Th>Value</Th>
-                    <Th>Status</Th>
+                    <Th>{t('common.status')}</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -95,9 +96,9 @@ export function ProductDetails() {
                       <Tr key={ent.id}>
                         <Td className="font-mono text-xs text-slate-500">{sku?.skuCode}</Td>
                         <Td className="font-mono text-xs text-indigo-600 dark:text-indigo-400">{ent.featureCode}</Td>
-                        <Td><Badge variant="outline">{ent.entitlementType}</Badge></Td>
+                        <Td><Badge variant="outline">{t(`features.${ent.entitlementType}`)}</Badge></Td>
                         <Td className="font-medium">{ent.quotaValue || ent.tierValue || '-'}</Td>
-                        <Td><Badge variant={ent.status === 'active' ? 'success' : 'default'}>{ent.status}</Badge></Td>
+                        <Td><Badge variant={ent.status === 'active' ? 'success' : 'default'}>{ent.status === 'active' ? t('common.active') : t('common.inactive')}</Badge></Td>
                       </Tr>
                     );
                   })}
@@ -123,7 +124,7 @@ export function ProductDetails() {
               <div className="mt-6 space-y-4">
                 <div className="flex justify-between py-2 border-b border-slate-100 dark:border-slate-800">
                   <span className="text-slate-500 text-sm">{t('product.type')}</span>
-                  <span className="font-medium text-sm capitalize">{product.productType}</span>
+                  <span className="font-medium text-sm capitalize">{t(`product.${product.productType}`)}</span>
                 </div>
                 <div className="flex justify-between py-2 border-b border-slate-100 dark:border-slate-800">
                   <span className="text-slate-500 text-sm">{t('product.brand')}</span>

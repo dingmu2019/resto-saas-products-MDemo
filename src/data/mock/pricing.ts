@@ -1,9 +1,9 @@
 import { PriceBook, PriceBookEntry } from '../../types';
 
 export const mockPriceBooks: PriceBook[] = [
-  { id: 1, code: 'STD-USD', name: 'Standard USD Pricing', currency: 'USD', type: 'standard', priceDisplayPrecision: 2, isActive: true, validFrom: '2026-01-01T00:00:00Z' },
-  { id: 2, code: 'STD-EUR', name: 'Standard EUR Pricing', currency: 'EUR', type: 'standard', priceDisplayPrecision: 2, isActive: true, validFrom: '2026-01-01T00:00:00Z' },
-  { id: 3, code: 'PRT-T1', name: 'Partner Reseller Tier 1', currency: 'USD', type: 'channel', priceDisplayPrecision: 2, isActive: true, validFrom: '2026-01-01T00:00:00Z' },
+  { id: 1, code: 'STD-USD', name: '标准美元价格本', currency: 'USD', type: 'standard', priceDisplayPrecision: 2, isActive: true, validFrom: '2026-01-01T00:00:00Z' },
+  { id: 2, code: 'STD-EUR', name: '标准欧元价格本', currency: 'EUR', type: 'standard', priceDisplayPrecision: 2, isActive: true, validFrom: '2026-01-01T00:00:00Z' },
+  { id: 3, code: 'PRT-T1', name: '一级代理商价格本', currency: 'USD', type: 'channel', priceDisplayPrecision: 2, isActive: true, validFrom: '2026-01-01T00:00:00Z' },
 ];
 
 export const mockPriceBookEntries: PriceBookEntry[] = [

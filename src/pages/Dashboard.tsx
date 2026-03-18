@@ -63,18 +63,24 @@ export function Dashboard() {
           <div className="space-y-4">
             <div className="flex items-center gap-4 text-sm">
               <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
-              <p className="flex-1"><span className="font-medium">System</span> published new Price Book <span className="font-medium text-indigo-600 dark:text-indigo-400">PB-2026-GLOBAL-USD</span></p>
-              <span className="text-slate-500">2 hours ago</span>
+              <p className="flex-1">
+                <span className="font-medium">{t('common.system')}</span> {t('dashboard.activity.publishedPriceBook')} <span className="font-medium text-indigo-600 dark:text-indigo-400">PB-2026-GLOBAL-USD</span>
+              </p>
+              <span className="text-slate-500">{t('dashboard.activity.time.2h')}</span>
             </div>
             <div className="flex items-center gap-4 text-sm">
               <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-              <p className="flex-1"><span className="font-medium">Admin</span> created new SKU <span className="font-medium text-indigo-600 dark:text-indigo-400">HW-POS-BLK</span></p>
-              <span className="text-slate-500">5 hours ago</span>
+              <p className="flex-1">
+                <span className="font-medium">{t('common.admin')}</span> {t('dashboard.activity.createdSku')} <span className="font-medium text-indigo-600 dark:text-indigo-400">HW-POS-BLK</span>
+              </p>
+              <span className="text-slate-500">{t('dashboard.activity.time.5h')}</span>
             </div>
             <div className="flex items-center gap-4 text-sm">
               <div className="w-2 h-2 rounded-full bg-amber-500"></div>
-              <p className="flex-1"><span className="font-medium">System</span> updated tax rates for <span className="font-medium text-indigo-600 dark:text-indigo-400">US-NY</span> region</p>
-              <span className="text-slate-500">1 day ago</span>
+              <p className="flex-1">
+                <span className="font-medium">{t('common.system')}</span> {t('dashboard.activity.updatedTax')} <span className="font-medium text-indigo-600 dark:text-indigo-400">US-NY</span> {t('dashboard.activity.region')}
+              </p>
+              <span className="text-slate-500">{t('dashboard.activity.time.1d')}</span>
             </div>
           </div>
         </CardContent>

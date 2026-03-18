@@ -51,18 +51,18 @@ export function MediaLibrary() {
               )}
               {media.isMain && (
                 <div className="absolute top-2 right-2">
-                  <Badge variant="success" className="bg-emerald-500 text-white border-none shadow-sm">Main</Badge>
+                  <Badge variant="success" className="bg-emerald-500 text-white border-none shadow-sm">{t('media.main')}</Badge>
                 </div>
               )}
             </div>
             <div className="p-4 flex-1 flex flex-col">
               <div className="flex items-start justify-between gap-2 mb-2">
-                <h3 className="font-medium text-sm line-clamp-2" title={media.title}>{media.title || 'Untitled'}</h3>
+                <h3 className="font-medium text-sm line-clamp-2" title={media.title}>{media.title || t('media.untitled')}</h3>
                 <div className="shrink-0">{getMediaIcon(media.mediaType)}</div>
               </div>
               <div className="mt-auto flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
                 <span className="uppercase">{media.locale}</span>
-                <span>Product ID: {media.productId}</span>
+                <span>{t('media.productId')}: {media.productId}</span>
               </div>
             </div>
           </Card>

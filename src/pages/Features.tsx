@@ -9,9 +9,9 @@ export function Features() {
 
   const getTypeBadge = (type: string) => {
     switch (type) {
-      case 'boolean': return <Badge variant="success">Boolean</Badge>;
-      case 'quota': return <Badge variant="warning">Quota</Badge>;
-      case 'tier': return <Badge variant="default">Tier</Badge>;
+      case 'boolean': return <Badge variant="success">{t('features.boolean')}</Badge>;
+      case 'quota': return <Badge variant="warning">{t('features.quota')}</Badge>;
+      case 'tier': return <Badge variant="default">{t('features.tier')}</Badge>;
       default: return <Badge>{type}</Badge>;
     }
   };

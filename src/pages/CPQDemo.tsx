@@ -163,46 +163,51 @@ export function CPQDemo() {
         finalPrice = basePrice * qty;
       }
     } else if (basePriceEntry?.pricingStrategy === 'tiered' && basePriceEntry.tierConfig) {
-      // Tiered: Progressive calculation (e.g., first 10 at $150, next 40 at $120)
+      // Tiered: Progressive calculation
       finalPrice = 0;
       let remainingQty = qty;
       
-      for (const tier of basePriceEntry.tierConfig) {
+      // Sort tiers by minQty to ensure correct progressive calculation
+      const sortedTiers = [...basePriceEntry.tierConfig].sort((a, b) => a.minQty - b.minQty);
+      
+      for (const tier of sortedTiers) {
         if (remainingQty <= 0) break;
         
         const tierMaxQty = tier.maxQty === 9999 ? Infinity : tier.maxQty;
         const tierCapacity = tierMaxQty - tier.minQty + 1;
         const qtyInTier = Math.min(remainingQty, tierCapacity);
         
-        finalPrice += qtyInTier * tier.price;
-        remainingQty -= qtyInTier;
+        if (qtyInTier > 0) {
+          finalPrice += qtyInTier * tier.price;
+          remainingQty -= qtyInTier;
+        }
       }
       // Calculate effective unit price for display
       basePrice = qty > 0 ? finalPrice / qty : 0;
     }
 
-    let unitPrice = 0;
-    let label = '';
+    let unitPrice = basePrice;
+    let type: 'included' | 'fixed_override' | 'price_adjustment' | 'standard' = 'standard';
 
     switch (option.pricingType) {
       case 'included':
         unitPrice = 0;
         finalPrice = 0;
-        label = 'Included';
+        type = 'included';
         break;
       case 'fixed_override':
         unitPrice = option.pricingValue || 0;
         finalPrice = unitPrice * qty;
-        label = `${priceBook?.currency === 'EUR' ? '€' : '$'}${unitPrice.toFixed(2)} (Override)`;
+        type = 'fixed_override';
         break;
       case 'price_adjustment':
         unitPrice = basePrice + (option.pricingValue || 0);
         finalPrice = unitPrice * qty;
-        label = `${option.pricingValue && option.pricingValue > 0 ? '+' : ''}${priceBook?.currency === 'EUR' ? '€' : '$'}${unitPrice.toFixed(2)}`;
+        type = 'price_adjustment';
         break;
     }
 
-    return { unitPrice, finalPrice, label, type: option.pricingType };
+    return { unitPrice, finalPrice, type };
   };
 
   // 2. Tax Inclusive vs Exclusive Fix
@@ -327,7 +332,7 @@ export function CPQDemo() {
             <Tags className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
             {t('cpq.title')}
           </h1>
-          <p className="text-slate-500 mt-1">Configure your selected bundle</p>
+          <p className="text-slate-500 mt-1">{t('cpq.subtitle')}</p>
         </div>
         
         {/* Bundle Switcher */}
@@ -349,7 +354,7 @@ export function CPQDemo() {
       {/* Global Settings: Price Book & Tax Region */}
       <div className="flex gap-4 p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex-1">
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Price Book</label>
+          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{t('cpq.priceBook')}</label>
           <select 
             className="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm"
             value={selectedPriceBookId}
@@ -361,7 +366,7 @@ export function CPQDemo() {
           </select>
         </div>
         <div className="flex-1">
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Tax Region</label>
+          <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{t('cpq.taxRegion')}</label>
           <select 
             className="w-full rounded-lg border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm"
             value={selectedTaxRegionId}
@@ -386,7 +391,7 @@ export function CPQDemo() {
                   <div className="flex items-center justify-between">
                     <h3 className="font-semibold text-lg">{group.name}</h3>
                     <Badge variant={isAtMax ? "secondary" : "outline"} className={isAtMax ? "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300" : ""}>
-                      {group.isMutuallyExclusive ? 'Select 1' : `${currentTotalQty}/${group.maxSelections} Selected`}
+                      {group.isMutuallyExclusive ? t('cpq.singleSelect') : `${t('cpq.selected')} ${currentTotalQty}/${group.maxSelections}`}
                     </Badge>
                   </div>
                   {group.description && (
@@ -424,12 +429,12 @@ export function CPQDemo() {
                               <span className="font-medium text-slate-900 dark:text-slate-50">{sku?.name}</span>
                               {isRecommended && !isSelected && (
                                 <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
-                                  Recommended
+                                  {t('cpq.recommended')}
                                 </Badge>
                               )}
                             </div>
                             <div className="text-sm text-slate-500 mt-1">
-                              {sku?.billingModel === 'recurring' ? `${sku.billingModel} (${sku.billingTerm})` : sku?.billingModel}
+                              {sku?.billingModel === 'recurring' ? `${t(`sku.${sku.billingModel}`)} (${t(`sku.${sku.billingTerm}`)})` : t(`sku.${sku?.billingModel}`)}
                             </div>
                           </div>
                           
@@ -451,8 +456,8 @@ export function CPQDemo() {
                             )}
 
                             <div className={`text-sm font-medium ${pricing?.type === 'included' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-700 dark:text-slate-300'}`}>
-                              {pricing?.type === 'included' ? 'Included' : formatCurrency(pricing?.finalPrice || 0)}
-                              {qty > 1 && <span className="text-xs text-slate-400 block text-right">({formatCurrency(pricing?.unitPrice || 0)} ea)</span>}
+                              {pricing?.type === 'included' ? t('cpq.included') : formatCurrency(pricing?.finalPrice || 0)}
+                              {qty > 1 && <span className="text-xs text-slate-400 block text-right">({formatCurrency(pricing?.unitPrice || 0)} /{t('cpq.unit')})</span>}
                             </div>
                             {isSelected ? (
                               <CheckCircle2 className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
@@ -483,7 +488,7 @@ export function CPQDemo() {
             {/* Quote Summary */}
             <Card className="border-indigo-200 dark:border-indigo-900/50 shadow-lg shadow-indigo-100 dark:shadow-none">
               <CardHeader className="bg-indigo-50/50 dark:bg-indigo-900/20">
-                <CardTitle>Quote Summary</CardTitle>
+                <CardTitle>{t('cpq.quoteSummary')}</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 <div className="space-y-6 mb-6">
@@ -491,7 +496,7 @@ export function CPQDemo() {
                   {/* Monthly Recurring */}
                   {totals.monthly.subtotal > 0 && (
                     <div className="space-y-3">
-                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Monthly Recurring</h4>
+                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">{t('cpq.monthlySubscription')}</h4>
                       {lineItems.filter(i => i.billingTerm === 'monthly').map((item, idx) => {
                         const sku = getSkuDetails(item.skuId);
                         return (
@@ -502,13 +507,13 @@ export function CPQDemo() {
                               </div>
                             </div>
                             <div className="font-medium text-slate-900 dark:text-slate-50">
-                              {item.pricing.type === 'included' ? 'Included' : formatCurrency(item.pricing.finalPrice)}
+                              {item.pricing.type === 'included' ? t('cpq.included') : formatCurrency(item.pricing.finalPrice)}
                             </div>
                           </div>
                         );
                       })}
                       <div className="flex justify-between text-sm font-medium pt-2 border-t border-slate-100 dark:border-slate-800">
-                        <span className="text-slate-500">Monthly Total (excl. tax)</span>
+                        <span className="text-slate-500">{t('cpq.monthlyTotalExclTax')}</span>
                         <span>{formatCurrency(totals.monthly.subtotal)}</span>
                       </div>
                     </div>
@@ -517,7 +522,7 @@ export function CPQDemo() {
                   {/* Annual Recurring */}
                   {totals.annual.subtotal > 0 && (
                     <div className="space-y-3">
-                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Annual Recurring</h4>
+                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">{t('cpq.annualSubscription')}</h4>
                       {lineItems.filter(i => i.billingTerm === 'annual').map((item, idx) => {
                         const sku = getSkuDetails(item.skuId);
                         return (
@@ -528,13 +533,13 @@ export function CPQDemo() {
                               </div>
                             </div>
                             <div className="font-medium text-slate-900 dark:text-slate-50">
-                              {item.pricing.type === 'included' ? 'Included' : formatCurrency(item.pricing.finalPrice)}
+                              {item.pricing.type === 'included' ? t('cpq.included') : formatCurrency(item.pricing.finalPrice)}
                             </div>
                           </div>
                         );
                       })}
                       <div className="flex justify-between text-sm font-medium pt-2 border-t border-slate-100 dark:border-slate-800">
-                        <span className="text-slate-500">Annual Total (excl. tax)</span>
+                        <span className="text-slate-500">{t('cpq.annualTotalExclTax')}</span>
                         <span>{formatCurrency(totals.annual.subtotal)}</span>
                       </div>
                     </div>
@@ -542,11 +547,11 @@ export function CPQDemo() {
 
                   {/* One-Time Fees */}
                   <div className="space-y-3">
-                    <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">One-Time Fees</h4>
+                    <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">{t('cpq.oneTimeFees')}</h4>
                     <div className="flex justify-between text-sm">
                       <div className="flex-1 pr-4">
                         <div className="font-medium text-slate-700 dark:text-slate-300">{getSkuDetails(selectedBundleId)?.name}</div>
-                        <div className="text-xs text-slate-400">Base Price</div>
+                        <div className="text-xs text-slate-400">{t('cpq.basePrice')}</div>
                       </div>
                       <div className="font-medium text-slate-900 dark:text-slate-50">
                         {formatCurrency(bundleBasePriceEntry?.listPrice || 0)}
@@ -562,13 +567,13 @@ export function CPQDemo() {
                             </div>
                           </div>
                           <div className="font-medium text-slate-900 dark:text-slate-50">
-                            {item.pricing.type === 'included' ? 'Included' : formatCurrency(item.pricing.finalPrice)}
+                            {item.pricing.type === 'included' ? t('cpq.included') : formatCurrency(item.pricing.finalPrice)}
                           </div>
                         </div>
                       );
                     })}
                     <div className="flex justify-between text-sm font-medium pt-2 border-t border-slate-100 dark:border-slate-800">
-                      <span className="text-slate-500">One-Time Total (excl. tax)</span>
+                      <span className="text-slate-500">{t('cpq.oneTimeTotalExclTax')}</span>
                       <span>{formatCurrency(totals.one_time.subtotal)}</span>
                     </div>
                   </div>
@@ -577,15 +582,15 @@ export function CPQDemo() {
                 
                 <div className="pt-4 border-t-2 border-slate-200 dark:border-slate-800 space-y-2">
                   <div className="flex justify-between text-sm text-slate-500">
-                    <span>Total Subtotal</span>
+                    <span>{t('cpq.subtotal')}</span>
                     <span>{formatCurrency(totals.one_time.subtotal + totals.monthly.subtotal + totals.annual.subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-sm text-slate-500">
-                    <span>Estimated Tax</span>
+                    <span>{t('cpq.estimatedTax')}</span>
                     <span>{formatCurrency(totals.one_time.tax + totals.monthly.tax + totals.annual.tax)}</span>
                   </div>
                   <div className="flex justify-between items-end pt-4 mb-6">
-                    <div className="text-slate-900 dark:text-slate-50 font-medium">Total Due Today</div>
+                    <div className="text-slate-900 dark:text-slate-50 font-medium">{t('cpq.totalDueToday')}</div>
                     <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
                       {formatCurrency(totals.one_time.subtotal + totals.one_time.tax)}
                     </div>
@@ -593,13 +598,14 @@ export function CPQDemo() {
                   
                   <Button 
                     className="w-full gap-2 text-lg h-12"
+                    size="lg"
                     disabled={ruleMessages.length > 0}
                   >
                     <ShoppingCart className="w-5 h-5" />
                     {t('cpq.addToQuote')}
                   </Button>
                   {ruleMessages.length > 0 && (
-                    <p className="text-xs text-red-500 text-center mt-2">Please resolve configuration errors before proceeding.</p>
+                    <p className="text-xs text-red-500 text-center mt-2">{t('cpq.resolveErrors')}</p>
                   )}
                 </div>
               </CardContent>
@@ -610,7 +616,7 @@ export function CPQDemo() {
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center gap-2">
                   <ShieldCheck className="w-5 h-5 text-emerald-500" />
-                  Unlocked Features
+                  {t('cpq.unlockedFeatures')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -629,7 +635,7 @@ export function CPQDemo() {
                   ))}
                   {Object.keys(aggregatedEntitlements).length === 0 && (
                     <div className="text-sm text-slate-500 text-center py-4">
-                      No features unlocked yet.
+                      {t('cpq.noFeatures')}
                     </div>
                   )}
                 </div>

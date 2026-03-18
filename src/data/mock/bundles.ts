@@ -2,13 +2,13 @@ import { BundleGroup, BundleOption } from '../../types';
 
 export const mockBundleGroups: BundleGroup[] = [
   // QSR Starter Kit Groups
-  { id: 1, bundleSkuId: 1041, name: 'Core Software', description: 'Select your software subscription tier', minSelections: 1, maxSelections: 1, sortOrder: 1, isMutuallyExclusive: true, allowMultipleQtyPerItem: false },
-  { id: 2, bundleSkuId: 1041, name: 'Point of Sale Hardware', description: 'Choose your terminal and printer', minSelections: 1, maxSelections: 3, sortOrder: 2, isMutuallyExclusive: false, allowMultipleQtyPerItem: true },
+  { id: 1, bundleSkuId: 1041, name: '核心软件', description: '选择您的软件订阅版本', minSelections: 1, maxSelections: 1, sortOrder: 1, isMutuallyExclusive: true, allowMultipleQtyPerItem: false },
+  { id: 2, bundleSkuId: 1041, name: 'POS 收银硬件', description: '选择您的收银机和打印机', minSelections: 1, maxSelections: 3, sortOrder: 2, isMutuallyExclusive: false, allowMultipleQtyPerItem: true },
   
   // Enterprise Mega Stack Groups
-  { id: 3, bundleSkuId: 1081, name: 'Enterprise Software', description: 'Pro software is required for Enterprise', minSelections: 1, maxSelections: 1, sortOrder: 1, isMutuallyExclusive: true, allowMultipleQtyPerItem: false },
-  { id: 4, bundleSkuId: 1081, name: 'Kitchen & FOH Hardware', description: 'Equip your entire restaurant', minSelections: 2, maxSelections: 10, sortOrder: 2, isMutuallyExclusive: false, allowMultipleQtyPerItem: true },
-  { id: 5, bundleSkuId: 1081, name: 'Professional Services', description: 'Implementation and Support', minSelections: 0, maxSelections: 2, sortOrder: 3, isMutuallyExclusive: false, allowMultipleQtyPerItem: true },
+  { id: 3, bundleSkuId: 1081, name: '企业级软件', description: '企业版必须搭配专业版软件', minSelections: 1, maxSelections: 1, sortOrder: 1, isMutuallyExclusive: true, allowMultipleQtyPerItem: false },
+  { id: 4, bundleSkuId: 1081, name: '后厨与前厅硬件', description: '为您的整个餐厅配备硬件', minSelections: 2, maxSelections: 10, sortOrder: 2, isMutuallyExclusive: false, allowMultipleQtyPerItem: true },
+  { id: 5, bundleSkuId: 1081, name: '专业服务', description: '实施与技术支持服务', minSelections: 0, maxSelections: 2, sortOrder: 3, isMutuallyExclusive: false, allowMultipleQtyPerItem: true },
 ];
 
 export const mockBundleOptions: BundleOption[] = [
