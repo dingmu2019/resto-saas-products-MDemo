@@ -19,6 +19,7 @@ import { ProductRules } from './pages/ProductRules';
 import { Features } from './pages/Features';
 import { MediaLibrary } from './pages/MediaLibrary';
 import { Bundles } from './pages/Bundles';
+import { DataModels } from './pages/DataModels';
 import './i18n';
 
 export default function App() {
@@ -39,6 +40,7 @@ export default function App() {
             <Route path="price-books" element={<PriceBooks />} />
             <Route path="categories" element={<Categories />} />
             <Route path="cpq" element={<CPQDemo />} />
+            <Route path="data-models" element={<DataModels />} />
           </Route>
         </Routes>
       </BrowserRouter>

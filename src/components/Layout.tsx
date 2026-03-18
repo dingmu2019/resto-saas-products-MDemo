@@ -16,7 +16,8 @@ import {
   Calculator,
   ShieldAlert,
   ListChecks,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Database
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -42,6 +43,7 @@ export function Layout() {
     { path: '/media', label: t('app.media'), icon: ImageIcon },
     { path: '/price-books', label: t('app.priceBooks'), icon: BookOpen },
     { path: '/cpq', label: t('app.cpqDemo'), icon: Monitor },
+    { path: '/data-models', label: 'Data Models', icon: Database },
   ];
 
   return (
