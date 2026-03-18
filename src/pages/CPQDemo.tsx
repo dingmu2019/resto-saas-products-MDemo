@@ -37,34 +37,88 @@ export function CPQDemo() {
     setSelections(initialSelections);
   }, [selectedBundleId]);
 
+  // 4. Excludes Rule Deadlock Fix: Auto-remove conflicting targets
+  const resolveConflicts = (newSelections: Record<number, Record<number, number>>) => {
+    const allSelectedSkuIds = Object.values(newSelections).flatMap(group => Object.keys(group).map(Number));
+    const toRemove = new Set<number>();
+
+    mockRules.forEach(rule => {
+      if (rule.ruleType === 'excludes' && allSelectedSkuIds.includes(rule.sourceSkuId)) {
+        toRemove.add(rule.targetSkuId);
+      }
+    });
+
+    if (toRemove.size > 0) {
+      const resolvedSelections = { ...newSelections };
+      Object.keys(resolvedSelections).forEach(groupId => {
+        const groupNum = Number(groupId);
+        resolvedSelections[groupNum] = { ...resolvedSelections[groupNum] };
+        toRemove.forEach(skuId => {
+          if (resolvedSelections[groupNum][skuId]) {
+            delete resolvedSelections[groupNum][skuId];
+          }
+        });
+      });
+      return resolvedSelections;
+    }
+    return newSelections;
+  };
+
+  // 3. Max Selections Bypass Fix: Calculate total quantity in a group
+  const getGroupTotalQty = (groupId: number, currentSelections: Record<number, Record<number, number>>) => {
+    const groupSelections = currentSelections[groupId] || {};
+    return Object.values(groupSelections).reduce((sum, qty) => sum + qty, 0);
+  };
+
   const handleSelect = (groupId: number, skuId: number, isMutuallyExclusive: boolean) => {
     setSelections(prev => {
+      const group = activeGroups.find(g => g.id === groupId);
+      if (!group) return prev;
+
       const currentGroupSelections = { ...prev[groupId] };
+      const currentTotalQty = getGroupTotalQty(groupId, prev);
       
       if (isMutuallyExclusive) {
-        return { ...prev, [groupId]: { [skuId]: 1 } };
+        const newSelections = { ...prev, [groupId]: { [skuId]: 1 } };
+        return resolveConflicts(newSelections);
       } else {
         if (currentGroupSelections[skuId]) {
           delete currentGroupSelections[skuId];
         } else {
+          // Check maxSelections before adding a new item
+          if (currentTotalQty >= group.maxSelections) {
+            return prev; // Block selection
+          }
           currentGroupSelections[skuId] = 1;
         }
-        return { ...prev, [groupId]: currentGroupSelections };
+        const newSelections = { ...prev, [groupId]: currentGroupSelections };
+        return resolveConflicts(newSelections);
       }
     });
   };
 
   const handleQuantityChange = (groupId: number, skuId: number, delta: number) => {
     setSelections(prev => {
+      const group = activeGroups.find(g => g.id === groupId);
+      if (!group) return prev;
+
       const currentGroupSelections = { ...prev[groupId] };
       const currentQty = currentGroupSelections[skuId] || 0;
+      const currentTotalQty = getGroupTotalQty(groupId, prev);
+      
       const newQty = Math.max(1, currentQty + delta);
+      
+      // Check maxSelections before increasing quantity
+      if (delta > 0 && currentTotalQty >= group.maxSelections) {
+        return prev; // Block increase
+      }
+
       currentGroupSelections[skuId] = newQty;
       return { ...prev, [groupId]: currentGroupSelections };
     });
   };
 
-  // 1. Product Rules Enforcement
+  // 1. Product Rules Enforcement (Visuals only, conflicts auto-resolved above)
   const allSelectedSkuIds = Object.values(selections).flatMap(group => Object.keys(group).map(Number));
   
   const ruleMessages: { skuId: number, type: string, message: string }[] = [];
@@ -79,9 +133,8 @@ export function CPQDemo() {
       if (rule.ruleType === 'requires' && !targetSelected) {
         ruleMessages.push({ skuId: rule.sourceSkuId, type: 'error', message: rule.message || `Requires SKU ${rule.targetSkuId}` });
       }
-      if (rule.ruleType === 'excludes' && targetSelected) {
-        ruleMessages.push({ skuId: rule.sourceSkuId, type: 'error', message: rule.message || `Incompatible with SKU ${rule.targetSkuId}` });
-        disabledSkuIds.add(rule.targetSkuId); // Disable the target
+      if (rule.ruleType === 'excludes') {
+        disabledSkuIds.add(rule.targetSkuId); // Disable the target visually
       }
       if (rule.ruleType === 'recommends' && !targetSelected) {
         recommendedSkuIds.add(rule.targetSkuId);
@@ -89,10 +142,10 @@ export function CPQDemo() {
     }
   });
 
-  // 2 & 5. Pricing Calculation (Dynamic Price Book & Tiered Pricing)
   const getSkuDetails = (skuId: number) => mockSkus.find(s => s.id === skuId);
   const getProductDetails = (productId: number) => mockProducts.find(p => p.id === productId);
 
+  // 5. Tiered vs Volume Pricing Fix
   const getOptionPricing = (skuId: number, groupId: number, qty: number = 1) => {
     const option = activeOptions.find(o => o.componentSkuId === skuId && o.groupId === groupId);
     if (!option) return null;
@@ -100,11 +153,32 @@ export function CPQDemo() {
     const basePriceEntry = mockPriceBookEntries.find(e => e.skuId === skuId && e.priceBookId === selectedPriceBookId);
     
     let basePrice = basePriceEntry?.listPrice || 0;
+    let finalPrice = basePrice * qty;
     
-    // Tiered pricing logic
-    if (basePriceEntry?.pricingStrategy === 'tiered' && basePriceEntry.tierConfig) {
+    if (basePriceEntry?.pricingStrategy === 'volume' && basePriceEntry.tierConfig) {
+      // Volume: All units get the price of the matched tier
       const tier = basePriceEntry.tierConfig.find((t: any) => qty >= t.minQty && qty <= t.maxQty);
-      if (tier) basePrice = tier.price;
+      if (tier) {
+        basePrice = tier.price;
+        finalPrice = basePrice * qty;
+      }
+    } else if (basePriceEntry?.pricingStrategy === 'tiered' && basePriceEntry.tierConfig) {
+      // Tiered: Progressive calculation (e.g., first 10 at $150, next 40 at $120)
+      finalPrice = 0;
+      let remainingQty = qty;
+      
+      for (const tier of basePriceEntry.tierConfig) {
+        if (remainingQty <= 0) break;
+        
+        const tierMaxQty = tier.maxQty === 9999 ? Infinity : tier.maxQty;
+        const tierCapacity = tierMaxQty - tier.minQty + 1;
+        const qtyInTier = Math.min(remainingQty, tierCapacity);
+        
+        finalPrice += qtyInTier * tier.price;
+        remainingQty -= qtyInTier;
+      }
+      // Calculate effective unit price for display
+      basePrice = qty > 0 ? finalPrice / qty : 0;
     }
 
     let unitPrice = 0;
@@ -113,64 +187,109 @@ export function CPQDemo() {
     switch (option.pricingType) {
       case 'included':
         unitPrice = 0;
+        finalPrice = 0;
         label = 'Included';
         break;
       case 'fixed_override':
         unitPrice = option.pricingValue || 0;
+        finalPrice = unitPrice * qty;
         label = `${priceBook?.currency === 'EUR' ? '€' : '$'}${unitPrice.toFixed(2)} (Override)`;
         break;
       case 'price_adjustment':
         unitPrice = basePrice + (option.pricingValue || 0);
+        finalPrice = unitPrice * qty;
         label = `${option.pricingValue && option.pricingValue > 0 ? '+' : ''}${priceBook?.currency === 'EUR' ? '€' : '$'}${unitPrice.toFixed(2)}`;
         break;
     }
 
-    return { unitPrice, finalPrice: unitPrice * qty, label, type: option.pricingType };
+    return { unitPrice, finalPrice, label, type: option.pricingType };
   };
 
-  // 3. Automated Tax Calculation
-  const bundleBasePriceEntry = mockPriceBookEntries.find(e => e.skuId === selectedBundleId && e.priceBookId === selectedPriceBookId);
-  let subtotal = bundleBasePriceEntry?.listPrice || 0;
-  let totalTax = 0;
-
+  // 2. Tax Inclusive vs Exclusive Fix
   const calculateTax = (skuId: number, price: number) => {
     const sku = getSkuDetails(skuId);
     const product = getProductDetails(sku?.productId || 0);
-    if (!product) return 0;
+    if (!product) return { taxAmount: 0, priceWithoutTax: price, isInclusive: false };
     
     const taxRateMapping = mockTaxRates.find(t => t.taxRegionId === selectedTaxRegionId && t.productType === product.productType);
-    if (!taxRateMapping) return 0;
+    if (!taxRateMapping) return { taxAmount: 0, priceWithoutTax: price, isInclusive: false };
 
-    // Simplified tax calculation
-    return price * taxRateMapping.taxRate;
+    if (taxRateMapping.isTaxInclusive) {
+      // Reverse calculation: Price = Base + (Base * Rate) => Base = Price / (1 + Rate)
+      const priceWithoutTax = price / (1 + taxRateMapping.taxRate);
+      const taxAmount = price - priceWithoutTax;
+      return { taxAmount, priceWithoutTax, isInclusive: true };
+    } else {
+      // Standard calculation: Tax = Price * Rate
+      const taxAmount = price * taxRateMapping.taxRate;
+      return { taxAmount, priceWithoutTax: price, isInclusive: false };
+    }
   };
 
-  // Calculate taxes for bundle base price (assuming bundle type)
-  totalTax += calculateTax(selectedBundleId, subtotal);
+  // 1. Billing Model Mismatch Fix: Separate totals by billing term
+  const bundleBasePriceEntry = mockPriceBookEntries.find(e => e.skuId === selectedBundleId && e.priceBookId === selectedPriceBookId);
+  const bundleSku = getSkuDetails(selectedBundleId);
+  
+  const totals = {
+    one_time: { subtotal: 0, tax: 0 },
+    monthly: { subtotal: 0, tax: 0 },
+    annual: { subtotal: 0, tax: 0 }
+  };
+
+  const addAmountToTotals = (sku: any, amount: number, tax: number) => {
+    if (!sku) return;
+    if (sku.billingModel === 'one_time' || sku.billingModel === 'usage_based') {
+      totals.one_time.subtotal += amount;
+      totals.one_time.tax += tax;
+    } else if (sku.billingModel === 'recurring') {
+      if (sku.billingTerm === 'monthly') {
+        totals.monthly.subtotal += amount;
+        totals.monthly.tax += tax;
+      } else if (sku.billingTerm === 'annual') {
+        totals.annual.subtotal += amount;
+        totals.annual.tax += tax;
+      }
+    }
+  };
+
+  // Add bundle base price to totals
+  if (bundleBasePriceEntry && bundleSku) {
+    const taxInfo = calculateTax(selectedBundleId, bundleBasePriceEntry.listPrice);
+    addAmountToTotals(bundleSku, taxInfo.priceWithoutTax, taxInfo.taxAmount);
+  }
 
   const lineItems: any[] = [];
 
   Object.entries(selections).forEach(([groupId, skuMap]) => {
     Object.entries(skuMap).forEach(([skuId, qty]) => {
+      const sku = getSkuDetails(Number(skuId));
       const pricing = getOptionPricing(Number(skuId), Number(groupId), qty);
-      if (pricing) {
-        subtotal += pricing.finalPrice;
-        const tax = calculateTax(Number(skuId), pricing.finalPrice);
-        totalTax += tax;
+      
+      if (pricing && sku) {
+        const taxInfo = calculateTax(Number(skuId), pricing.finalPrice);
+        addAmountToTotals(sku, taxInfo.priceWithoutTax, taxInfo.taxAmount);
+        
         lineItems.push({
           groupId: Number(groupId),
           skuId: Number(skuId),
           qty,
           pricing,
-          tax
+          taxInfo,
+          billingModel: sku.billingModel,
+          billingTerm: sku.billingTerm
         });
       }
     });
   });
 
-  const totalDue = subtotal + totalTax;
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: priceBook?.currency || 'USD'
+    }).format(amount);
+  };
 
-  // 4. Dynamic Entitlements Aggregation
+  // Dynamic Entitlements Aggregation
   const aggregatedEntitlements = useMemo(() => {
     const result: Record<string, { name: string, type: string, value: any }> = {};
     
@@ -189,7 +308,6 @@ export function CPQDemo() {
         } else if (feature.type === 'quota') {
           result[feature.code].value = (result[feature.code].value || 0) + (ent.quotaValue || 0);
         } else if (feature.type === 'tier') {
-          // Simplified tier logic: Priority > Standard
           const currentTier = result[feature.code].value;
           const newTier = ent.tierValue;
           if (!currentTier || (newTier === 'Priority' && currentTier === 'Standard')) {
@@ -200,13 +318,6 @@ export function CPQDemo() {
     });
     return result;
   }, [allSelectedSkuIds]);
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: priceBook?.currency || 'USD'
-    }).format(amount);
-  };
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-20">
@@ -265,100 +376,106 @@ export function CPQDemo() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
-          {activeGroups.map(group => (
-            <Card key={group.id} className="overflow-hidden">
-              <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-4 border-b border-slate-200 dark:border-slate-800">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-semibold text-lg">{group.name}</h3>
-                  <Badge variant="outline">
-                    {group.isMutuallyExclusive ? 'Select 1' : `Select ${group.minSelections}-${group.maxSelections}`}
-                  </Badge>
-                </div>
-                {group.description && (
-                  <p className="text-sm text-slate-500 mt-1 flex items-center gap-1">
-                    <Info className="w-4 h-4" /> {group.description}
-                  </p>
-                )}
-              </div>
-              <div className="p-6 space-y-3">
-                {activeOptions.filter(opt => opt.groupId === group.id).map(option => {
-                  const sku = getSkuDetails(option.componentSkuId);
-                  const isSelected = !!(selections[group.id] && selections[group.id][option.componentSkuId]);
-                  const qty = isSelected ? selections[group.id][option.componentSkuId] : 1;
-                  const pricing = getOptionPricing(option.componentSkuId, group.id, qty);
-                  
-                  const isRecommended = recommendedSkuIds.has(option.componentSkuId);
-                  const isDisabled = disabledSkuIds.has(option.componentSkuId);
-                  const ruleError = ruleMessages.find(r => r.skuId === option.componentSkuId);
+          {activeGroups.map(group => {
+            const currentTotalQty = getGroupTotalQty(group.id, selections);
+            const isAtMax = currentTotalQty >= group.maxSelections;
 
-                  return (
-                    <div key={option.id} className="space-y-2">
-                      <div 
-                        onClick={() => !isDisabled && handleSelect(group.id, option.componentSkuId, group.isMutuallyExclusive)}
-                        className={`
-                          relative flex items-center p-4 rounded-xl border-2 transition-all
-                          ${isDisabled ? 'opacity-50 cursor-not-allowed bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800' : 'cursor-pointer'}
-                          ${isSelected 
-                            ? 'border-indigo-600 bg-indigo-50/50 dark:border-indigo-500 dark:bg-indigo-500/10' 
-                            : 'border-slate-200 hover:border-slate-300 dark:border-slate-800 dark:hover:border-slate-700'}
-                          ${ruleError ? 'border-red-500 dark:border-red-500' : ''}
-                        `}
-                      >
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="font-medium text-slate-900 dark:text-slate-50">{sku?.name}</span>
-                            {isRecommended && !isSelected && (
-                              <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
-                                Recommended
-                              </Badge>
-                            )}
+            return (
+              <Card key={group.id} className="overflow-hidden">
+                <div className="bg-slate-50 dark:bg-slate-800/50 px-6 py-4 border-b border-slate-200 dark:border-slate-800">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-semibold text-lg">{group.name}</h3>
+                    <Badge variant={isAtMax ? "secondary" : "outline"} className={isAtMax ? "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300" : ""}>
+                      {group.isMutuallyExclusive ? 'Select 1' : `${currentTotalQty}/${group.maxSelections} Selected`}
+                    </Badge>
+                  </div>
+                  {group.description && (
+                    <p className="text-sm text-slate-500 mt-1 flex items-center gap-1">
+                      <Info className="w-4 h-4" /> {group.description}
+                    </p>
+                  )}
+                </div>
+                <div className="p-6 space-y-3">
+                  {activeOptions.filter(opt => opt.groupId === group.id).map(option => {
+                    const sku = getSkuDetails(option.componentSkuId);
+                    const isSelected = !!(selections[group.id] && selections[group.id][option.componentSkuId]);
+                    const qty = isSelected ? selections[group.id][option.componentSkuId] : 1;
+                    const pricing = getOptionPricing(option.componentSkuId, group.id, qty);
+                    
+                    const isRecommended = recommendedSkuIds.has(option.componentSkuId);
+                    const isDisabled = disabledSkuIds.has(option.componentSkuId) || (!isSelected && isAtMax && !group.isMutuallyExclusive);
+                    const ruleError = ruleMessages.find(r => r.skuId === option.componentSkuId);
+
+                    return (
+                      <div key={option.id} className="space-y-2">
+                        <div 
+                          onClick={() => !isDisabled && handleSelect(group.id, option.componentSkuId, group.isMutuallyExclusive)}
+                          className={`
+                            relative flex items-center p-4 rounded-xl border-2 transition-all
+                            ${isDisabled ? 'opacity-50 cursor-not-allowed bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800' : 'cursor-pointer'}
+                            ${isSelected 
+                              ? 'border-indigo-600 bg-indigo-50/50 dark:border-indigo-500 dark:bg-indigo-500/10' 
+                              : 'border-slate-200 hover:border-slate-300 dark:border-slate-800 dark:hover:border-slate-700'}
+                            ${ruleError ? 'border-red-500 dark:border-red-500' : ''}
+                          `}
+                        >
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2">
+                              <span className="font-medium text-slate-900 dark:text-slate-50">{sku?.name}</span>
+                              {isRecommended && !isSelected && (
+                                <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
+                                  Recommended
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="text-sm text-slate-500 mt-1">
+                              {sku?.billingModel === 'recurring' ? `${sku.billingModel} (${sku.billingTerm})` : sku?.billingModel}
+                            </div>
                           </div>
-                          <div className="text-sm text-slate-500 mt-1">
-                            {sku?.billingModel === 'recurring' ? `${sku.billingModel} (${sku.billingTerm})` : sku?.billingModel}
+                          
+                          <div className="flex items-center gap-4">
+                            {/* Quantity Selector for allowed items */}
+                            {isSelected && group.allowMultipleQtyPerItem && (
+                              <div className="flex items-center gap-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-1" onClick={e => e.stopPropagation()}>
+                                <button 
+                                  className="w-6 h-6 flex items-center justify-center rounded hover:bg-slate-100 dark:hover:bg-slate-700"
+                                  onClick={() => handleQuantityChange(group.id, option.componentSkuId, -1)}
+                                >-</button>
+                                <span className="text-sm font-medium w-4 text-center">{qty}</span>
+                                <button 
+                                  className={`w-6 h-6 flex items-center justify-center rounded ${isAtMax ? 'opacity-50 cursor-not-allowed' : 'hover:bg-slate-100 dark:hover:bg-slate-700'}`}
+                                  onClick={() => handleQuantityChange(group.id, option.componentSkuId, 1)}
+                                  disabled={isAtMax}
+                                >+</button>
+                              </div>
+                            )}
+
+                            <div className={`text-sm font-medium ${pricing?.type === 'included' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-700 dark:text-slate-300'}`}>
+                              {pricing?.type === 'included' ? 'Included' : formatCurrency(pricing?.finalPrice || 0)}
+                              {qty > 1 && <span className="text-xs text-slate-400 block text-right">({formatCurrency(pricing?.unitPrice || 0)} ea)</span>}
+                            </div>
+                            {isSelected ? (
+                              <CheckCircle2 className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+                            ) : (
+                              <Circle className="w-6 h-6 text-slate-300 dark:text-slate-700" />
+                            )}
                           </div>
                         </div>
                         
-                        <div className="flex items-center gap-4">
-                          {/* Quantity Selector for allowed items */}
-                          {isSelected && group.allowMultipleQtyPerItem && (
-                            <div className="flex items-center gap-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-1" onClick={e => e.stopPropagation()}>
-                              <button 
-                                className="w-6 h-6 flex items-center justify-center rounded hover:bg-slate-100 dark:hover:bg-slate-700"
-                                onClick={() => handleQuantityChange(group.id, option.componentSkuId, -1)}
-                              >-</button>
-                              <span className="text-sm font-medium w-4 text-center">{qty}</span>
-                              <button 
-                                className="w-6 h-6 flex items-center justify-center rounded hover:bg-slate-100 dark:hover:bg-slate-700"
-                                onClick={() => handleQuantityChange(group.id, option.componentSkuId, 1)}
-                              >+</button>
-                            </div>
-                          )}
-
-                          <div className={`text-sm font-medium ${pricing?.type === 'included' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-700 dark:text-slate-300'}`}>
-                            {pricing?.type === 'included' ? 'Included' : formatCurrency(pricing?.finalPrice || 0)}
-                            {qty > 1 && <span className="text-xs text-slate-400 block text-right">({formatCurrency(pricing?.unitPrice || 0)} ea)</span>}
+                        {/* Rule Error Message */}
+                        {ruleError && (
+                          <div className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400 px-2">
+                            <AlertTriangle className="w-4 h-4" />
+                            {ruleError.message}
                           </div>
-                          {isSelected ? (
-                            <CheckCircle2 className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-                          ) : (
-                            <Circle className="w-6 h-6 text-slate-300 dark:text-slate-700" />
-                          )}
-                        </div>
+                        )}
                       </div>
-                      
-                      {/* Rule Error Message */}
-                      {ruleError && (
-                        <div className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400 px-2">
-                          <AlertTriangle className="w-4 h-4" />
-                          {ruleError.message}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </Card>
-          ))}
+                    );
+                  })}
+                </div>
+              </Card>
+            );
+          })}
         </div>
 
         <div className="lg:col-span-1 space-y-6">
@@ -369,49 +486,108 @@ export function CPQDemo() {
                 <CardTitle>Quote Summary</CardTitle>
               </CardHeader>
               <CardContent className="p-6">
-                <div className="space-y-4 mb-6">
-                  <div className="flex justify-between text-sm font-medium pb-4 border-b border-slate-200 dark:border-slate-800">
-                    <div className="flex-1 pr-4">
-                      <div className="text-slate-900 dark:text-slate-50">{getSkuDetails(selectedBundleId)?.name}</div>
-                      <div className="text-xs text-slate-400">Base Price</div>
+                <div className="space-y-6 mb-6">
+                  
+                  {/* Monthly Recurring */}
+                  {totals.monthly.subtotal > 0 && (
+                    <div className="space-y-3">
+                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Monthly Recurring</h4>
+                      {lineItems.filter(i => i.billingTerm === 'monthly').map((item, idx) => {
+                        const sku = getSkuDetails(item.skuId);
+                        return (
+                          <div key={idx} className="flex justify-between text-sm">
+                            <div className="flex-1 pr-4">
+                              <div className="font-medium text-slate-700 dark:text-slate-300">
+                                {sku?.name} {item.qty > 1 ? `x${item.qty}` : ''}
+                              </div>
+                            </div>
+                            <div className="font-medium text-slate-900 dark:text-slate-50">
+                              {item.pricing.type === 'included' ? 'Included' : formatCurrency(item.pricing.finalPrice)}
+                            </div>
+                          </div>
+                        );
+                      })}
+                      <div className="flex justify-between text-sm font-medium pt-2 border-t border-slate-100 dark:border-slate-800">
+                        <span className="text-slate-500">Monthly Total (excl. tax)</span>
+                        <span>{formatCurrency(totals.monthly.subtotal)}</span>
+                      </div>
                     </div>
-                    <div className="text-slate-900 dark:text-slate-50">
-                      {formatCurrency(bundleBasePriceEntry?.listPrice || 0)}
+                  )}
+
+                  {/* Annual Recurring */}
+                  {totals.annual.subtotal > 0 && (
+                    <div className="space-y-3">
+                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Annual Recurring</h4>
+                      {lineItems.filter(i => i.billingTerm === 'annual').map((item, idx) => {
+                        const sku = getSkuDetails(item.skuId);
+                        return (
+                          <div key={idx} className="flex justify-between text-sm">
+                            <div className="flex-1 pr-4">
+                              <div className="font-medium text-slate-700 dark:text-slate-300">
+                                {sku?.name} {item.qty > 1 ? `x${item.qty}` : ''}
+                              </div>
+                            </div>
+                            <div className="font-medium text-slate-900 dark:text-slate-50">
+                              {item.pricing.type === 'included' ? 'Included' : formatCurrency(item.pricing.finalPrice)}
+                            </div>
+                          </div>
+                        );
+                      })}
+                      <div className="flex justify-between text-sm font-medium pt-2 border-t border-slate-100 dark:border-slate-800">
+                        <span className="text-slate-500">Annual Total (excl. tax)</span>
+                        <span>{formatCurrency(totals.annual.subtotal)}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* One-Time Fees */}
+                  <div className="space-y-3">
+                    <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider">One-Time Fees</h4>
+                    <div className="flex justify-between text-sm">
+                      <div className="flex-1 pr-4">
+                        <div className="font-medium text-slate-700 dark:text-slate-300">{getSkuDetails(selectedBundleId)?.name}</div>
+                        <div className="text-xs text-slate-400">Base Price</div>
+                      </div>
+                      <div className="font-medium text-slate-900 dark:text-slate-50">
+                        {formatCurrency(bundleBasePriceEntry?.listPrice || 0)}
+                      </div>
+                    </div>
+                    {lineItems.filter(i => i.billingModel === 'one_time' || i.billingModel === 'usage_based').map((item, idx) => {
+                      const sku = getSkuDetails(item.skuId);
+                      return (
+                        <div key={idx} className="flex justify-between text-sm">
+                          <div className="flex-1 pr-4">
+                            <div className="font-medium text-slate-700 dark:text-slate-300">
+                              {sku?.name} {item.qty > 1 ? `x${item.qty}` : ''}
+                            </div>
+                          </div>
+                          <div className="font-medium text-slate-900 dark:text-slate-50">
+                            {item.pricing.type === 'included' ? 'Included' : formatCurrency(item.pricing.finalPrice)}
+                          </div>
+                        </div>
+                      );
+                    })}
+                    <div className="flex justify-between text-sm font-medium pt-2 border-t border-slate-100 dark:border-slate-800">
+                      <span className="text-slate-500">One-Time Total (excl. tax)</span>
+                      <span>{formatCurrency(totals.one_time.subtotal)}</span>
                     </div>
                   </div>
-                  
-                  {lineItems.map((item, idx) => {
-                    const sku = getSkuDetails(item.skuId);
-                    const group = activeGroups.find(g => g.id === item.groupId);
-                    return (
-                      <div key={idx} className="flex justify-between text-sm">
-                        <div className="flex-1 pr-4">
-                          <div className="font-medium text-slate-700 dark:text-slate-300">
-                            {sku?.name} {item.qty > 1 ? `x${item.qty}` : ''}
-                          </div>
-                          <div className="text-xs text-slate-400">{group?.name}</div>
-                        </div>
-                        <div className="font-medium text-slate-900 dark:text-slate-50">
-                          {item.pricing.type === 'included' ? 'Included' : formatCurrency(item.pricing.finalPrice)}
-                        </div>
-                      </div>
-                    );
-                  })}
+
                 </div>
                 
-                <div className="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
+                <div className="pt-4 border-t-2 border-slate-200 dark:border-slate-800 space-y-2">
                   <div className="flex justify-between text-sm text-slate-500">
-                    <span>Subtotal</span>
-                    <span>{formatCurrency(subtotal)}</span>
+                    <span>Total Subtotal</span>
+                    <span>{formatCurrency(totals.one_time.subtotal + totals.monthly.subtotal + totals.annual.subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-sm text-slate-500">
                     <span>Estimated Tax</span>
-                    <span>{formatCurrency(totalTax)}</span>
+                    <span>{formatCurrency(totals.one_time.tax + totals.monthly.tax + totals.annual.tax)}</span>
                   </div>
                   <div className="flex justify-between items-end pt-4 mb-6">
                     <div className="text-slate-900 dark:text-slate-50 font-medium">Total Due Today</div>
                     <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
-                      {formatCurrency(totalDue)}
+                      {formatCurrency(totals.one_time.subtotal + totals.one_time.tax)}
                     </div>
                   </div>
                   
