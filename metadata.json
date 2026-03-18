@@ -1,0 +1,5 @@
+{
+  "name": "RestoSuite 产品与定价管理 Demo",
+  "description": "基于 RestoSuite 内部 CRM 系统中产品与定价管理模块数据表模型构建的演示网站，支持多语言、深浅色主题，并展示了 CPQ 组合套餐配置逻辑。",
+  "requestFramePermissions": []
+}

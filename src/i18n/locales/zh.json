@@ -1,0 +1,111 @@
+{
+  "app": {
+    "title": "RestoSuite 产品与定价管理",
+    "dashboard": "仪表盘",
+    "categories": "产品分类",
+    "products": "产品族 (SPU)",
+    "skus": "产品规格 (SKU)",
+    "features": "功能字典与权益",
+    "rules": "产品规则与约束",
+    "taxes": "税务与税率",
+    "media": "多媒体资产库",
+    "bundles": "套餐组合管理",
+    "priceBooks": "价格手册",
+    "cpqDemo": "CPQ 演示",
+    "settings": "设置",
+    "language": "语言",
+    "theme": "主题",
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统"
+  },
+  "dashboard": {
+    "totalProducts": "产品族总数",
+    "activeSkus": "在售 SKU",
+    "activePriceBooks": "有效价格手册",
+    "recentActivity": "最近活动"
+  },
+  "product": {
+    "code": "编码",
+    "name": "名称",
+    "type": "类型",
+    "brand": "品牌",
+    "description": "描述",
+    "actions": "操作",
+    "viewDetails": "查看详情",
+    "skuList": "SKU 列表",
+    "entitlements": "权益配置",
+    "media": "多媒体库"
+  },
+  "sku": {
+    "code": "SKU 编码",
+    "name": "SKU 名称",
+    "parentProduct": "所属产品族",
+    "billingModel": "计费模式",
+    "billingTerm": "计费周期",
+    "uom": "计量单位",
+    "lifecycle": "生命周期状态",
+    "actions": "操作",
+    "recurring": "周期订阅",
+    "one_time": "一次性买断",
+    "usage_based": "按量计费"
+  },
+  "cpq": {
+    "title": "组合套餐配置器 (CPQ)",
+    "selectBundle": "选择套餐",
+    "totalPrice": "总价",
+    "addToQuote": "加入报价单"
+  },
+  "taxes": {
+    "search": "搜索税率...",
+    "newRate": "新建税率",
+    "region": "税区",
+    "taxName": "税率名称",
+    "productType": "产品类型",
+    "taxType": "税费类型",
+    "taxRate": "税率",
+    "inclusive": "含税",
+    "b2bExempt": "B2B免税",
+    "effectiveDate": "生效日期"
+  },
+  "rules": {
+    "search": "搜索规则...",
+    "newRule": "新建规则",
+    "sourceSku": "源 SKU",
+    "ruleType": "规则类型",
+    "targetSku": "目标 SKU",
+    "message": "提示信息",
+    "requires": "强依赖",
+    "excludes": "互斥",
+    "recommends": "推荐",
+    "compatible": "兼容"
+  },
+  "features": {
+    "search": "搜索功能...",
+    "newFeature": "新建功能",
+    "code": "功能编码",
+    "name": "名称",
+    "type": "类型",
+    "description": "描述"
+  },
+  "bundles": {
+    "search": "搜索套餐...",
+    "groups": "选项组",
+    "newGroup": "添加分组",
+    "minMax": "可选数量 (最小/最大)",
+    "addOption": "添加选项",
+    "component": "组件 SKU",
+    "isDefault": "默认选中",
+    "pricingType": "定价策略",
+    "pricingValue": "调整金额",
+    "included": "包含在内",
+    "fixed_override": "固定价格",
+    "price_adjustment": "价格调整",
+    "mutuallyExclusive": "互斥选择",
+    "allowMultiple": "允许重复添加"
+  },
+  "media": {
+    "search": "搜索媒体资源...",
+    "upload": "上传资源"
+  }
+}

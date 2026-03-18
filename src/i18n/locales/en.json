@@ -1,0 +1,111 @@
+{
+  "app": {
+    "title": "RestoSuite Product & Pricing",
+    "dashboard": "Dashboard",
+    "categories": "Categories",
+    "products": "Products (SPU)",
+    "skus": "SKUs",
+    "features": "Features",
+    "rules": "Product Rules",
+    "taxes": "Taxes & Rates",
+    "media": "Media Library",
+    "bundles": "Bundle Builder",
+    "priceBooks": "Price Books",
+    "cpqDemo": "CPQ Demo",
+    "settings": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "dashboard": {
+    "totalProducts": "Total Products",
+    "activeSkus": "Active SKUs",
+    "activePriceBooks": "Active Price Books",
+    "recentActivity": "Recent Activity"
+  },
+  "product": {
+    "code": "Code",
+    "name": "Name",
+    "type": "Type",
+    "brand": "Brand",
+    "description": "Description",
+    "actions": "Actions",
+    "viewDetails": "View Details",
+    "skuList": "SKU List",
+    "entitlements": "Entitlements",
+    "media": "Media Library"
+  },
+  "sku": {
+    "code": "SKU Code",
+    "name": "SKU Name",
+    "parentProduct": "Parent Product",
+    "billingModel": "Billing Model",
+    "billingTerm": "Billing Term",
+    "uom": "UOM",
+    "lifecycle": "Lifecycle Status",
+    "actions": "Actions",
+    "recurring": "Recurring",
+    "one_time": "One-Time",
+    "usage_based": "Usage-Based"
+  },
+  "cpq": {
+    "title": "Configure, Price, Quote (CPQ)",
+    "selectBundle": "Select Bundle",
+    "totalPrice": "Total Price",
+    "addToQuote": "Add to Quote"
+  },
+  "taxes": {
+    "search": "Search tax rates...",
+    "newRate": "New Tax Rate",
+    "region": "Region",
+    "taxName": "Tax Name",
+    "productType": "Product Type",
+    "taxType": "Tax Type",
+    "taxRate": "Rate",
+    "inclusive": "Inclusive",
+    "b2bExempt": "B2B Exempt",
+    "effectiveDate": "Effective Date"
+  },
+  "rules": {
+    "search": "Search rules...",
+    "newRule": "New Rule",
+    "sourceSku": "Source SKU",
+    "ruleType": "Rule Type",
+    "targetSku": "Target SKU",
+    "message": "Message",
+    "requires": "Requires",
+    "excludes": "Excludes",
+    "recommends": "Recommends",
+    "compatible": "Compatible With"
+  },
+  "features": {
+    "search": "Search features...",
+    "newFeature": "New Feature",
+    "code": "Feature Code",
+    "name": "Name",
+    "type": "Type",
+    "description": "Description"
+  },
+  "bundles": {
+    "search": "Search bundles...",
+    "groups": "Option Groups",
+    "newGroup": "Add Group",
+    "minMax": "Min / Max Selections",
+    "addOption": "Add Option",
+    "component": "Component SKU",
+    "isDefault": "Default",
+    "pricingType": "Pricing Strategy",
+    "pricingValue": "Adjustment",
+    "included": "Included",
+    "fixed_override": "Fixed Price",
+    "price_adjustment": "Adjustment",
+    "mutuallyExclusive": "Mutually Exclusive",
+    "allowMultiple": "Allow Multiple Qty"
+  },
+  "media": {
+    "search": "Search media...",
+    "upload": "Upload Media"
+  }
+}
