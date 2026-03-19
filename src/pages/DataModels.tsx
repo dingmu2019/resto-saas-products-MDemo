@@ -291,12 +291,12 @@ const initialEdges = [
 
 export function DataModels() {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<string>(t('dataModels.erDiagram'));
+  const [activeTab, setActiveTab] = useState<string>('ER_DIAGRAM');
   const [viewMode, setViewMode] = useState<'table' | 'script'>('script');
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  const tabs = [t('dataModels.erDiagram'), ...schemaData.map(s => s.name)];
+  const tabs = [{ id: 'ER_DIAGRAM', label: t('dataModels.erDiagram') }, ...schemaData.map(s => ({ id: s.name, label: s.name }))];
 
   const activeModel = useMemo(() => schemaData.find(s => s.name === activeTab), [activeTab]);
 
@@ -333,26 +333,26 @@ export function DataModels() {
       <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
         {tabs.map(tab => (
           <button
-            key={tab}
+            key={tab.id}
             onClick={() => {
-              setActiveTab(tab);
-              if (tab !== t('dataModels.erDiagram')) setViewMode('script');
+              setActiveTab(tab.id);
+              if (tab.id !== 'ER_DIAGRAM') setViewMode('script');
             }}
             className={`
               px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors
-              ${activeTab === tab 
+              ${activeTab === tab.id 
                 ? 'bg-indigo-600 text-white shadow-sm' 
                 : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'}
             `}
           >
-            {tab === t('dataModels.erDiagram') ? <Network className="w-4 h-4 inline-block mr-2" /> : <TableIcon className="w-4 h-4 inline-block mr-2" />}
-            {tab}
+            {tab.id === 'ER_DIAGRAM' ? <Network className="w-4 h-4 inline-block mr-2" /> : <TableIcon className="w-4 h-4 inline-block mr-2" />}
+            {tab.label}
           </button>
         ))}
       </div>
 
       <Card className="min-h-[600px] flex flex-col">
-        {activeTab === t('dataModels.erDiagram') ? (
+        {activeTab === 'ER_DIAGRAM' ? (
           <div className="flex-1 w-full h-[600px] bg-slate-50/50 dark:bg-slate-900/50 rounded-xl overflow-hidden">
             <ReactFlow 
               nodes={nodes} 
