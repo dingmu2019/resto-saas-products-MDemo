@@ -1,59 +1,176 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button } from '../components/ui';
-import { mockFeatures } from '../data/mock';
-import { Plus, Search } from 'lucide-react';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Textarea } from '../components/ui';
+import { useProductContext } from '../contexts/ProductProvider';
+import { Plus, Search, CheckCircle2, BarChart3, Layers, Edit2, Trash2 } from 'lucide-react';
+import { ProductFeature } from '../types';
 
 export function Features() {
   const { t } = useTranslation();
+  const { features, setFeatures } = useProductContext();
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  // Modal states
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingFeature, setEditingFeature] = useState<ProductFeature | null>(null);
 
   const getTypeBadge = (type: string) => {
     switch (type) {
-      case 'boolean': return <Badge variant="success">{t('features.boolean')}</Badge>;
-      case 'quota': return <Badge variant="warning">{t('features.quota')}</Badge>;
-      case 'tier': return <Badge variant="default">{t('features.tier')}</Badge>;
-      default: return <Badge>{type}</Badge>;
+      case 'boolean': 
+        return (
+          <Badge variant="success" className="text-[10px] uppercase tracking-wider flex items-center gap-1">
+            <CheckCircle2 className="w-3 h-3" />
+            {t('features.boolean')}
+          </Badge>
+        );
+      case 'quota': 
+        return (
+          <Badge variant="warning" className="text-[10px] uppercase tracking-wider flex items-center gap-1">
+            <BarChart3 className="w-3 h-3" />
+            {t('features.quota')}
+          </Badge>
+        );
+      case 'tier': 
+        return (
+          <Badge variant="info" className="text-[10px] uppercase tracking-wider flex items-center gap-1">
+            <Layers className="w-3 h-3" />
+            {t('features.tier')}
+          </Badge>
+        );
+      default: return <Badge className="text-[10px] uppercase tracking-wider">{type}</Badge>;
+    }
+  };
+
+  const filteredFeatures = features.filter(feature => 
+    feature.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    feature.code.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const handleSaveFeature = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const featureData: Partial<ProductFeature> = {
+      code: formData.get('code') as string,
+      name: formData.get('name') as string,
+      type: formData.get('type') as any,
+      description: formData.get('description') as string,
+    };
+
+    if (editingFeature) {
+      setFeatures(features.map(f => f.id === editingFeature.id ? { ...f, ...featureData } : f));
+    } else {
+      const newFeature: ProductFeature = {
+        id: Math.max(0, ...features.map(f => f.id)) + 1,
+        ...featureData as ProductFeature
+      };
+      setFeatures([...features, newFeature]);
+    }
+    setIsModalOpen(false);
+    setEditingFeature(null);
+  };
+
+  const handleDeleteFeature = (id: number) => {
+    if (window.confirm(t('common.confirmDelete'))) {
+      setFeatures(features.filter(f => f.id !== id));
     }
   };
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-          <input 
-            type="text" 
-            placeholder={t('features.search')} 
-            className="pl-9 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-64"
-          />
+        <div className="flex items-center gap-4">
+          <div className="relative group">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
+            <input 
+              type="text" 
+              placeholder={t('features.search')} 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-9 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-80 transition-all"
+            />
+          </div>
         </div>
-        <Button className="gap-2">
+        <Button className="gap-2 shadow-lg shadow-indigo-500/20" onClick={() => { setEditingFeature(null); setIsModalOpen(true); }}>
           <Plus className="w-4 h-4" /> {t('features.newFeature')}
         </Button>
       </div>
 
-      <Card>
+      <Card className="overflow-hidden border-slate-200/60 dark:border-slate-800/60">
         <Table>
           <Thead>
-            <Tr>
-              <Th>{t('features.code')}</Th>
-              <Th>{t('features.name')}</Th>
-              <Th>{t('features.type')}</Th>
+            <Tr className="bg-slate-50/50 dark:bg-slate-800/20">
+              <Th className="w-48">{t('features.code')}</Th>
+              <Th className="w-64">{t('features.name')}</Th>
+              <Th className="w-40">{t('features.type')}</Th>
               <Th>{t('features.description')}</Th>
+              <Th className="text-right">{t('common.actions')}</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {mockFeatures.map((feature) => (
-              <Tr key={feature.id}>
-                <Td className="font-mono text-xs text-indigo-600 dark:text-indigo-400">{feature.code}</Td>
-                <Td className="font-medium">{feature.name}</Td>
+            {filteredFeatures.map((feature) => (
+              <Tr key={feature.id} className="group hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                <Td>
+                  <span className="font-mono text-[11px] tracking-tight text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 bg-indigo-50 dark:bg-indigo-900/20 rounded border border-indigo-100 dark:border-indigo-800/50">
+                    {feature.code}
+                  </span>
+                </Td>
+                <Td>
+                  <div className="font-medium text-slate-900 dark:text-white">{feature.name}</div>
+                </Td>
                 <Td>{getTypeBadge(feature.type)}</Td>
-                <Td className="text-slate-500 dark:text-slate-400 text-sm">{feature.description}</Td>
+                <Td>
+                  <div className="text-slate-500 dark:text-slate-400 text-sm line-clamp-2 leading-relaxed">
+                    {feature.description}
+                  </div>
+                </Td>
+                <Td className="text-right">
+                  <div className="flex items-center justify-end gap-2">
+                    <Button variant="ghost" size="sm" onClick={() => { setEditingFeature(feature); setIsModalOpen(true); }}>
+                      <Edit2 className="w-4 h-4" />
+                    </Button>
+                    <Button variant="ghost" size="sm" className="text-rose-500" onClick={() => handleDeleteFeature(feature.id)}>
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </Td>
               </Tr>
             ))}
           </Tbody>
         </Table>
       </Card>
+
+      <Modal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        title={editingFeature ? t('features.editFeature') : t('features.newFeature')}
+      >
+        <form onSubmit={handleSaveFeature} className="space-y-4">
+          <div className="space-y-2">
+            <Label>{t('features.code')}</Label>
+            <Input name="code" defaultValue={editingFeature?.code} required />
+          </div>
+          <div className="space-y-2">
+            <Label>{t('features.name')}</Label>
+            <Input name="name" defaultValue={editingFeature?.name} required />
+          </div>
+          <div className="space-y-2">
+            <Label>{t('features.type')}</Label>
+            <Select name="type" defaultValue={editingFeature?.type} required>
+              <option value="boolean">{t('features.boolean')}</option>
+              <option value="quota">{t('features.quota')}</option>
+              <option value="tier">{t('features.tier')}</option>
+            </Select>
+          </div>
+          <div className="space-y-2">
+            <Label>{t('features.description')}</Label>
+            <Textarea name="description" defaultValue={editingFeature?.description} rows={3} />
+          </div>
+          <div className="flex justify-end gap-3 pt-6 border-t border-slate-100 dark:border-slate-800">
+            <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)}>{t('common.cancel')}</Button>
+            <Button type="submit">{t('common.save')}</Button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 }

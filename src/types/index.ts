@@ -85,6 +85,14 @@ export interface ProductMedia {
   title?: string;
 }
 
+export interface ProductFeature {
+  id: number;
+  code: string;
+  name: string;
+  type: 'boolean' | 'quota' | 'tier';
+  description?: string;
+}
+
 export interface ProductEntitlement {
   id: number;
   skuId: number;
@@ -135,6 +143,7 @@ export interface PriceBook {
   translations?: any;
   priceDisplayPrecision: number;
   type: 'standard' | 'channel' | 'promotional' | 'custom';
+  partnerTier?: string;
   isActive: boolean;
   validFrom: string;
   validTo?: string;

@@ -266,6 +266,8 @@
     "fieldType": "类型",
     "defaultValue": "默认值",
     "comment": "注释",
-    "externalDependency": "外部依赖"
+    "externalDependency": "外部依赖",
+    "tableView": "表格视图",
+    "scriptView": "脚本视图"
   }
 }

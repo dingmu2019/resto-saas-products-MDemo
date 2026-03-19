@@ -1,24 +1,26 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardTitle, CardContent, Badge, Button } from '../components/ui';
-import { 
-  mockBundleGroups, mockBundleOptions, mockSkus, mockPriceBookEntries, 
-  mockPriceBooks, mockTaxRegions, mockTaxRates, mockRules, mockEntitlements, mockFeatures, mockProducts
-} from '../data/mock';
+import { useProductContext } from '../contexts/ProductProvider';
 import { Tags, CheckCircle2, Circle, ShoppingCart, Info, Package, AlertTriangle, ShieldCheck } from 'lucide-react';
 
 export function CPQDemo() {
   const { t } = useTranslation();
+  const { 
+    products, skus, bundleGroups, bundleOptions, 
+    priceBooks, priceBookEntries, taxRegions, taxRates, 
+    rules, entitlements, features 
+  } = useProductContext();
   
   // Settings
   const [selectedBundleId, setSelectedBundleId] = useState<number>(1041);
   const [selectedPriceBookId, setSelectedPriceBookId] = useState<number>(1);
   const [selectedTaxRegionId, setSelectedTaxRegionId] = useState<number>(2); // Default to CA
 
-  const bundleSkus = mockSkus.filter(s => s.uom === 'Bundle');
-  const activeGroups = mockBundleGroups.filter(g => g.bundleSkuId === selectedBundleId);
-  const activeOptions = mockBundleOptions.filter(o => o.bundleSkuId === selectedBundleId);
-  const priceBook = mockPriceBooks.find(pb => pb.id === selectedPriceBookId);
+  const bundleSkus = skus.filter(s => s.uom === 'Bundle');
+  const activeGroups = bundleGroups.filter(g => g.bundleSkuId === selectedBundleId);
+  const activeOptions = bundleOptions.filter(o => o.bundleSkuId === selectedBundleId);
+  const priceBook = priceBooks.find(pb => pb.id === selectedPriceBookId);
 
   // Selections state: Record<groupId, Record<skuId, quantity>>
   const [selections, setSelections] = useState<Record<number, Record<number, number>>>({});
@@ -35,14 +37,14 @@ export function CPQDemo() {
         });
     });
     setSelections(initialSelections);
-  }, [selectedBundleId]);
+  }, [selectedBundleId, activeGroups.length]);
 
   // 4. Excludes Rule Deadlock Fix: Auto-remove conflicting targets
   const resolveConflicts = (newSelections: Record<number, Record<number, number>>) => {
     const allSelectedSkuIds = Object.values(newSelections).flatMap(group => Object.keys(group).map(Number));
     const toRemove = new Set<number>();
 
-    mockRules.forEach(rule => {
+    rules.forEach(rule => {
       if (rule.ruleType === 'excludes' && allSelectedSkuIds.includes(rule.sourceSkuId)) {
         toRemove.add(rule.targetSkuId);
       }
@@ -125,7 +127,7 @@ export function CPQDemo() {
   const recommendedSkuIds = new Set<number>();
   const disabledSkuIds = new Set<number>();
 
-  mockRules.forEach(rule => {
+  rules.forEach(rule => {
     const sourceSelected = allSelectedSkuIds.includes(rule.sourceSkuId);
     const targetSelected = allSelectedSkuIds.includes(rule.targetSkuId);
 
@@ -142,15 +144,15 @@ export function CPQDemo() {
     }
   });
 
-  const getSkuDetails = (skuId: number) => mockSkus.find(s => s.id === skuId);
-  const getProductDetails = (productId: number) => mockProducts.find(p => p.id === productId);
+  const getSkuDetails = (skuId: number) => skus.find(s => s.id === skuId);
+  const getProductDetails = (productId: number) => products.find(p => p.id === productId);
 
   // 5. Tiered vs Volume Pricing Fix
   const getOptionPricing = (skuId: number, groupId: number, qty: number = 1) => {
     const option = activeOptions.find(o => o.componentSkuId === skuId && o.groupId === groupId);
     if (!option) return null;
     
-    const basePriceEntry = mockPriceBookEntries.find(e => e.skuId === skuId && e.priceBookId === selectedPriceBookId);
+    const basePriceEntry = priceBookEntries.find(e => e.skuId === skuId && e.priceBookId === selectedPriceBookId);
     
     let basePrice = basePriceEntry?.listPrice || 0;
     let finalPrice = basePrice * qty;
@@ -216,7 +218,7 @@ export function CPQDemo() {
     const product = getProductDetails(sku?.productId || 0);
     if (!product) return { taxAmount: 0, priceWithoutTax: price, isInclusive: false };
     
-    const taxRateMapping = mockTaxRates.find(t => t.taxRegionId === selectedTaxRegionId && t.productType === product.productType);
+    const taxRateMapping = taxRates.find(t => t.taxRegionId === selectedTaxRegionId && t.productType === product.productType);
     if (!taxRateMapping) return { taxAmount: 0, priceWithoutTax: price, isInclusive: false };
 
     if (taxRateMapping.isTaxInclusive) {
@@ -232,7 +234,7 @@ export function CPQDemo() {
   };
 
   // 1. Billing Model Mismatch Fix: Separate totals by billing term
-  const bundleBasePriceEntry = mockPriceBookEntries.find(e => e.skuId === selectedBundleId && e.priceBookId === selectedPriceBookId);
+  const bundleBasePriceEntry = priceBookEntries.find(e => e.skuId === selectedBundleId && e.priceBookId === selectedPriceBookId);
   const bundleSku = getSkuDetails(selectedBundleId);
   
   const totals = {
@@ -299,9 +301,9 @@ export function CPQDemo() {
     const result: Record<string, { name: string, type: string, value: any }> = {};
     
     allSelectedSkuIds.forEach(skuId => {
-      const entitlements = mockEntitlements.filter(e => e.skuId === skuId && e.status === 'active');
-      entitlements.forEach(ent => {
-        const feature = mockFeatures.find(f => f.code === ent.featureCode);
+      const skuEntitlements = entitlements.filter(e => e.skuId === skuId && e.status === 'active');
+      skuEntitlements.forEach(ent => {
+        const feature = features.find(f => f.code === ent.featureCode);
         if (!feature) return;
 
         if (!result[feature.code]) {
@@ -322,7 +324,7 @@ export function CPQDemo() {
       });
     });
     return result;
-  }, [allSelectedSkuIds]);
+  }, [allSelectedSkuIds, entitlements, features]);
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto pb-20">
@@ -360,7 +362,7 @@ export function CPQDemo() {
             value={selectedPriceBookId}
             onChange={(e) => setSelectedPriceBookId(Number(e.target.value))}
           >
-            {mockPriceBooks.map(pb => (
+            {priceBooks.map(pb => (
               <option key={pb.id} value={pb.id}>{pb.name} ({pb.currency})</option>
             ))}
           </select>
@@ -372,7 +374,7 @@ export function CPQDemo() {
             value={selectedTaxRegionId}
             onChange={(e) => setSelectedTaxRegionId(Number(e.target.value))}
           >
-            {mockTaxRegions.filter(r => r.level !== 'country').map(tr => (
+            {taxRegions.filter(r => r.level !== 'country').map(tr => (
               <option key={tr.id} value={tr.id}>{tr.name} ({tr.regionCode})</option>
             ))}
           </select>

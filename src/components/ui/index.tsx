@@ -33,12 +33,13 @@ export function CardContent({ className, children, ...props }: React.HTMLAttribu
   );
 }
 
-export function Badge({ children, variant = 'default', className, ...props }: React.HTMLAttributes<HTMLSpanElement> & { variant?: 'default' | 'success' | 'warning' | 'error' | 'outline' }) {
+export function Badge({ children, variant = 'default', className, ...props }: React.HTMLAttributes<HTMLSpanElement> & { variant?: 'default' | 'success' | 'warning' | 'error' | 'outline' | 'info' }) {
   const variants = {
     default: "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-300",
     success: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400",
     warning: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400",
     error: "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-400",
+    info: "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-400",
     outline: "border border-slate-200 text-slate-600 dark:border-slate-700 dark:text-slate-400"
   };
   
@@ -101,6 +102,43 @@ export function Th({ children, className, ...props }: React.ThHTMLAttributes<HTM
 
 export function Td({ children, className, ...props }: React.TdHTMLAttributes<HTMLTableCellElement>) {
   return <td className={cn("px-6 py-4 whitespace-nowrap", className)} {...props}>{children}</td>;
+}
+
+export function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <input 
+      className={cn("w-full px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all", className)}
+      {...props}
+    />
+  );
+}
+
+export function Select({ className, children, ...props }: React.SelectHTMLAttributes<HTMLSelectElement>) {
+  return (
+    <select 
+      className={cn("w-full px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all", className)}
+      {...props}
+    >
+      {children}
+    </select>
+  );
+}
+
+export function Textarea({ className, ...props }: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  return (
+    <textarea 
+      className={cn("w-full px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all min-h-[100px]", className)}
+      {...props}
+    />
+  );
+}
+
+export function Label({ children, className, ...props }: React.LabelHTMLAttributes<HTMLLabelElement>) {
+  return (
+    <label className={cn("block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5", className)} {...props}>
+      {children}
+    </label>
+  );
 }
 
 export function Modal({ isOpen, onClose, title, children }: { isOpen: boolean; onClose: () => void; title: string; children: React.ReactNode }) {
