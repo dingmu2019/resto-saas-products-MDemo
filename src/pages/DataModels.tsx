@@ -37,6 +37,9 @@ const schemaData = [
       { name: 'region_code', type: 'string', comment: '区域编码', defaultValue: '无' },
       { name: 'country_code', type: 'string', comment: '国家ISO编码', defaultValue: '无' },
       { name: 'state_code', type: 'string', comment: '州/省编码', defaultValue: 'null' },
+      { name: 'city_code', type: 'string', comment: '城市编码', defaultValue: 'null' },
+      { name: 'county_code', type: 'string', comment: '区/县编码', defaultValue: 'null' },
+      { name: 'zip_code', type: 'string', comment: '邮政编码', defaultValue: 'null' },
       { name: 'name', type: 'string', comment: '区域名称', defaultValue: '无' },
       { name: 'level', type: 'enum', comment: '区域级别', defaultValue: 'country' },
       { name: 'path', type: 'string', comment: '层级路径', defaultValue: '无' },
@@ -311,9 +314,9 @@ export function DataModels() {
 
   const highlightSql = (sql: string) => {
     return sql
-      .replace(/\b(CREATE TABLE|PRIMARY KEY|UNIQUE KEY|KEY|ENGINE|DEFAULT|CHARSET|COLLATE|COMMENT|NOT NULL|AUTO_INCREMENT|UNSIGNED|BIGINT|VARCHAR|JSON|TINYINT|INT|BOOLEAN|TIMESTAMP|CURRENT_TIMESTAMP|ON UPDATE|NULL|ENUM|DECIMAL|DATE|DATETIME|TEXT)\b/g, '<span class="text-blue-400 font-bold">$1</span>')
+      .replace(/\b(CREATE TABLE|PRIMARY KEY|UNIQUE KEY|KEY|ENGINE|DEFAULT|CHARSET|COLLATE|COMMENT|NOT NULL|AUTO_INCREMENT|UNSIGNED|BIGINT|VARCHAR|JSON|TINYINT|INT|BOOLEAN|TIMESTAMP|CURRENT_TIMESTAMP|ON UPDATE|NULL|ENUM|DECIMAL|DATE|DATETIME|TEXT)\b/g, '<span class="text-indigo-300 font-bold">$1</span>')
       .replace(/(`[^`]+`)/g, '<span class="text-emerald-300">$1</span>')
-      .replace(/('[^']*')/g, '<span class="text-orange-300">$1</span>')
+      .replace(/('[^']*')/g, '<span class="text-amber-200">$1</span>')
       .replace(/(--.*)/g, '<span class="text-slate-500 italic">$1</span>');
   };
 
@@ -453,8 +456,8 @@ export function DataModels() {
                     </table>
                   </div>
                 ) : (
-                  <div className="flex-1 flex flex-col bg-slate-900 rounded-xl overflow-hidden border border-slate-800">
-                    <div className="flex items-center justify-between px-4 py-2 bg-slate-800/50 border-b border-slate-800">
+                  <div className="flex-1 flex flex-col bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+                    <div className="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-800">
                       <div className="flex items-center gap-2">
                         <div className="flex gap-1.5">
                           <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/40" />
@@ -465,13 +468,13 @@ export function DataModels() {
                       </div>
                       <button 
                         onClick={() => copyToClipboard(generateSql(activeModel))}
-                        className="text-[10px] font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1.5 px-2 py-1 rounded hover:bg-slate-700"
+                        className="text-[10px] font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1.5 px-2 py-1 rounded hover:bg-slate-800"
                       >
                         COPY
                       </button>
                     </div>
                     <div className="flex-1 p-6 overflow-auto custom-scrollbar">
-                      <pre className="font-mono text-sm leading-relaxed">
+                      <pre className="font-mono text-sm leading-relaxed text-slate-100">
                         <code dangerouslySetInnerHTML={{ __html: highlightSql(generateSql(activeModel)) }} />
                       </pre>
                     </div>

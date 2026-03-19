@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Pagination } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, Filter, Package, ChevronRight, Edit2, Trash2, RefreshCw, CreditCard, Zap, Info } from 'lucide-react';
 import { ProductSku } from '../types';
@@ -11,13 +11,26 @@ export function Skus() {
   const { t } = useTranslation();
   const { skus, setSkus, products } = useProductContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [editingSku, setEditingSku] = useState<ProductSku | null>(null);
+  const [viewingSku, setViewingSku] = useState<ProductSku | null>(null);
 
-  const filteredSkus = skus.filter(sku => 
-    sku.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    sku.skuCode.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
+  const filteredSkus = useMemo(() => {
+    return skus.filter(sku => 
+      sku.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      sku.skuCode.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [skus, searchQuery]);
+
+  const paginatedSkus = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredSkus.slice(start, start + pageSize);
+  }, [filteredSkus, currentPage, pageSize]);
 
   const getProductName = (productId: number) => {
     return products.find(p => p.id === productId)?.name || 'Unknown';
@@ -68,6 +81,11 @@ export function Skus() {
       setEditingSku(null);
     }
     setIsModalOpen(true);
+  };
+
+  const handleViewDetails = (sku: ProductSku) => {
+    setViewingSku(sku);
+    setIsDetailModalOpen(true);
   };
 
   const handleDeleteSku = (id: number) => {
@@ -149,7 +167,7 @@ export function Skus() {
             </Tr>
           </Thead>
           <Tbody>
-            {filteredSkus.map((sku) => (
+            {paginatedSkus.map((sku) => (
               <Tr key={sku.id} className="group hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
                 <Td>
                   <span className="font-mono text-[11px] tracking-tight text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 bg-indigo-50 dark:bg-indigo-900/20 rounded border border-indigo-100 dark:border-indigo-800/50">
@@ -161,9 +179,13 @@ export function Skus() {
                 </Td>
                 <Td>
                   <div className="flex flex-col">
-                    <span className="text-sm text-slate-600 dark:text-slate-300 truncate max-w-[200px]" title={getProductName(sku.productId)}>
+                    <Link 
+                      to={`/products/${sku.productId}`}
+                      className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline truncate max-w-[200px]" 
+                      title={getProductName(sku.productId)}
+                    >
                       {getProductName(sku.productId)}
-                    </span>
+                    </Link>
                     <span className="text-[10px] text-slate-400 font-mono">ID: {sku.productId}</span>
                   </div>
                 </Td>
@@ -195,18 +217,94 @@ export function Skus() {
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
-                    <Link to={`/products/${sku.productId}`}>
-                      <Button variant="ghost" size="sm" className="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20">
-                        <ChevronRight className="w-4 h-4" />
-                      </Button>
-                    </Link>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={() => handleViewDetails(sku)}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </Button>
                   </div>
                 </Td>
               </Tr>
             ))}
           </Tbody>
         </Table>
+        <div className="p-4 border-t border-slate-100 dark:border-slate-800">
+          <Pagination
+            currentPage={currentPage}
+            totalItems={filteredSkus.length}
+            totalPages={Math.ceil(filteredSkus.length / pageSize)}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={setPageSize}
+          />
+        </div>
       </Card>
+
+      <Modal 
+        isOpen={isDetailModalOpen} 
+        onClose={() => setIsDetailModalOpen(false)} 
+        title={t('sku.viewSku')}
+      >
+        {viewingSku && (
+          <div className="space-y-6">
+            <div className="flex items-start justify-between">
+              <div>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">{viewingSku.name}</h3>
+                <p className="text-sm text-slate-500 font-mono mt-1">{viewingSku.skuCode}</p>
+              </div>
+              {getLifecycleBadge(viewingSku.lifecycleStatus)}
+            </div>
+
+            <div className="grid grid-cols-2 gap-6">
+              <div className="space-y-1">
+                <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('sku.parentProduct')}</p>
+                <p className="text-sm text-slate-700 dark:text-slate-200">{getProductName(viewingSku.productId)}</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('sku.billingModel')}</p>
+                <div className="pt-1">{getBillingBadge(viewingSku.billingModel)}</div>
+              </div>
+              <div className="space-y-1">
+                <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('sku.billingTerm')}</p>
+                <p className="text-sm text-slate-700 dark:text-slate-200 capitalize">{viewingSku.billingTerm}</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('sku.uom')}</p>
+                <p className="text-sm text-slate-700 dark:text-slate-200">{viewingSku.uom}</p>
+              </div>
+            </div>
+
+            <div className="border-t border-slate-100 dark:border-slate-800 pt-4">
+              <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-3">Technical Specifications</h4>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-500">{t('sku.isShippable')}</span>
+                  <span className="font-medium">{viewingSku.isShippable ? t('taxes.yes') : t('taxes.no')}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-500">{t('sku.isSerialized')}</span>
+                  <span className="font-medium">{viewingSku.isSerialized ? t('taxes.yes') : t('taxes.no')}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-500">{t('sku.weightKg')}</span>
+                  <span className="font-medium">{viewingSku.weightKg || '-'} kg</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-500">{t('sku.hsCode')}</span>
+                  <span className="font-medium">{viewingSku.hsCode || '-'}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex justify-end pt-4">
+              <Button onClick={() => setIsDetailModalOpen(false)}>{t('common.cancel')}</Button>
+            </div>
+          </div>
+        )}
+      </Modal>
 
       <Modal 
         isOpen={isModalOpen} 
@@ -226,13 +324,13 @@ export function Skus() {
             </div>
             <div className="space-y-1.5">
               <Label>{t('sku.code')}</Label>
-              <Input name="skuCode" required defaultValue={editingSku?.skuCode} />
+              <Input name="skuCode" required defaultValue={editingSku?.skuCode} placeholder={t('sku.skuCodePlaceholder')} />
             </div>
           </div>
           
           <div className="space-y-1.5">
             <Label>{t('sku.name')}</Label>
-            <Input name="name" required defaultValue={editingSku?.name} />
+            <Input name="name" required defaultValue={editingSku?.name} placeholder={t('sku.skuNamePlaceholder')} />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -267,7 +365,7 @@ export function Skus() {
             </div>
             <div className="space-y-1.5">
               <Label>{t('sku.uom')}</Label>
-              <Input name="uom" defaultValue={editingSku?.uom || 'Unit'} required />
+              <Input name="uom" defaultValue={editingSku?.uom || 'Unit'} placeholder={t('sku.uomPlaceholder')} required />
             </div>
           </div>
 

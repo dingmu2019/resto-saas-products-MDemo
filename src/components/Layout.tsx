@@ -17,7 +17,8 @@ import {
   ShieldAlert,
   ListChecks,
   Image as ImageIcon,
-  Database
+  Database,
+  Navigation
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -40,6 +41,7 @@ export function Layout() {
     { path: '/features', label: t('app.features'), icon: ListChecks },
     { path: '/rules', label: t('app.rules'), icon: ShieldAlert },
     { path: '/taxes', label: t('app.taxes'), icon: Calculator },
+    { path: '/tax-regions', label: t('app.taxRegions'), icon: Navigation },
     { path: '/media', label: t('app.media'), icon: ImageIcon },
     { path: '/price-books', label: t('app.priceBooks'), icon: BookOpen },
     { path: '/cpq', label: t('app.cpqDemo'), icon: Monitor },

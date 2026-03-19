@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Badge, Button, Table, Thead, Tbody, Tr, Th, Td, Modal, Input, Select, Label, Textarea } from '../components/ui';
+import { Card, Badge, Button, Table, Thead, Tbody, Tr, Th, Td, Modal, Input, Select, Label, Textarea, Pagination } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
 import { Search, Plus, Package, Settings, ChevronRight, Check, Layers, Edit2, Trash2, Box } from 'lucide-react';
 import { cn } from '../components/Layout';
@@ -24,6 +24,10 @@ export function Bundles() {
   const [selectedSkuId, setSelectedSkuId] = useState<number | null>(bundleSkus[0]?.id || null);
   const [searchQuery, setSearchQuery] = useState('');
   
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
   // Modal states
   const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
   const [isOptionModalOpen, setIsOptionModalOpen] = useState(false);
@@ -31,10 +35,17 @@ export function Bundles() {
   const [editingOption, setEditingOption] = useState<BundleOption | null>(null);
   const [currentGroupId, setCurrentGroupId] = useState<number | null>(null);
 
-  const filteredSkus = bundleSkus.filter(sku => 
-    sku.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    sku.skuCode.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredSkus = useMemo(() => {
+    return bundleSkus.filter(sku => 
+      sku.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      sku.skuCode.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [bundleSkus, searchQuery]);
+
+  const paginatedSkus = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredSkus.slice(start, start + pageSize);
+  }, [filteredSkus, currentPage, pageSize]);
 
   const selectedSku = bundleSkus.find(s => s.id === selectedSkuId);
   const currentGroups = bundleGroups
@@ -43,7 +54,7 @@ export function Bundles() {
 
   const getSkuName = (skuId: number) => {
     const sku = skus.find(s => s.id === skuId);
-    return sku ? `${sku.skuCode} - ${sku.name}` : 'Unknown';
+    return sku ? `${sku.skuCode} - ${sku.name}` : t('common.unknown');
   };
 
   const getPricingBadge = (type: string, value?: number) => {
@@ -144,7 +155,7 @@ export function Bundles() {
           </div>
         </div>
         <div className="flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar">
-          {filteredSkus.map(sku => (
+          {paginatedSkus.map(sku => (
             <button
               key={sku.id}
               onClick={() => setSelectedSkuId(sku.id)}
@@ -174,6 +185,16 @@ export function Bundles() {
               )} />
             </button>
           ))}
+        </div>
+        <div className="p-2 border-t border-slate-200 dark:border-slate-800">
+          <Pagination
+            currentPage={currentPage}
+            totalItems={filteredSkus.length}
+            totalPages={Math.ceil(filteredSkus.length / pageSize)}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={setPageSize}
+          />
         </div>
       </Card>
 
@@ -319,7 +340,7 @@ export function Bundles() {
               <Package className="w-12 h-12 opacity-20" />
             </div>
             <p className="text-lg font-medium">{t('bundles.selectBundle')}</p>
-            <p className="text-sm opacity-60 mt-1">Choose a bundle from the list to start building</p>
+            <p className="text-sm opacity-60 mt-1">{t('bundles.selectBundleDesc')}</p>
           </div>
         )}
       </Card>

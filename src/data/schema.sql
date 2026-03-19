@@ -98,6 +98,9 @@ CREATE TABLE `tax_regions` (
   `region_code` VARCHAR(50) NOT NULL COMMENT '内部税区编码，如 US-NY, CN-SH',
   `country_code` CHAR(2) NOT NULL COMMENT 'ISO 3166-1 alpha-2 国家码',
   `state_code` VARCHAR(10) DEFAULT NULL COMMENT '州/省代码 (针对美国/加拿大等)',
+  `city_code` VARCHAR(50) DEFAULT NULL COMMENT '城市编码',
+  `county_code` VARCHAR(50) DEFAULT NULL COMMENT '区/县编码',
+  `zip_code` VARCHAR(20) DEFAULT NULL COMMENT '邮政编码',
   `name` VARCHAR(100) NOT NULL COMMENT '税区显示名称',
   
   `level` ENUM('country', 'state', 'county', 'city', 'special') NOT NULL DEFAULT 'country' 

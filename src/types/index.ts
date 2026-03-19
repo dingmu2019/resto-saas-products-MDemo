@@ -17,9 +17,13 @@ export interface TaxRegion {
   regionCode: string;
   countryCode: string;
   stateCode?: string;
+  cityCode?: string;
+  countyCode?: string;
+  zipCode?: string;
   name: string;
   level: 'country' | 'state' | 'county' | 'city' | 'special';
   path: string;
+  isActive: boolean;
 }
 
 export interface TaxRateMapping {

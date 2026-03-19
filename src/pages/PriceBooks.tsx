@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Pagination } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
 import { BookOpen, Search, Plus, DollarSign, Tag, Globe, Calendar, ChevronRight, Edit2, Trash2, Check, Info } from 'lucide-react';
 import { cn } from '../components/Layout';
@@ -16,13 +16,37 @@ export function PriceBooks() {
   const [editingEntry, setEditingEntry] = useState<PriceBookEntry | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredPriceBooks = priceBooks.filter(pb => 
-    pb.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    pb.code.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Pagination state for Price Books
+  const [pbPage, setPbPage] = useState(1);
+  const [pbPageSize, setPbPageSize] = useState(10);
+
+  // Pagination state for Entries
+  const [entryPage, setEntryPage] = useState(1);
+  const [entryPageSize, setEntryPageSize] = useState(10);
+
+  const filteredPriceBooks = useMemo(() => {
+    return priceBooks.filter(pb => 
+      pb.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      pb.code.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [priceBooks, searchQuery]);
+
+  const paginatedPriceBooks = useMemo(() => {
+    const start = (pbPage - 1) * pbPageSize;
+    return filteredPriceBooks.slice(start, start + pbPageSize);
+  }, [filteredPriceBooks, pbPage, pbPageSize]);
+
+  const activePbEntries = useMemo(() => {
+    return priceBookEntries.filter(e => e.priceBookId === activePbId);
+  }, [priceBookEntries, activePbId]);
+
+  const paginatedEntries = useMemo(() => {
+    const start = (entryPage - 1) * entryPageSize;
+    return activePbEntries.slice(start, start + entryPageSize);
+  }, [activePbEntries, entryPage, entryPageSize]);
 
   const getSkuCode = (id: number) => {
-    return skus.find(s => s.id === id)?.skuCode || 'Unknown';
+    return skus.find(s => s.id === id)?.skuCode || t('common.unknown');
   };
 
   const activePb = priceBooks.find(pb => pb.id === activePbId);
@@ -137,7 +161,7 @@ export function PriceBooks() {
               {t('priceBook.title')}
             </div>
             <div className="divide-y divide-slate-100 dark:divide-slate-800">
-              {filteredPriceBooks.map((pb) => (
+              {paginatedPriceBooks.map((pb) => (
                 <div 
                   key={pb.id} 
                   onClick={() => setActivePbId(pb.id)}
@@ -185,6 +209,16 @@ export function PriceBooks() {
                 </div>
               ))}
             </div>
+            <div className="p-2 border-t border-slate-100 dark:divide-slate-800">
+              <Pagination
+                currentPage={pbPage}
+                totalItems={filteredPriceBooks.length}
+                totalPages={Math.ceil(filteredPriceBooks.length / pbPageSize)}
+                pageSize={pbPageSize}
+                onPageChange={setPbPage}
+                onPageSizeChange={setPbPageSize}
+              />
+            </div>
           </Card>
         </div>
 
@@ -222,7 +256,7 @@ export function PriceBooks() {
                 </Tr>
               </Thead>
               <Tbody>
-                {priceBookEntries.filter(e => e.priceBookId === activePbId).map((entry) => (
+                {paginatedEntries.map((entry) => (
                   <Tr key={entry.id} className="group hover:bg-slate-50/30 dark:hover:bg-slate-800/20 transition-colors">
                     <Td>
                       <span className="font-mono text-[11px] tracking-tight text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 bg-indigo-50 dark:bg-indigo-900/20 rounded border border-indigo-100 dark:border-indigo-800/50">
@@ -273,6 +307,16 @@ export function PriceBooks() {
                 ))}
               </Tbody>
             </Table>
+            <div className="p-4 border-t border-slate-100 dark:border-slate-800">
+              <Pagination
+                currentPage={entryPage}
+                totalItems={activePbEntries.length}
+                totalPages={Math.ceil(activePbEntries.length / entryPageSize)}
+                pageSize={entryPageSize}
+                onPageChange={setEntryPage}
+                onPageSizeChange={setEntryPageSize}
+              />
+            </div>
           </Card>
         </div>
       </div>
@@ -321,9 +365,9 @@ export function PriceBooks() {
               <Label>{t('priceBook.partnerTier')}</Label>
               <Select name="partnerTier" defaultValue={editingPb?.partnerTier || ''}>
                 <option value="">{t('common.none')}</option>
-                <option value="Gold">Gold</option>
-                <option value="Silver">Silver</option>
-                <option value="Bronze">Bronze</option>
+                <option value="Gold">{t('sku.tiers.gold')}</option>
+                <option value="Silver">{t('sku.tiers.silver')}</option>
+                <option value="Bronze">{t('sku.tiers.bronze')}</option>
               </Select>
             </div>
             <div className="space-y-1.5">

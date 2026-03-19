@@ -26,18 +26,33 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const root = window.document.documentElement;
     
-    root.classList.remove('light', 'dark');
+    const applyTheme = (currentTheme: Theme) => {
+      root.classList.remove('light', 'dark');
+      
+      let effectiveTheme: 'light' | 'dark';
+      if (currentTheme === 'system') {
+        effectiveTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
+      } else {
+        effectiveTheme = currentTheme;
+      }
+      
+      root.classList.add(effectiveTheme);
+      root.style.colorScheme = effectiveTheme;
+      root.setAttribute('data-theme', effectiveTheme);
+    };
 
-    if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
-      root.classList.add(systemTheme);
-    } else {
-      root.classList.add(theme);
-    }
-    
+    applyTheme(theme);
     localStorage.setItem('theme', theme);
+
+    // Listen for system theme changes if in system mode
+    if (theme === 'system') {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const handleChange = () => applyTheme('system');
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    }
   }, [theme]);
 
   useEffect(() => {

@@ -15,7 +15,7 @@ export function Taxes() {
   const [editingRate, setEditingRate] = useState<TaxRateMapping | null>(null);
 
   const getRegionName = (regionId: number) => {
-    return taxRegions.find(r => r.id === regionId)?.name || 'Unknown';
+    return taxRegions.find(r => r.id === regionId)?.name || t('common.unknown');
   };
 
   const filteredRates = taxRates.filter(rate => {
@@ -141,21 +141,21 @@ export function Taxes() {
             <div className="space-y-2">
               <Label>{t('taxes.productType')}</Label>
               <Select name="productType" defaultValue={editingRate?.productType} required>
-                <option value="physical">{t('products.physical')}</option>
-                <option value="digital">{t('products.digital')}</option>
-                <option value="service">{t('products.service')}</option>
-                <option value="bundle">{t('products.bundle')}</option>
+                <option value="physical">{t('taxes.physical')}</option>
+                <option value="digital">{t('taxes.digital')}</option>
+                <option value="service">{t('taxes.service')}</option>
+                <option value="bundle">{t('taxes.bundle')}</option>
               </Select>
             </div>
             <div className="space-y-2">
               <Label>{t('taxes.taxType')}</Label>
               <Select name="taxType" defaultValue={editingRate?.taxType} required>
-                <option value="SalesTax">Sales Tax</option>
-                <option value="VAT">VAT</option>
-                <option value="GST">GST</option>
-                <option value="PST">PST</option>
-                <option value="HST">HST</option>
-                <option value="QST">QST</option>
+                <option value="SalesTax">{t('taxes.salesTax')}</option>
+                <option value="VAT">{t('taxes.vat')}</option>
+                <option value="GST">{t('taxes.gst')}</option>
+                <option value="PST">{t('taxes.pst')}</option>
+                <option value="HST">{t('taxes.hst')}</option>
+                <option value="QST">{t('taxes.qst')}</option>
               </Select>
             </div>
           </div>

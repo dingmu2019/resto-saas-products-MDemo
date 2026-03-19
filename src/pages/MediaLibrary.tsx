@@ -151,16 +151,16 @@ export function MediaLibrary() {
       >
         <form onSubmit={handleSaveMedia} className="space-y-4">
           <div className="space-y-2">
-            <Label>{t('media.title')}</Label>
+            <Label>{t('media.mediaTitle')}</Label>
             <Input name="title" defaultValue={editingMedia?.title} required />
           </div>
           <div className="space-y-2">
-            <Label>{t('media.url')}</Label>
+            <Label>{t('media.mediaUrl')}</Label>
             <Input name="url" defaultValue={editingMedia?.url} required />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>{t('media.type')}</Label>
+              <Label>{t('media.mediaType')}</Label>
               <Select name="mediaType" defaultValue={editingMedia?.mediaType} required>
                 <option value="image">{t('media.image')}</option>
                 <option value="video">{t('media.video')}</option>
@@ -169,24 +169,24 @@ export function MediaLibrary() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label>{t('media.locale')}</Label>
+              <Label>{t('media.mediaLocale')}</Label>
               <Input name="locale" defaultValue={editingMedia?.locale || 'zh_CN'} required />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>{t('media.productId')} (Optional)</Label>
+              <Label>{t('media.productId')} ({t('common.optional')})</Label>
               <Select name="productId" defaultValue={editingMedia?.productId}>
-                <option value="">None</option>
+                <option value="">{t('common.none')}</option>
                 {products.map(p => (
                   <option key={p.id} value={p.id}>{p.name}</option>
                 ))}
               </Select>
             </div>
             <div className="space-y-2">
-              <Label>{t('media.skuId')} (Optional)</Label>
+              <Label>{t('media.skuId')} ({t('common.optional')})</Label>
               <Select name="skuId" defaultValue={editingMedia?.skuId}>
-                <option value="">None</option>
+                <option value="">{t('common.none')}</option>
                 {skus.map(s => (
                   <option key={s.id} value={s.id}>{s.skuCode} - {s.name}</option>
                 ))}
@@ -194,7 +194,7 @@ export function MediaLibrary() {
             </div>
           </div>
           <div className="space-y-2">
-            <Label>{t('media.sortOrder')}</Label>
+            <Label>{t('media.mediaSortOrder')}</Label>
             <Input type="number" name="sortOrder" defaultValue={editingMedia?.sortOrder || 1} required />
           </div>
           <div className="flex flex-col gap-3 py-2">

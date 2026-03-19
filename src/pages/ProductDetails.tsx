@@ -299,7 +299,7 @@ export function ProductDetails() {
               <Table>
                 <Thead>
                   <Tr className="bg-slate-50/50 dark:bg-slate-800/20">
-                    <Th className="text-[10px] uppercase tracking-wider">SKU</Th>
+                    <Th className="text-[10px] uppercase tracking-wider">{t('sku.title')}</Th>
                     {priceBooks.map(pb => (
                       <Th key={pb.id} className="text-right">
                         <div className="flex flex-col items-end">
@@ -357,10 +357,10 @@ export function ProductDetails() {
                 <Table>
                   <Thead>
                     <Tr className="bg-slate-50/50 dark:bg-slate-800/20">
-                      <Th className="text-[10px] uppercase tracking-wider">SKU</Th>
+                      <Th className="text-[10px] uppercase tracking-wider">{t('sku.title')}</Th>
                       <Th className="text-[10px] uppercase tracking-wider">{t('features.code')}</Th>
                       <Th className="text-[10px] uppercase tracking-wider">{t('features.type')}</Th>
-                      <Th className="text-[10px] uppercase tracking-wider">Value</Th>
+                      <Th className="text-[10px] uppercase tracking-wider">{t('sku.quotaValue')}</Th>
                       <Th className="text-[10px] uppercase tracking-wider">{t('common.status')}</Th>
                       <Th className="text-right">{t('common.actions')}</Th>
                     </Tr>
@@ -419,7 +419,7 @@ export function ProductDetails() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                         <div className="text-white w-full">
                           <p className="font-bold text-xs truncate">{item.title}</p>
-                          <p className="text-[9px] opacity-70 uppercase tracking-widest mt-0.5">{item.mediaType}</p>
+                          <p className="text-[9px] opacity-70 uppercase tracking-widest mt-0.5">{t(`media.${item.mediaType}`)}</p>
                           <div className="flex justify-end gap-2 mt-2">
                             <button onClick={() => handleOpenMediaModal(item)} className="p-1.5 bg-white/20 hover:bg-white/40 rounded-lg transition-colors">
                               <Edit2 className="w-3 h-3" />
@@ -432,7 +432,7 @@ export function ProductDetails() {
                       </div>
                       {item.isMain && (
                         <div className="absolute top-3 left-3">
-                          <Badge variant="success" className="text-[9px] px-2 py-0.5 shadow-lg shadow-emerald-500/20">MAIN</Badge>
+                          <Badge variant="success" className="text-[9px] px-2 py-0.5 shadow-lg shadow-emerald-500/20">{t('media.main')}</Badge>
                         </div>
                       )}
                     </div>
@@ -487,11 +487,11 @@ export function ProductDetails() {
             </CardHeader>
             <CardContent className="p-4 space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Total SKUs</span>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{t('sku.totalSkus')}</span>
                 <span className="text-sm font-bold bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">{productSkus.length}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Active SKUs</span>
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{t('sku.activeSkus')}</span>
                 <span className="text-sm font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-0.5 rounded-full border border-emerald-100 dark:border-emerald-800/50">
                   {productSkus.filter(s => s.lifecycleStatus === 'active').length}
                 </span>
@@ -558,7 +558,7 @@ export function ProductDetails() {
       <Modal isOpen={isEntitlementModalOpen} onClose={() => setIsEntitlementModalOpen(false)} title={editingEntitlement ? t('common.edit') : t('common.add')}>
         <form onSubmit={handleEntitlementSubmit} className="space-y-4">
           <div className="space-y-1.5">
-            <Label>SKU</Label>
+            <Label>{t('sku.title')}</Label>
             <Select name="skuId" defaultValue={editingEntitlement?.skuId || productSkus[0]?.id}>
               {productSkus.map(sku => (
                 <option key={sku.id} value={sku.id}>{sku.name} ({sku.skuCode})</option>
@@ -567,7 +567,7 @@ export function ProductDetails() {
           </div>
           <div className="space-y-1.5">
             <Label>{t('features.code')}</Label>
-            <Input name="featureCode" defaultValue={editingEntitlement?.featureCode} required placeholder="e.g. max_users" />
+            <Input name="featureCode" defaultValue={editingEntitlement?.featureCode} required placeholder={t('sku.featureCodePlaceholder')} />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
@@ -588,11 +588,11 @@ export function ProductDetails() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label>Quota Value</Label>
+              <Label>{t('sku.quotaValue')}</Label>
               <Input name="quotaValue" type="number" defaultValue={editingEntitlement?.quotaValue} />
             </div>
             <div className="space-y-1.5">
-              <Label>Tier Value</Label>
+              <Label>{t('sku.tierValue')}</Label>
               <Input name="tierValue" defaultValue={editingEntitlement?.tierValue} />
             </div>
           </div>
@@ -607,37 +607,37 @@ export function ProductDetails() {
       <Modal isOpen={isMediaModalOpen} onClose={() => setIsMediaModalOpen(false)} title={editingMedia ? t('common.edit') : t('media.upload')}>
         <form onSubmit={handleMediaSubmit} className="space-y-4">
           <div className="space-y-1.5">
-            <Label>{t('common.title')}</Label>
+            <Label>{t('media.mediaTitle')}</Label>
             <Input name="title" defaultValue={editingMedia?.title} required />
           </div>
           <div className="space-y-1.5">
-            <Label>URL</Label>
+            <Label>{t('media.mediaUrl')}</Label>
             <Input name="url" defaultValue={editingMedia?.url} required placeholder="https://..." />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label>{t('features.type')}</Label>
+              <Label>{t('media.mediaType')}</Label>
               <Select name="mediaType" defaultValue={editingMedia?.mediaType || 'image'}>
-                <option value="image">Image</option>
-                <option value="video">Video</option>
-                <option value="document">Document</option>
+                <option value="image">{t('media.image')}</option>
+                <option value="video">{t('media.video')}</option>
+                <option value="document">{t('media.document')}</option>
               </Select>
             </div>
             <div className="space-y-1.5">
-              <Label>Sort Order</Label>
+              <Label>{t('media.mediaSortOrder')}</Label>
               <Input name="sortOrder" type="number" defaultValue={editingMedia?.sortOrder || 0} />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label>Is Main</Label>
+              <Label>{t('sku.isMain')}</Label>
               <Select name="isMain" defaultValue={editingMedia?.isMain ? 'true' : 'false'}>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
+                <option value="true">{t('taxes.yes')}</option>
+                <option value="false">{t('taxes.no')}</option>
               </Select>
             </div>
             <div className="space-y-1.5">
-              <Label>Locale</Label>
+              <Label>{t('media.mediaLocale')}</Label>
               <Input name="locale" defaultValue={editingMedia?.locale || 'ALL'} />
             </div>
           </div>

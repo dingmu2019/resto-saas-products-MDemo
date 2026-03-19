@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Textarea, Label } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Textarea, Label, Pagination } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
-import { Plus, Search, Filter, Edit2, Trash2 } from 'lucide-react';
+import { Plus, Search, Filter, Edit2, Trash2, ChevronRight } from 'lucide-react';
 import { Product } from '../types';
 
 export function Products() {
@@ -12,6 +12,10 @@ export function Products() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   const [formData, setFormData] = useState<Partial<Product>>({
     name: '',
@@ -84,10 +88,17 @@ export function Products() {
     }
   };
 
-  const filteredProducts = products.filter(p => 
-    p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    p.productCode.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredProducts = useMemo(() => {
+    return products.filter(p => 
+      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.productCode.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [products, searchQuery]);
+
+  const paginatedProducts = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredProducts.slice(start, start + pageSize);
+  }, [filteredProducts, currentPage, pageSize]);
 
   return (
     <div className="space-y-6">
@@ -125,7 +136,7 @@ export function Products() {
             </Tr>
           </Thead>
           <Tbody>
-            {filteredProducts.map((product) => (
+            {paginatedProducts.map((product) => (
               <Tr key={product.id} className="group cursor-pointer">
                 <Td className="font-mono text-[11px] tracking-tight text-slate-500 dark:text-slate-400">
                   <span className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded border border-slate-200 dark:border-slate-700">
@@ -182,6 +193,16 @@ export function Products() {
             ))}
           </Tbody>
         </Table>
+        <div className="p-4 border-t border-slate-100 dark:border-slate-800">
+          <Pagination
+            currentPage={currentPage}
+            totalItems={filteredProducts.length}
+            totalPages={Math.ceil(filteredProducts.length / pageSize)}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={setPageSize}
+          />
+        </div>
       </Card>
 
       <Modal 
@@ -197,7 +218,7 @@ export function Products() {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="e.g. RestoSuite POS"
+                placeholder={t('product.namePlaceholder')}
               />
             </div>
             <div className="space-y-1.5">
@@ -206,7 +227,7 @@ export function Products() {
                 required
                 value={formData.productCode}
                 onChange={(e) => setFormData({ ...formData, productCode: e.target.value })}
-                placeholder="e.g. RS-POS-V1"
+                placeholder={t('product.codePlaceholder')}
               />
             </div>
           </div>
@@ -243,7 +264,7 @@ export function Products() {
             <Input 
               value={formData.brand}
               onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-              placeholder="e.g. RestoSuite"
+              placeholder={t('product.brandPlaceholder')}
             />
           </div>
 

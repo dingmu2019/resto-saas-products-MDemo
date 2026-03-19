@@ -16,7 +16,7 @@ export function ProductRules() {
 
   const getSkuName = (skuId: number) => {
     const sku = skus.find(s => s.id === skuId);
-    return sku ? `${sku.skuCode} - ${sku.name}` : 'Unknown';
+    return sku ? `${sku.skuCode} - ${sku.name}` : t('common.unknown');
   };
 
   const getRuleBadge = (type: string) => {

@@ -16,6 +16,7 @@ import { PriceBooks } from './pages/PriceBooks';
 import { Categories } from './pages/Categories';
 import { CPQDemo } from './pages/CPQDemo';
 import { Taxes } from './pages/Taxes';
+import { TaxRegions } from './pages/TaxRegions';
 import { ProductRules } from './pages/ProductRules';
 import { Features } from './pages/Features';
 import { MediaLibrary } from './pages/MediaLibrary';
@@ -38,6 +39,7 @@ export default function App() {
               <Route path="features" element={<Features />} />
               <Route path="rules" element={<ProductRules />} />
               <Route path="taxes" element={<Taxes />} />
+              <Route path="tax-regions" element={<TaxRegions />} />
               <Route path="media" element={<MediaLibrary />} />
               <Route path="price-books" element={<PriceBooks />} />
               <Route path="categories" element={<Categories />} />
