@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Card, CardHeader, CardTitle, CardContent, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Textarea } from '../components/ui';
+import { Card, CardHeader, CardTitle, CardContent, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Textarea, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
-import { ArrowLeft, Box, Shield, FileText, Tag, Image as ImageIcon, Info, Edit2, Plus, Trash2 } from 'lucide-react';
+import { ArrowLeft, Box, Shield, FileText, Tag, Image as ImageIcon, Info, Edit2, Plus, Trash2, Globe } from 'lucide-react';
 import { cn } from '../components/Layout';
 import { ProductSku, ProductEntitlement, ProductMedia } from '../types';
 
@@ -32,6 +32,9 @@ export function ProductDetails() {
   const [editingMedia, setEditingMedia] = useState<ProductMedia | null>(null);
 
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [deleteConfig, setDeleteConfig] = useState<{ type: 'sku' | 'entitlement' | 'media', id: number } | null>(null);
 
   const product = products.find(p => p.id === Number(id));
   const productSkus = skus.filter(s => s.productId === Number(id));
@@ -68,14 +71,30 @@ export function ProductDetails() {
     const formData = new FormData(e.currentTarget);
     const skuData: Partial<ProductSku> = {
       productId: product.id,
-      name: formData.get('name') as string,
+      name: formData.get('name_en') as string || formData.get('name') as string,
       skuCode: formData.get('skuCode') as string,
       billingModel: formData.get('billingModel') as any,
       billingTerm: formData.get('billingTerm') as any,
+      billingTiming: formData.get('billingTiming') as any,
+      trialDays: parseInt(formData.get('trialDays') as string) || 0,
       uom: formData.get('uom') as string,
       lifecycleStatus: formData.get('lifecycleStatus') as any,
       isShippable: formData.get('isShippable') === 'true',
       isSerialized: formData.get('isSerialized') === 'true',
+      weightKg: formData.get('weightKg') ? parseFloat(formData.get('weightKg') as string) : undefined,
+      hsCode: formData.get('hsCode') as string,
+      countryOfOrigin: formData.get('countryOfOrigin') as string,
+      provisioningHandler: formData.get('provisioningHandler') as string,
+      translations: {
+        en: { 
+          name: formData.get('name_en') as string,
+          description: formData.get('description_en') as string
+        },
+        zh: { 
+          name: formData.get('name_zh') as string,
+          description: formData.get('description_zh') as string
+        }
+      }
     };
 
     if (editingSku) {
@@ -93,9 +112,8 @@ export function ProductDetails() {
   };
 
   const handleDeleteSku = (id: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setSkus(skus.filter(s => s.id !== id));
-    }
+    setDeleteConfig({ type: 'sku', id });
+    setIsDeleteModalOpen(true);
   };
 
   // Entitlement Handlers
@@ -129,9 +147,8 @@ export function ProductDetails() {
   };
 
   const handleDeleteEntitlement = (id: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setEntitlements(entitlements.filter(e => e.id !== id));
-    }
+    setDeleteConfig({ type: 'entitlement', id });
+    setIsDeleteModalOpen(true);
   };
 
   // Media Handlers
@@ -145,12 +162,16 @@ export function ProductDetails() {
     const formData = new FormData(e.currentTarget);
     const mediaData: Partial<ProductMedia> = {
       productId: product.id,
-      title: formData.get('title') as string,
+      title: formData.get('title_en') as string || formData.get('title') as string,
       url: formData.get('url') as string,
       mediaType: formData.get('mediaType') as any,
       isMain: formData.get('isMain') === 'true',
       sortOrder: Number(formData.get('sortOrder')),
       locale: formData.get('locale') as string,
+      translations: {
+        en: { title: formData.get('title_en') as string },
+        zh: { title: formData.get('title_zh') as string }
+      }
     };
 
     if (editingMedia) {
@@ -166,9 +187,18 @@ export function ProductDetails() {
   };
 
   const handleDeleteMedia = (id: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setMedia(media.filter(m => m.id !== id));
-    }
+    setDeleteConfig({ type: 'media', id });
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (!deleteConfig) return;
+    const { type, id } = deleteConfig;
+    if (type === 'sku') setSkus(skus.filter(s => s.id !== id));
+    if (type === 'entitlement') setEntitlements(entitlements.filter(e => e.id !== id));
+    if (type === 'media') setMedia(media.filter(m => m.id !== id));
+    setIsDeleteModalOpen(false);
+    setDeleteConfig(null);
   };
 
   // Product Edit Handler
@@ -177,11 +207,21 @@ export function ProductDetails() {
     const formData = new FormData(e.currentTarget);
     const updatedProduct = {
       ...product,
-      name: formData.get('name') as string,
+      name: formData.get('name_en') as string || formData.get('name') as string,
       productCode: formData.get('productCode') as string,
       brand: formData.get('brand') as string,
-      description: formData.get('description') as string,
+      description: formData.get('description_en') as string || formData.get('description') as string,
       productType: formData.get('productType') as any,
+      translations: {
+        en: { 
+          name: formData.get('name_en') as string,
+          description: formData.get('description_en') as string
+        },
+        zh: { 
+          name: formData.get('name_zh') as string,
+          description: formData.get('description_zh') as string
+        }
+      }
     };
     setProducts(products.map(p => p.id === product.id ? updatedProduct : p));
     setIsProductModalOpen(false);
@@ -503,16 +543,20 @@ export function ProductDetails() {
 
       {/* SKU Modal */}
       <Modal isOpen={isSkuModalOpen} onClose={() => setIsSkuModalOpen(false)} title={editingSku ? t('sku.edit') : t('sku.new')}>
-        <form onSubmit={handleSkuSubmit} className="space-y-4">
+        <form onSubmit={handleSkuSubmit} className="space-y-4 max-h-[70vh] overflow-y-auto pr-2 custom-scrollbar">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label>{t('sku.name')}</Label>
-              <Input name="name" defaultValue={editingSku?.name} required />
+              <Label>{t('sku.nameEn')}</Label>
+              <Input name="name_en" defaultValue={editingSku?.translations?.en?.name || editingSku?.name} required />
             </div>
             <div className="space-y-1.5">
-              <Label>{t('sku.code')}</Label>
-              <Input name="skuCode" defaultValue={editingSku?.skuCode} required />
+              <Label>{t('sku.nameZh')}</Label>
+              <Input name="name_zh" defaultValue={editingSku?.translations?.zh?.name || editingSku?.name} required />
             </div>
+          </div>
+          <div className="space-y-1.5">
+            <Label>{t('sku.code')}</Label>
+            <Input name="skuCode" defaultValue={editingSku?.skuCode} required />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
@@ -534,8 +578,21 @@ export function ProductDetails() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
+              <Label>{t('sku.billingTiming')}</Label>
+              <Select name="billingTiming" defaultValue={editingSku?.billingTiming || 'in_advance'}>
+                <option value="in_advance">{t('sku.in_advance')}</option>
+                <option value="in_arrears">{t('sku.in_arrears')}</option>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
               <Label>{t('sku.uom')}</Label>
               <Input name="uom" defaultValue={editingSku?.uom || 'Unit'} required />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label>{t('sku.trialDays')}</Label>
+              <Input type="number" name="trialDays" defaultValue={editingSku?.trialDays || 0} />
             </div>
             <div className="space-y-1.5">
               <Label>{t('sku.lifecycle')}</Label>
@@ -547,6 +604,74 @@ export function ProductDetails() {
               </Select>
             </div>
           </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label>{t('sku.isShippable')}</Label>
+              <Select name="isShippable" defaultValue={editingSku?.isShippable ? 'true' : 'false'}>
+                <option value="true">{t('taxes.yes')}</option>
+                <option value="false">{t('taxes.no')}</option>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label>{t('sku.isSerialized')}</Label>
+              <Select name="isSerialized" defaultValue={editingSku?.isSerialized ? 'true' : 'false'}>
+                <option value="true">{t('taxes.yes')}</option>
+                <option value="false">{t('taxes.no')}</option>
+              </Select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label>{t('sku.weightKg')}</Label>
+              <Input type="number" step="0.01" name="weightKg" defaultValue={editingSku?.weightKg} />
+            </div>
+            <div className="space-y-1.5">
+              <Label>{t('sku.hsCode')}</Label>
+              <Input name="hsCode" defaultValue={editingSku?.hsCode} />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label>{t('sku.countryOfOrigin')}</Label>
+              <Input name="countryOfOrigin" defaultValue={editingSku?.countryOfOrigin} placeholder="e.g. US, CN" />
+            </div>
+            <div className="space-y-1.5">
+              <Label>{t('sku.provisioningHandler')}</Label>
+              <Input name="provisioningHandler" defaultValue={editingSku?.provisioningHandler} placeholder="e.g. saas-core-provisioner" />
+            </div>
+          </div>
+
+          <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg space-y-4 border border-slate-100 dark:border-slate-700">
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
+              <Globe className="w-4 h-4 text-indigo-500" />
+              {t('common.translations')}
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.description')} (EN)</Label>
+                <Textarea 
+                  name="description_en"
+                  defaultValue={editingSku?.translations?.en?.description || ''} 
+                  placeholder="English Description" 
+                  className="h-20"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.description')} (ZH)</Label>
+                <Textarea 
+                  name="description_zh"
+                  defaultValue={editingSku?.translations?.zh?.description || ''} 
+                  placeholder="中文描述" 
+                  className="h-20"
+                />
+              </div>
+            </div>
+          </div>
+
           <div className="flex justify-end gap-3 pt-4">
             <Button type="button" variant="outline" onClick={() => setIsSkuModalOpen(false)}>{t('common.cancel')}</Button>
             <Button type="submit">{t('common.save')}</Button>
@@ -606,9 +731,15 @@ export function ProductDetails() {
       {/* Media Modal */}
       <Modal isOpen={isMediaModalOpen} onClose={() => setIsMediaModalOpen(false)} title={editingMedia ? t('common.edit') : t('media.upload')}>
         <form onSubmit={handleMediaSubmit} className="space-y-4">
-          <div className="space-y-1.5">
-            <Label>{t('media.mediaTitle')}</Label>
-            <Input name="title" defaultValue={editingMedia?.title} required />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label>{t('media.mediaTitleEn')}</Label>
+              <Input name="title_en" defaultValue={editingMedia?.translations?.en?.title || editingMedia?.title} required />
+            </div>
+            <div className="space-y-1.5">
+              <Label>{t('media.mediaTitleZh')}</Label>
+              <Input name="title_zh" defaultValue={editingMedia?.translations?.zh?.title || editingMedia?.title} required />
+            </div>
           </div>
           <div className="space-y-1.5">
             <Label>{t('media.mediaUrl')}</Label>
@@ -653,24 +784,18 @@ export function ProductDetails() {
         <form onSubmit={handleProductSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label>{t('product.name')}</Label>
-              <Input name="name" defaultValue={product.name} required />
+              <Label>{t('product.nameEn')}</Label>
+              <Input name="name_en" defaultValue={product.translations?.en?.name || product.name} required />
             </div>
             <div className="space-y-1.5">
-              <Label>{t('product.code')}</Label>
-              <Input name="productCode" defaultValue={product.productCode} required />
+              <Label>{t('product.nameZh')}</Label>
+              <Input name="name_zh" defaultValue={product.translations?.zh?.name || product.name} required />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <Label>{t('product.type')}</Label>
-              <Select name="productType" defaultValue={product.productType}>
-                <option value="software">{t('product.software')}</option>
-                <option value="hardware">{t('product.hardware')}</option>
-                <option value="consumable">{t('product.consumable')}</option>
-                <option value="bundle">{t('product.bundle')}</option>
-                <option value="service">{t('product.service')}</option>
-              </Select>
+              <Label>{t('product.code')}</Label>
+              <Input name="productCode" defaultValue={product.productCode} required />
             </div>
             <div className="space-y-1.5">
               <Label>{t('product.brand')}</Label>
@@ -678,8 +803,24 @@ export function ProductDetails() {
             </div>
           </div>
           <div className="space-y-1.5">
-            <Label>{t('product.description')}</Label>
-            <Textarea name="description" defaultValue={product.description} />
+            <Label>{t('product.type')}</Label>
+            <Select name="productType" defaultValue={product.productType}>
+              <option value="software">{t('product.software')}</option>
+              <option value="hardware">{t('product.hardware')}</option>
+              <option value="consumable">{t('product.consumable')}</option>
+              <option value="bundle">{t('product.bundle')}</option>
+              <option value="service">{t('product.service')}</option>
+            </Select>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label>{t('product.descriptionEn')}</Label>
+              <Textarea name="description_en" defaultValue={product.translations?.en?.description || product.description} />
+            </div>
+            <div className="space-y-1.5">
+              <Label>{t('product.descriptionZh')}</Label>
+              <Textarea name="description_zh" defaultValue={product.translations?.zh?.description || product.description} />
+            </div>
           </div>
           <div className="flex justify-end gap-3 pt-4">
             <Button type="button" variant="outline" onClick={() => setIsProductModalOpen(false)}>{t('common.cancel')}</Button>
@@ -687,6 +828,15 @@ export function ProductDetails() {
           </div>
         </form>
       </Modal>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title={t('common.confirmDelete')}
+        message={t('common.confirmDeleteMessage')}
+        variant="danger"
+      />
     </div>
   );
 }

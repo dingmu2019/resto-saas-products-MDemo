@@ -21,6 +21,7 @@ import { ProductRules } from './pages/ProductRules';
 import { Features } from './pages/Features';
 import { MediaLibrary } from './pages/MediaLibrary';
 import { Bundles } from './pages/Bundles';
+import { Entitlements } from './pages/Entitlements';
 import { DataModels } from './pages/DataModels';
 import './i18n';
 
@@ -35,6 +36,7 @@ export default function App() {
               <Route path="products" element={<Products />} />
               <Route path="products/:id" element={<ProductDetails />} />
               <Route path="skus" element={<Skus />} />
+              <Route path="entitlements" element={<Entitlements />} />
               <Route path="bundles" element={<Bundles />} />
               <Route path="features" element={<Features />} />
               <Route path="rules" element={<ProductRules />} />

@@ -221,11 +221,12 @@ CREATE TABLE `product_skus` (
   `name` VARCHAR(150) NOT NULL COMMENT 'SKU 销售名称，如 POS Pro Edition (Monthly)',
   
   -- 财务与计费维度
-  `billing_model` ENUM('recurring', 'one_time', 'usage_based') NOT NULL 
+  `billing_model` ENUM('recurring', 'one_time', 'usage_based', 'hybrid') NOT NULL 
     COMMENT '计费模式：\n'
             'recurring - 周期性订阅 (MRR)\n'
             'one_time - 一次性买断 (硬件/实施费)\n'
-            'usage_based - 按量计费 (支付费率/短信)',
+            'usage_based - 按量计费 (支付费率/短信)\n'
+            'hybrid - 混合计费 (套餐组合)',
             
   `billing_term` ENUM('daily', 'weekly', 'monthly', 'quarterly', 'annual', 'biennial', 'triennial', 'custom', 'none') NOT NULL DEFAULT 'none'
     COMMENT '计费周期（针对 recurring 模式）：\n'
@@ -419,7 +420,7 @@ CREATE TABLE `product_entitlements` (
 
 -- 套餐分组表 (Bundle Groups)
 -- 核心作用：在套餐 SKU 下划定“选择范围” (M 选 N 逻辑)。
--- 补充说明：如“请选择 1 个核心软件”、“请选配 0-3 台外设打印机”。
+-- 补充说明：例如：打印机组合中3选2，SKU 分别是： 80毫米高速打印机-黑色、 80毫米高速打印机-白色、 80毫米高速打印机-灰色，3选2，可以任意2种组合或者同色选2次（allow_multiple_qty_per_item=TRUE）
 CREATE TABLE `bundle_groups` (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `bundle_sku_id` BIGINT UNSIGNED NOT NULL COMMENT '所属套餐 SKU ID',
@@ -427,16 +428,12 @@ CREATE TABLE `bundle_groups` (
   `description` VARCHAR(255) DEFAULT NULL COMMENT '给客户/销售的提示说明',
   `sort_order` INT NOT NULL DEFAULT 0 COMMENT '展示排序',
   
-  -- M 选 N 核心控制逻辑
-  `min_selections` INT NOT NULL DEFAULT 1 COMMENT '该组最少需选择的数量 (M)，0 表示该组为纯选配',
-  `max_selections` INT NOT NULL DEFAULT 1 COMMENT '该组最多可选择的数量 (N)',
-  
-  `is_mutually_exclusive` BOOLEAN NOT NULL DEFAULT FALSE 
-    COMMENT '组内互斥开关。\n'
-            'TRUE: 组内选项完全互斥 (Radio Button)。示例：在“操作系统”分组中，选了 Windows 就不能选 Linux。\n'
-            'FALSE: 组内可多选 (Checkbox)。示例：在“外设配件”分组中，可以同时勾选键盘和鼠标。',
+  -- M 选 N 核心控制逻辑：固定选取数量，M是分组内的SKU种类数，N是必须选取的固定数量
+  -- 业务示例：分组设置为3选2，则表示分组共 3 种 SKU (M=3)，必须且只能选 2 种 (N=2)，是否同一种可选多次取决于 allow_multiple_qty_per_item。
+  -- 例如：打印机组合中3选2，SKU 分别是： 80毫米高速打印机-黑色、 80毫米高速打印机-白色、 80毫米高速打印机-灰色，3选2，可以任意2种组合或者同色选2次（allow_multiple_qty_per_item=TRUE）
+  `select_n` INT NOT NULL DEFAULT 1 COMMENT '必须选取的固定数量 (N)，0 表示该组整体可选配',
             
-  `allow_multiple_qty_per_item` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '是否允许同一个选项选多次 (如买两台一样的打印机) 当前暂不支持 未来大概率也不会用',
+  `allow_multiple_qty_per_item` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '是否允许同一个选项选多次 (如买两台一样的打印机) ',
   
   `created_by` VARCHAR(64) DEFAULT NULL,
   `updated_by` VARCHAR(64) DEFAULT NULL,

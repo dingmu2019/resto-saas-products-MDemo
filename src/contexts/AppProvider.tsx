@@ -38,7 +38,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         effectiveTheme = currentTheme;
       }
       
-      root.classList.add(effectiveTheme);
+      if (effectiveTheme === 'dark') {
+        root.classList.add('dark');
+      } else {
+        root.classList.add('light');
+      }
+      
       root.style.colorScheme = effectiveTheme;
       root.setAttribute('data-theme', effectiveTheme);
     };

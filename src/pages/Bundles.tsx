@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Badge, Button, Table, Thead, Tbody, Tr, Th, Td, Modal, Input, Select, Label, Textarea, Pagination } from '../components/ui';
+import { Card, Badge, Button, Table, Thead, Tbody, Tr, Th, Td, Modal, Input, Select, Label, Textarea, Pagination, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
-import { Search, Plus, Package, Settings, ChevronRight, Check, Layers, Edit2, Trash2, Box } from 'lucide-react';
+import { Search, Plus, Package, Settings, ChevronRight, Check, Layers, Edit2, Trash2, Box, Globe } from 'lucide-react';
 import { cn } from '../components/Layout';
 import { BundleGroup, BundleOption } from '../types';
 
@@ -31,9 +31,13 @@ export function Bundles() {
   // Modal states
   const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
   const [isOptionModalOpen, setIsOptionModalOpen] = useState(false);
+  const [isDeleteGroupModalOpen, setIsDeleteGroupModalOpen] = useState(false);
+  const [isDeleteOptionModalOpen, setIsDeleteOptionModalOpen] = useState(false);
   const [editingGroup, setEditingGroup] = useState<BundleGroup | null>(null);
   const [editingOption, setEditingOption] = useState<BundleOption | null>(null);
   const [currentGroupId, setCurrentGroupId] = useState<number | null>(null);
+  const [groupToDelete, setGroupToDelete] = useState<number | null>(null);
+  const [optionToDelete, setOptionToDelete] = useState<number | null>(null);
 
   const filteredSkus = useMemo(() => {
     return bundleSkus.filter(sku => 
@@ -77,11 +81,19 @@ export function Bundles() {
     const groupData: Partial<BundleGroup> = {
       name: formData.get('name') as string,
       description: formData.get('description') as string,
-      minSelections: parseInt(formData.get('minSelections') as string),
-      maxSelections: parseInt(formData.get('maxSelections') as string),
+      selectN: parseInt(formData.get('selectN') as string),
       sortOrder: parseInt(formData.get('sortOrder') as string),
-      isMutuallyExclusive: formData.get('isMutuallyExclusive') === 'on',
       allowMultipleQtyPerItem: formData.get('allowMultipleQtyPerItem') === 'on',
+      translations: {
+        en: { 
+          name: formData.get('name_en') as string,
+          description: formData.get('description_en') as string
+        },
+        zh: { 
+          name: formData.get('name_zh') as string,
+          description: formData.get('description_zh') as string
+        },
+      }
     };
 
     if (editingGroup) {
@@ -99,9 +111,15 @@ export function Bundles() {
   };
 
   const handleDeleteGroup = (groupId: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setBundleGroups(bundleGroups.filter(g => g.id !== groupId));
-      setBundleOptions(bundleOptions.filter(o => o.groupId !== groupId));
+    setGroupToDelete(groupId);
+    setIsDeleteGroupModalOpen(true);
+  };
+
+  const handleConfirmDeleteGroup = () => {
+    if (groupToDelete !== null) {
+      setBundleGroups(bundleGroups.filter(g => g.id !== groupToDelete));
+      setBundleOptions(bundleOptions.filter(o => o.groupId !== groupToDelete));
+      setGroupToDelete(null);
     }
   };
 
@@ -133,8 +151,14 @@ export function Bundles() {
   };
 
   const handleDeleteOption = (optionId: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setBundleOptions(bundleOptions.filter(o => o.id !== optionId));
+    setOptionToDelete(optionId);
+    setIsDeleteOptionModalOpen(true);
+  };
+
+  const handleConfirmDeleteOption = () => {
+    if (optionToDelete !== null) {
+      setBundleOptions(bundleOptions.filter(o => o.id !== optionToDelete));
+      setOptionToDelete(null);
     }
   };
 
@@ -198,6 +222,7 @@ export function Bundles() {
         </div>
       </Card>
 
+
       {/* Right Panel: Bundle Builder */}
       <Card className="flex-1 flex flex-col overflow-hidden bg-slate-50/30 dark:bg-slate-900/30 border-slate-200/60 dark:border-slate-800/60 shadow-sm">
         {selectedSku ? (
@@ -246,7 +271,13 @@ export function Bundles() {
                       <div className="flex items-center gap-4">
                         <div className="flex items-center gap-1.5 px-2 py-1 bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 text-[11px] font-medium text-slate-600 dark:text-slate-400">
                           <Settings className="w-3.5 h-3.5" />
-                          <span>{t('bundles.minMax')}: {group.minSelections} - {group.maxSelections}</span>
+                          <span>
+                            {t('bundles.groupSelection', {
+                              m: bundleOptions.filter(o => o.groupId === group.id).length,
+                              n: group.selectN,
+                              allowMultiple: group.allowMultipleQtyPerItem ? t('bundles.allowMultipleTrue') : t('bundles.allowMultipleFalse')
+                            })}
+                          </span>
                         </div>
                         <div className="flex items-center gap-1">
                           <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 text-slate-400 hover:text-indigo-600" onClick={() => { setEditingGroup(group); setIsGroupModalOpen(true); }}>
@@ -268,47 +299,61 @@ export function Bundles() {
                         <Tr className="bg-slate-50/30 dark:bg-slate-800/10">
                           <Th className="w-12 text-center text-[10px] uppercase tracking-wider">#</Th>
                           <Th className="text-[10px] uppercase tracking-wider">{t('bundles.component')}</Th>
+                          <Th className="text-[10px] uppercase tracking-wider">{t('sku.uom')}</Th>
                           <Th className="text-center text-[10px] uppercase tracking-wider">{t('bundles.isDefault')}</Th>
                           <Th className="text-[10px] uppercase tracking-wider">{t('bundles.pricingType')}</Th>
+                          <Th className="w-24 text-right text-[10px] uppercase tracking-wider">{t('bundles.pricingValue')}</Th>
                           <Th className="w-24 text-right text-[10px] uppercase tracking-wider">{t('common.actions')}</Th>
                         </Tr>
                       </Thead>
                       <Tbody>
-                        {currentOptions.map((option, idx) => (
-                          <Tr key={option.id} className="group hover:bg-slate-50/30 dark:hover:bg-slate-800/20 transition-colors">
-                            <Td className="text-center text-[11px] font-mono text-slate-400">{idx + 1}</Td>
-                            <Td>
-                              <div className="font-medium text-sm text-slate-900 dark:text-slate-100">
-                                {getSkuName(option.componentSkuId)}
-                              </div>
-                            </Td>
-                            <Td className="text-center">
-                              {option.isDefault ? (
-                                <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 shadow-sm shadow-emerald-500/10">
-                                  <Check className="w-3 h-3" />
+                        {currentOptions.map((option, idx) => {
+                          const sku = skus.find(s => s.id === option.componentSkuId);
+                          return (
+                            <Tr key={option.id} className="group hover:bg-slate-50/30 dark:hover:bg-slate-800/20 transition-colors">
+                              <Td className="text-center text-[11px] font-mono text-slate-400">{idx + 1}</Td>
+                              <Td>
+                                <div className="font-medium text-sm text-slate-900 dark:text-slate-100">
+                                  {sku?.name || 'Unknown'}
                                 </div>
-                              ) : (
-                                <span className="text-slate-300 dark:text-slate-700">-</span>
-                              )}
-                            </Td>
-                            <Td>
-                              {getPricingBadge(option.pricingType, option.pricingValue)}
-                            </Td>
-                            <Td className="text-right">
-                              <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <Button variant="ghost" size="sm" className="h-7 w-7 p-0 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 text-slate-400 hover:text-indigo-600" onClick={() => { setEditingOption(option); setCurrentGroupId(group.id); setIsOptionModalOpen(true); }}>
-                                  <Edit2 className="w-3 h-3" />
-                                </Button>
-                                <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-rose-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20" onClick={() => handleDeleteOption(option.id)}>
-                                  <Trash2 className="w-3 h-3" />
-                                </Button>
-                              </div>
-                            </Td>
-                          </Tr>
-                        ))}
+                                <div className="text-[10px] font-mono text-slate-400">{sku?.skuCode}</div>
+                              </Td>
+                              <Td>
+                                <span className="text-[10px] text-slate-500">{sku?.uom || '-'}</span>
+                              </Td>
+                              <Td className="text-center">
+                                {option.isDefault ? (
+                                  <div className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 shadow-sm shadow-emerald-500/10">
+                                    <Check className="w-3 h-3" />
+                                  </div>
+                                ) : (
+                                  <span className="text-slate-300 dark:text-slate-700">-</span>
+                                )}
+                              </Td>
+                              <Td>
+                                {getPricingBadge(option.pricingType, option.pricingValue)}
+                              </Td>
+                              <Td className="text-right">
+                                <span className="text-xs font-mono font-medium text-slate-600 dark:text-slate-300">
+                                  {option.pricingType === 'included' ? '-' : option.pricingValue}
+                                </span>
+                              </Td>
+                              <Td className="text-right">
+                                <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                  <Button variant="ghost" size="sm" className="h-7 w-7 p-0 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 text-slate-400 hover:text-indigo-600" onClick={() => { setEditingOption(option); setCurrentGroupId(group.id); setIsOptionModalOpen(true); }}>
+                                    <Edit2 className="w-3 h-3" />
+                                  </Button>
+                                  <Button variant="ghost" size="sm" className="h-7 w-7 p-0 text-rose-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-900/20" onClick={() => handleDeleteOption(option.id)}>
+                                    <Trash2 className="w-3 h-3" />
+                                  </Button>
+                                </div>
+                              </Td>
+                            </Tr>
+                          );
+                        })}
                         {currentOptions.length === 0 && (
                           <Tr>
-                            <Td colSpan={5} className="text-center py-10">
+                            <Td colSpan={7} className="text-center py-10">
                               <div className="flex flex-col items-center gap-2 text-slate-400 dark:text-slate-600">
                                 <Box className="w-8 h-8 opacity-20" />
                                 <span className="text-xs italic">{t('bundles.noOptions')}</span>
@@ -362,27 +407,66 @@ export function Bundles() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>{t('bundles.minSelections')}</Label>
-              <Input type="number" name="minSelections" defaultValue={editingGroup?.minSelections ?? 1} min={0} required />
+              <Label>{t('bundles.selectN')}</Label>
+              <Input type="number" name="selectN" defaultValue={editingGroup?.selectN ?? 1} min={1} required />
             </div>
             <div className="space-y-2">
-              <Label>{t('bundles.maxSelections')}</Label>
-              <Input type="number" name="maxSelections" defaultValue={editingGroup?.maxSelections ?? 1} min={1} required />
+              <Label>{t('bundles.sortOrder')}</Label>
+              <Input type="number" name="sortOrder" defaultValue={editingGroup?.sortOrder ?? 1} required />
             </div>
           </div>
-          <div className="space-y-2">
-            <Label>{t('bundles.sortOrder')}</Label>
-            <Input type="number" name="sortOrder" defaultValue={editingGroup?.sortOrder ?? 1} required />
-          </div>
           <div className="flex flex-col gap-3 py-2">
-            <label className="flex items-center gap-2 cursor-pointer group">
-              <input type="checkbox" name="isMutuallyExclusive" defaultChecked={editingGroup?.isMutuallyExclusive} className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all" />
-              <span className="text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-200 transition-colors">{t('bundles.isMutuallyExclusive')}</span>
-            </label>
             <label className="flex items-center gap-2 cursor-pointer group">
               <input type="checkbox" name="allowMultipleQtyPerItem" defaultChecked={editingGroup?.allowMultipleQtyPerItem} className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all" />
               <span className="text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-200 transition-colors">{t('bundles.allowMultipleQtyPerItem')}</span>
             </label>
+          </div>
+
+          <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg space-y-4 border border-slate-100 dark:border-slate-700">
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
+              <Globe className="w-4 h-4 text-indigo-500" />
+              {t('common.translations')}
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.name')} (EN)</Label>
+                <Input 
+                  name="name_en"
+                  defaultValue={editingGroup?.translations?.en?.name || ''} 
+                  placeholder="English Name" 
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.name')} (ZH)</Label>
+                <Input 
+                  name="name_zh"
+                  defaultValue={editingGroup?.translations?.zh?.name || ''} 
+                  placeholder="中文名称" 
+                />
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.description')} (EN)</Label>
+                <Textarea 
+                  name="description_en"
+                  defaultValue={editingGroup?.translations?.en?.description || ''} 
+                  placeholder="English Description" 
+                  rows={2}
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.description')} (ZH)</Label>
+                <Textarea 
+                  name="description_zh"
+                  defaultValue={editingGroup?.translations?.zh?.description || ''} 
+                  placeholder="中文描述" 
+                  rows={2}
+                />
+              </div>
+            </div>
           </div>
           <div className="flex justify-end gap-3 pt-6 border-t border-slate-100 dark:border-slate-800">
             <Button type="button" variant="outline" onClick={() => setIsGroupModalOpen(false)}>{t('common.cancel')}</Button>
@@ -437,6 +521,22 @@ export function Bundles() {
           </div>
         </form>
       </Modal>
+
+      <ConfirmModal
+        isOpen={isDeleteGroupModalOpen}
+        onClose={() => setIsDeleteGroupModalOpen(false)}
+        onConfirm={handleConfirmDeleteGroup}
+        title={t('common.confirmDelete')}
+        message={t('common.confirmDeleteMessage')}
+      />
+
+      <ConfirmModal
+        isOpen={isDeleteOptionModalOpen}
+        onClose={() => setIsDeleteOptionModalOpen(false)}
+        onConfirm={handleConfirmDeleteOption}
+        title={t('common.confirmDelete')}
+        message={t('common.confirmDeleteMessage')}
+      />
     </div>
   );
 }

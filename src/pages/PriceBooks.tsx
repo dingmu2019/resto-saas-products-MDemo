@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Pagination } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Pagination, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
 import { BookOpen, Search, Plus, DollarSign, Tag, Globe, Calendar, ChevronRight, Edit2, Trash2, Check, Info } from 'lucide-react';
 import { cn } from '../components/Layout';
@@ -12,8 +12,12 @@ export function PriceBooks() {
   const [activePbId, setActivePbId] = useState<number | null>(priceBooks[0]?.id || null);
   const [isPbModalOpen, setIsPbModalOpen] = useState(false);
   const [isEntryModalOpen, setIsEntryModalOpen] = useState(false);
+  const [isDeletePbModalOpen, setIsDeletePbModalOpen] = useState(false);
+  const [isDeleteEntryModalOpen, setIsDeleteEntryModalOpen] = useState(false);
   const [editingPb, setEditingPb] = useState<PriceBook | null>(null);
   const [editingEntry, setEditingEntry] = useState<PriceBookEntry | null>(null);
+  const [pbToDelete, setPbToDelete] = useState<number | null>(null);
+  const [entryToDelete, setEntryToDelete] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
   // Pagination state for Price Books
@@ -62,15 +66,27 @@ export function PriceBooks() {
   };
 
   const handleDeletePb = (id: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setPriceBooks(priceBooks.filter(pb => pb.id !== id));
-      if (activePbId === id) setActivePbId(priceBooks.find(pb => pb.id !== id)?.id || null);
+    setPbToDelete(id);
+    setIsDeletePbModalOpen(true);
+  };
+
+  const handleConfirmDeletePb = () => {
+    if (pbToDelete !== null) {
+      setPriceBooks(priceBooks.filter(pb => pb.id !== pbToDelete));
+      if (activePbId === pbToDelete) setActivePbId(priceBooks.find(pb => pb.id !== pbToDelete)?.id || null);
+      setPbToDelete(null);
     }
   };
 
   const handleDeleteEntry = (id: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setPriceBookEntries(priceBookEntries.filter(e => e.id !== id));
+    setEntryToDelete(id);
+    setIsDeleteEntryModalOpen(true);
+  };
+
+  const handleConfirmDeleteEntry = () => {
+    if (entryToDelete !== null) {
+      setPriceBookEntries(priceBookEntries.filter(e => e.id !== entryToDelete));
+      setEntryToDelete(null);
     }
   };
 
@@ -88,6 +104,10 @@ export function PriceBooks() {
       validFrom: formData.get('validFrom') as string,
       validTo: formData.get('validTo') as string || undefined,
       priceDisplayPrecision: parseInt(formData.get('priceDisplayPrecision') as string) || 2,
+      translations: {
+        en: { name: formData.get('name_en') as string },
+        zh: { name: formData.get('name_zh') as string },
+      }
     };
 
     if (editingPb) {
@@ -397,6 +417,32 @@ export function PriceBooks() {
             <Label className="mb-0">{t('common.active')}</Label>
           </div>
 
+          <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg space-y-4 border border-slate-100 dark:border-slate-700">
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
+              <Globe className="w-4 h-4 text-indigo-500" />
+              {t('common.translations')}
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.name')} (EN)</Label>
+                <Input 
+                  name="name_en"
+                  defaultValue={editingPb?.translations?.en?.name || ''} 
+                  placeholder="English Name" 
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.name')} (ZH)</Label>
+                <Input 
+                  name="name_zh"
+                  defaultValue={editingPb?.translations?.zh?.name || ''} 
+                  placeholder="中文名称" 
+                />
+              </div>
+            </div>
+          </div>
+
           <div className="flex justify-end gap-3 pt-6 border-t border-slate-100 dark:border-slate-800">
             <Button type="button" variant="outline" onClick={() => setIsPbModalOpen(false)} className="border-slate-200 dark:border-slate-800">{t('common.cancel')}</Button>
             <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/20">{t('common.save')}</Button>
@@ -466,6 +512,22 @@ export function PriceBooks() {
           </div>
         </form>
       </Modal>
+
+      <ConfirmModal
+        isOpen={isDeletePbModalOpen}
+        onClose={() => setIsDeletePbModalOpen(false)}
+        onConfirm={handleConfirmDeletePb}
+        title={t('common.confirmDelete')}
+        message={t('common.confirmDeleteMessage')}
+      />
+
+      <ConfirmModal
+        isOpen={isDeleteEntryModalOpen}
+        onClose={() => setIsDeleteEntryModalOpen(false)}
+        onConfirm={handleConfirmDeleteEntry}
+        title={t('common.confirmDelete')}
+        message={t('common.confirmDeleteMessage')}
+      />
     </div>
   );
 }

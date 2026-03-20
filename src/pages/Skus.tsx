@@ -1,20 +1,23 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Pagination } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Pagination, ConfirmModal, Textarea } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
-import { Plus, Search, Filter, Package, ChevronRight, Edit2, Trash2, RefreshCw, CreditCard, Zap, Info } from 'lucide-react';
+import { Plus, Search, Filter, Package, ChevronRight, Edit2, Trash2, RefreshCw, CreditCard, Zap, Info, Globe } from 'lucide-react';
 import { ProductSku } from '../types';
 import { cn } from '../components/Layout';
 
 export function Skus() {
   const { t } = useTranslation();
-  const { skus, setSkus, products } = useProductContext();
+  const { skus, setSkus, products, entitlements, setEntitlements, features } = useProductContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [editingSku, setEditingSku] = useState<ProductSku | null>(null);
   const [viewingSku, setViewingSku] = useState<ProductSku | null>(null);
+  const [skuToDelete, setSkuToDelete] = useState<number | null>(null);
+  const [skuEntitlements, setSkuEntitlements] = useState<any[]>([]);
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,8 +80,10 @@ export function Skus() {
   const handleOpenModal = (sku?: ProductSku) => {
     if (sku) {
       setEditingSku(sku);
+      setSkuEntitlements(entitlements.filter(e => e.skuId === sku.id));
     } else {
       setEditingSku(null);
+      setSkuEntitlements([]);
     }
     setIsModalOpen(true);
   };
@@ -89,8 +94,14 @@ export function Skus() {
   };
 
   const handleDeleteSku = (id: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setSkus(skus.filter(s => s.id !== id));
+    setSkuToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (skuToDelete !== null) {
+      setSkus(skus.filter(s => s.id !== skuToDelete));
+      setSkuToDelete(null);
     }
   };
 
@@ -114,19 +125,53 @@ export function Skus() {
       hsCode: formData.get('hsCode') as string,
       countryOfOrigin: formData.get('countryOfOrigin') as string,
       provisioningHandler: formData.get('provisioningHandler') as string,
+      translations: {
+        en: { 
+          name: formData.get('name_en') as string,
+          description: formData.get('description_en') as string
+        },
+        zh: { 
+          name: formData.get('name_zh') as string,
+          description: formData.get('description_zh') as string
+        },
+      }
     };
 
     if (editingSku) {
       setSkus(skus.map(s => s.id === editingSku.id ? { ...s, ...skuData } : s));
+      // Update entitlements
+      const otherEntitlements = entitlements.filter(e => e.skuId !== editingSku.id);
+      setEntitlements([...otherEntitlements, ...skuEntitlements.map(e => ({ ...e, skuId: editingSku.id }))]);
     } else {
+      const newSkuId = Math.max(0, ...skus.map(s => s.id)) + 1;
       const newSku: ProductSku = {
         ...skuData as ProductSku,
-        id: Math.max(0, ...skus.map(s => s.id)) + 1,
+        id: newSkuId,
       };
       setSkus([newSku, ...skus]);
+      setEntitlements([...entitlements, ...skuEntitlements.map(e => ({ ...e, skuId: newSkuId }))]);
     }
     
     setIsModalOpen(false);
+  };
+
+  const handleAddEntitlement = () => {
+    const newEntitlement = {
+      id: Math.max(0, ...entitlements.map(e => e.id), ...skuEntitlements.map(e => e.id)) + 1,
+      skuId: editingSku?.id || 0,
+      featureCode: features[0]?.code || '',
+      entitlementType: 'boolean',
+      status: 'active'
+    };
+    setSkuEntitlements([...skuEntitlements, newEntitlement]);
+  };
+
+  const handleUpdateEntitlement = (id: number, data: any) => {
+    setSkuEntitlements(skuEntitlements.map(e => e.id === id ? { ...e, ...data } : e));
+  };
+
+  const handleRemoveEntitlement = (id: number) => {
+    setSkuEntitlements(skuEntitlements.filter(e => e.id !== id));
   };
 
   return (
@@ -163,43 +208,67 @@ export function Skus() {
               <Th className="w-32">{t('sku.billingTerm')}</Th>
               <Th className="w-24">{t('sku.uom')}</Th>
               <Th className="w-32">{t('sku.lifecycle')}</Th>
+              <Th className="w-48">{t('sku.entitlements')}</Th>
               <Th className="w-32 text-right">{t('sku.actions')}</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {paginatedSkus.map((sku) => (
-              <Tr key={sku.id} className="group hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
-                <Td>
-                  <span className="font-mono text-[11px] tracking-tight text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 bg-indigo-50 dark:bg-indigo-900/20 rounded border border-indigo-100 dark:border-indigo-800/50">
-                    {sku.skuCode}
-                  </span>
-                </Td>
-                <Td>
-                  <div className="font-medium text-slate-900 dark:text-white">{sku.name}</div>
-                </Td>
-                <Td>
-                  <div className="flex flex-col">
-                    <Link 
-                      to={`/products/${sku.productId}`}
-                      className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline truncate max-w-[200px]" 
-                      title={getProductName(sku.productId)}
+            {paginatedSkus.map((sku) => {
+              const skuEntitlements = entitlements.filter(e => e.skuId === sku.id);
+              return (
+                <Tr key={sku.id} className="group hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                  <Td>
+                    <span className="font-mono text-[11px] tracking-tight text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 bg-indigo-50 dark:bg-indigo-900/20 rounded border border-indigo-100 dark:border-indigo-800/50">
+                      {sku.skuCode}
+                    </span>
+                  </Td>
+                  <Td>
+                    <button 
+                      onClick={() => handleViewDetails(sku)}
+                      className="font-medium text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
                     >
-                      {getProductName(sku.productId)}
-                    </Link>
-                    <span className="text-[10px] text-slate-400 font-mono">ID: {sku.productId}</span>
-                  </div>
-                </Td>
-                <Td>{getBillingBadge(sku.billingModel)}</Td>
-                <Td>
-                  <span className="text-xs text-slate-500 dark:text-slate-400 capitalize bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">
-                    {sku.billingTerm !== 'none' ? sku.billingTerm : '-'}
-                  </span>
-                </Td>
-                <Td>
-                  <span className="text-xs font-medium text-slate-600 dark:text-slate-300">{sku.uom}</span>
-                </Td>
-                <Td>{getLifecycleBadge(sku.lifecycleStatus)}</Td>
-                <Td className="text-right">
+                      {sku.name}
+                    </button>
+                  </Td>
+                  <Td>
+                    <div className="flex flex-col">
+                      <Link 
+                        to={`/products/${sku.productId}`}
+                        className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline truncate max-w-[200px]" 
+                        title={getProductName(sku.productId)}
+                      >
+                        {getProductName(sku.productId)}
+                      </Link>
+                      <span className="text-[10px] text-slate-400 font-mono">ID: {sku.productId}</span>
+                    </div>
+                  </Td>
+                  <Td>{getBillingBadge(sku.billingModel)}</Td>
+                  <Td>
+                    <span className="text-xs text-slate-500 dark:text-slate-400 capitalize bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">
+                      {sku.billingTerm !== 'none' ? sku.billingTerm : '-'}
+                    </span>
+                  </Td>
+                  <Td>
+                    <span className="text-xs font-medium text-slate-600 dark:text-slate-300">{sku.uom}</span>
+                  </Td>
+                  <Td>{getLifecycleBadge(sku.lifecycleStatus)}</Td>
+                  <Td>
+                    <div className="flex flex-wrap gap-1">
+                      {skuEntitlements.length > 0 ? (
+                        skuEntitlements.slice(0, 2).map(e => (
+                          <Badge key={e.id} variant="outline" className="text-[9px] px-1 py-0">
+                            {features.find(f => f.code === e.featureCode)?.name || e.featureCode}
+                          </Badge>
+                        ))
+                      ) : (
+                        <span className="text-[10px] text-slate-400 italic">{t('common.none')}</span>
+                      )}
+                      {skuEntitlements.length > 2 && (
+                        <span className="text-[9px] text-slate-400">+{skuEntitlements.length - 2}</span>
+                      )}
+                    </div>
+                  </Td>
+                  <Td className="text-right">
                   <div className="flex items-center justify-end gap-2">
                     <Button 
                       variant="ghost" 
@@ -228,7 +297,7 @@ export function Skus() {
                   </div>
                 </Td>
               </Tr>
-            ))}
+            ); })}
           </Tbody>
         </Table>
         <div className="p-4 border-t border-slate-100 dark:border-slate-800">
@@ -278,7 +347,7 @@ export function Skus() {
             </div>
 
             <div className="border-t border-slate-100 dark:border-slate-800 pt-4">
-              <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-3">Technical Specifications</h4>
+              <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-3">{t('sku.technicalSpecs')}</h4>
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex justify-between text-sm">
                   <span className="text-slate-500">{t('sku.isShippable')}</span>
@@ -296,6 +365,31 @@ export function Skus() {
                   <span className="text-slate-500">{t('sku.hsCode')}</span>
                   <span className="font-medium">{viewingSku.hsCode || '-'}</span>
                 </div>
+              </div>
+            </div>
+
+            <div className="border-t border-slate-100 dark:border-slate-800 pt-4">
+              <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-3">{t('sku.entitlements')}</h4>
+              <div className="space-y-2">
+                {entitlements.filter(e => e.skuId === viewingSku.id).map(e => (
+                  <div key={e.id} className="flex items-center justify-between p-2 bg-slate-50 dark:bg-slate-800/50 rounded border border-slate-100 dark:border-slate-700">
+                    <div className="flex items-center gap-2">
+                      <Zap className="w-3.5 h-3.5 text-amber-500" />
+                      <span className="text-xs font-medium">{features.find(f => f.code === e.featureCode)?.name || e.featureCode}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge variant={e.status === 'active' ? 'success' : 'outline'} className="text-[9px]">
+                        {e.status}
+                      </Badge>
+                      <span className="text-xs text-slate-500">
+                        {e.entitlementType === 'boolean' ? (e.status === 'active' ? t('taxes.yes') : t('taxes.no')) : (e.quotaValue || e.tierValue)}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+                {entitlements.filter(e => e.skuId === viewingSku.id).length === 0 && (
+                  <p className="text-xs text-slate-400 italic text-center py-2">{t('common.none')}</p>
+                )}
               </div>
             </div>
 
@@ -417,12 +511,154 @@ export function Skus() {
             </div>
           </div>
 
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label>{t('sku.countryOfOrigin')}</Label>
+              <Input name="countryOfOrigin" defaultValue={editingSku?.countryOfOrigin} placeholder="e.g. US, CN" />
+            </div>
+            <div className="space-y-1.5">
+              <Label>{t('sku.provisioningHandler')}</Label>
+              <Input name="provisioningHandler" defaultValue={editingSku?.provisioningHandler} placeholder="e.g. saas-core-provisioner" />
+            </div>
+          </div>
+
+          <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg space-y-4 border border-slate-100 dark:border-slate-700">
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
+              <Globe className="w-4 h-4 text-indigo-500" />
+              {t('common.translations')}
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.name')} (EN)</Label>
+                <Input 
+                  name="name_en"
+                  defaultValue={editingSku?.translations?.en?.name || ''} 
+                  placeholder="English Name" 
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.name')} (ZH)</Label>
+                <Input 
+                  name="name_zh"
+                  defaultValue={editingSku?.translations?.zh?.name || ''} 
+                  placeholder="中文名称" 
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.description')} (EN)</Label>
+                <Textarea 
+                  name="description_en"
+                  defaultValue={editingSku?.translations?.en?.description || ''} 
+                  placeholder="English Description" 
+                  className="h-20"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.description')} (ZH)</Label>
+                <Textarea 
+                  name="description_zh"
+                  defaultValue={editingSku?.translations?.zh?.description || ''} 
+                  placeholder="中文描述" 
+                  className="h-20"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg space-y-4 border border-slate-100 dark:border-slate-700">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
+                <Zap className="w-4 h-4 text-amber-500" />
+                {t('sku.entitlements')}
+              </div>
+              <Button type="button" size="sm" variant="outline" onClick={handleAddEntitlement} className="h-7 px-2 text-[10px] gap-1">
+                <Plus className="w-3 h-3" /> {t('common.add')}
+              </Button>
+            </div>
+
+            <div className="space-y-3">
+              {skuEntitlements.map((ent, index) => (
+                <div key={ent.id} className="grid grid-cols-12 gap-2 items-end p-3 bg-white dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-700">
+                  <div className="col-span-4 space-y-1">
+                    <Label className="text-[10px]">{t('sku.feature')}</Label>
+                    <Select 
+                      value={ent.featureCode} 
+                      onChange={(e) => handleUpdateEntitlement(ent.id, { featureCode: e.target.value })}
+                      className="h-8 text-xs"
+                    >
+                      {features.map(f => (
+                        <option key={f.id} value={f.code}>{f.name}</option>
+                      ))}
+                    </Select>
+                  </div>
+                  <div className="col-span-3 space-y-1">
+                    <Label className="text-[10px]">{t('sku.type')}</Label>
+                    <Select 
+                      value={ent.entitlementType} 
+                      onChange={(e) => handleUpdateEntitlement(ent.id, { entitlementType: e.target.value })}
+                      className="h-8 text-xs"
+                    >
+                      <option value="boolean">Boolean</option>
+                      <option value="quota">Quota</option>
+                      <option value="tier">Tier</option>
+                    </Select>
+                  </div>
+                  <div className="col-span-3 space-y-1">
+                    <Label className="text-[10px]">{ent.entitlementType === 'boolean' ? t('sku.status') : t('sku.value')}</Label>
+                    {ent.entitlementType === 'boolean' ? (
+                      <Select 
+                        value={ent.status} 
+                        onChange={(e) => handleUpdateEntitlement(ent.id, { status: e.target.value })}
+                        className="h-8 text-xs"
+                      >
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                      </Select>
+                    ) : (
+                      <Input 
+                        value={ent.entitlementType === 'quota' ? ent.quotaValue : ent.tierValue}
+                        onChange={(e) => handleUpdateEntitlement(ent.id, ent.entitlementType === 'quota' ? { quotaValue: parseInt(e.target.value) } : { tierValue: e.target.value })}
+                        className="h-8 text-xs"
+                      />
+                    )}
+                  </div>
+                  <div className="col-span-2 flex justify-end">
+                    <Button 
+                      type="button" 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={() => handleRemoveEntitlement(ent.id)}
+                      className="text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 h-8 w-8 p-0"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+              {skuEntitlements.length === 0 && (
+                <p className="text-xs text-slate-400 italic text-center py-2">{t('common.none')}</p>
+              )}
+            </div>
+          </div>
+
           <div className="flex justify-end gap-3 pt-6 border-t border-slate-100 dark:border-slate-800">
             <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)} className="border-slate-200 dark:border-slate-800">{t('common.cancel')}</Button>
             <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg shadow-indigo-500/20">{t('common.save')}</Button>
           </div>
         </form>
       </Modal>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title={t('common.confirmDelete')}
+        message={t('common.confirmDeleteMessage')}
+      />
     </div>
   );
 }

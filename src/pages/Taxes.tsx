@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, Edit2, Trash2 } from 'lucide-react';
 import { TaxRateMapping } from '../types';
@@ -13,6 +13,8 @@ export function Taxes() {
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingRate, setEditingRate] = useState<TaxRateMapping | null>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [rateToDelete, setRateToDelete] = useState<number | null>(null);
 
   const getRegionName = (regionId: number) => {
     return taxRegions.find(r => r.id === regionId)?.name || t('common.unknown');
@@ -37,6 +39,7 @@ export function Taxes() {
       isTaxInclusive: formData.get('isTaxInclusive') === 'on',
       isB2bExempt: formData.get('isB2bExempt') === 'on',
       effectiveDate: formData.get('effectiveDate') as string,
+      endDate: (formData.get('endDate') as string) || undefined,
     };
 
     if (editingRate) {
@@ -53,8 +56,14 @@ export function Taxes() {
   };
 
   const handleDeleteRate = (id: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setTaxRates(taxRates.filter(r => r.id !== id));
+    setRateToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (rateToDelete !== null) {
+      setTaxRates(taxRates.filter(r => r.id !== rateToDelete));
+      setRateToDelete(null);
     }
   };
 
@@ -101,7 +110,10 @@ export function Taxes() {
                 <Td className="font-mono text-indigo-600 dark:text-indigo-400">{(rate.taxRate * 100).toFixed(2)}%</Td>
                 <Td>{rate.isTaxInclusive ? <Badge variant="success">{t('taxes.yes')}</Badge> : <Badge variant="warning">{t('taxes.no')}</Badge>}</Td>
                 <Td>{rate.isB2bExempt ? <Badge variant="success">{t('taxes.yes')}</Badge> : <Badge variant="default">{t('taxes.no')}</Badge>}</Td>
-                <Td className="text-slate-500 dark:text-slate-400">{rate.effectiveDate}</Td>
+                <Td className="text-slate-500 dark:text-slate-400">
+                  {rate.effectiveDate}
+                  {rate.endDate && ` - ${rate.endDate}`}
+                </Td>
                 <Td className="text-right">
                   <div className="flex items-center justify-end gap-2">
                     <Button variant="ghost" size="sm" onClick={() => { setEditingRate(rate); setIsModalOpen(true); }}>
@@ -141,9 +153,10 @@ export function Taxes() {
             <div className="space-y-2">
               <Label>{t('taxes.productType')}</Label>
               <Select name="productType" defaultValue={editingRate?.productType} required>
-                <option value="physical">{t('taxes.physical')}</option>
-                <option value="digital">{t('taxes.digital')}</option>
+                <option value="software">{t('taxes.software')}</option>
+                <option value="hardware">{t('taxes.hardware')}</option>
                 <option value="service">{t('taxes.service')}</option>
+                <option value="consumable">{t('taxes.consumable')}</option>
                 <option value="bundle">{t('taxes.bundle')}</option>
               </Select>
             </div>
@@ -169,6 +182,10 @@ export function Taxes() {
               <Input type="date" name="effectiveDate" defaultValue={editingRate?.effectiveDate} required />
             </div>
           </div>
+          <div className="space-y-2">
+            <Label>{t('taxes.endDate')}</Label>
+            <Input type="date" name="endDate" defaultValue={editingRate?.endDate} />
+          </div>
           <div className="flex flex-col gap-3 py-2">
             <label className="flex items-center gap-2 cursor-pointer group">
               <input type="checkbox" name="isTaxInclusive" defaultChecked={editingRate?.isTaxInclusive} className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all" />
@@ -185,6 +202,15 @@ export function Taxes() {
           </div>
         </form>
       </Modal>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title={t('taxes.deleteRate')}
+        message={t('taxes.confirmDelete')}
+        variant="danger"
+      />
     </div>
   );
 }

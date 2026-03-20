@@ -8,11 +8,12 @@ CREATE TABLE `product_skus` (
   `name` VARCHAR(150) NOT NULL COMMENT 'SKU 销售名称，如 POS Pro Edition (Monthly)',
   
   -- 财务与计费维度
-  `billing_model` ENUM('recurring', 'one_time', 'usage_based') NOT NULL 
+  `billing_model` ENUM('recurring', 'one_time', 'usage_based', 'hybrid') NOT NULL 
     COMMENT '计费模式：\n'
-            'recurring - 周期性订阅 (MRR)\n'
+            'recurring - 周期性订阅 (软件订阅产品按周、月、季、年等)\n'
             'one_time - 一次性买断 (硬件/实施费)\n'
-            'usage_based - 按量计费 (支付费率/短信)',
+            'usage_based - 按量计费 (支付费率/短信)\n'
+            'hybrid - 混合计费 (套餐组合SKU)',
             
   `billing_term` ENUM('daily', 'weekly', 'monthly', 'quarterly', 'annual', 'biennial', 'triennial', 'custom', 'none') NOT NULL DEFAULT 'none'
     COMMENT '计费周期（针对 recurring 模式）：\n'

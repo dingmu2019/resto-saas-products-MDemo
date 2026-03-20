@@ -24,6 +24,10 @@ export interface TaxRegion {
   level: 'country' | 'state' | 'county' | 'city' | 'special';
   path: string;
   isActive: boolean;
+  translations?: {
+    en: { name: string };
+    zh: { name: string };
+  };
 }
 
 export interface TaxRateMapping {
@@ -47,6 +51,10 @@ export interface Product {
   productType: 'software' | 'hardware' | 'service' | 'consumable' | 'bundle';
   brand?: string;
   description?: string;
+  translations?: {
+    en: { name: string; description?: string };
+    zh: { name: string; description?: string };
+  };
 }
 
 export interface ProductSku {
@@ -71,7 +79,10 @@ export interface ProductSku {
   countryOfOrigin?: string;
   provisioningHandler?: string;
   specifications?: any;
-  translations?: any;
+  translations?: {
+    en: { name: string; description?: string };
+    zh: { name: string; description?: string };
+  };
   launchDate?: string;
   eosDate?: string;
 }
@@ -87,6 +98,10 @@ export interface ProductMedia {
   sortOrder: number;
   locale: string;
   title?: string;
+  translations?: {
+    en: { title?: string };
+    zh: { title?: string };
+  };
 }
 
 export interface ProductFeature {
@@ -95,6 +110,10 @@ export interface ProductFeature {
   name: string;
   type: 'boolean' | 'quota' | 'tier';
   description?: string;
+  translations?: {
+    en: { name: string; description?: string };
+    zh: { name: string; description?: string };
+  };
 }
 
 export interface ProductEntitlement {
@@ -113,10 +132,12 @@ export interface BundleGroup {
   name: string;
   description?: string;
   sortOrder: number;
-  minSelections: number;
-  maxSelections: number;
-  isMutuallyExclusive: boolean;
+  selectN: number;
   allowMultipleQtyPerItem: boolean;
+  translations?: {
+    en: { name: string; description?: string };
+    zh: { name: string; description?: string };
+  };
 }
 
 export interface BundleOption {
@@ -136,6 +157,10 @@ export interface ProductRule {
   targetSkuId: number;
   ruleType: 'requires' | 'excludes' | 'recommends' | 'compatible_with';
   message?: string;
+  translations?: {
+    en: { message?: string };
+    zh: { message?: string };
+  };
 }
 
 export interface PriceBook {
@@ -144,7 +169,10 @@ export interface PriceBook {
   name: string;
   currency: string;
   applicableRegions?: string[];
-  translations?: any;
+  translations?: {
+    en: { name: string };
+    zh: { name: string };
+  };
   priceDisplayPrecision: number;
   type: 'standard' | 'channel' | 'promotional' | 'custom';
   partnerTier?: string;

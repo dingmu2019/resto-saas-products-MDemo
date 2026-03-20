@@ -11,16 +11,18 @@ import {
   Building2,
   Navigation
 } from 'lucide-react';
-import { Card, Button, Input, Modal, Select, Pagination } from '../components/ui';
-import { mockTaxRegions } from '../data/mock/taxes';
+import { Card, Button, Input, Modal, Select, Pagination, ConfirmModal, Label } from '../components/ui';
+import { useProductContext } from '../contexts/ProductProvider';
 import { TaxRegion } from '../types';
 
 export function TaxRegions() {
   const { t } = useTranslation();
+  const { taxRegions: regions, setTaxRegions: setRegions } = useProductContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingRegion, setEditingRegion] = useState<TaxRegion | null>(null);
-  const [regions, setRegions] = useState<TaxRegion[]>(mockTaxRegions);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [regionToDelete, setRegionToDelete] = useState<number | null>(null);
   
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,7 +46,7 @@ export function TaxRegions() {
     const formData = new FormData(e.currentTarget);
     
     const newRegion: TaxRegion = {
-      id: editingRegion?.id || regions.length + 1,
+      id: editingRegion?.id || Math.max(0, ...regions.map(r => r.id)) + 1,
       parentId: formData.get('parentId') ? Number(formData.get('parentId')) : null,
       regionCode: formData.get('regionCode') as string,
       countryCode: formData.get('countryCode') as string,
@@ -52,10 +54,14 @@ export function TaxRegions() {
       cityCode: formData.get('cityCode') as string || undefined,
       countyCode: formData.get('countyCode') as string || undefined,
       zipCode: formData.get('zipCode') as string || undefined,
-      name: formData.get('name') as string,
+      name: formData.get('name_en') as string || formData.get('name') as string,
       level: formData.get('level') as any,
       path: editingRegion?.path || '/',
       isActive: formData.get('isActive') === 'true',
+      translations: {
+        en: { name: formData.get('name_en') as string },
+        zh: { name: formData.get('name_zh') as string },
+      }
     };
 
     if (editingRegion) {
@@ -66,6 +72,18 @@ export function TaxRegions() {
     
     setIsModalOpen(false);
     setEditingRegion(null);
+  };
+
+  const handleDelete = (id: number) => {
+    setRegionToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (regionToDelete !== null) {
+      setRegions(regions.filter(r => r.id !== regionToDelete));
+      setRegionToDelete(null);
+    }
   };
 
   const getLevelIcon = (level: string) => {
@@ -155,7 +173,7 @@ export function TaxRegions() {
                         variant="ghost" 
                         size="sm"
                         className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/10"
-                        onClick={() => setRegions(regions.filter(r => r.id !== region.id))}
+                        onClick={() => handleDelete(region.id)}
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
@@ -209,14 +227,25 @@ export function TaxRegions() {
             </div>
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium">{t('sku.name')}</label>
-            <Input 
-              name="name" 
-              defaultValue={editingRegion?.name} 
-              required 
-              placeholder={t('taxRegions.placeholders.name')}
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>{t('taxRegions.nameEn')}</Label>
+              <Input 
+                name="name_en" 
+                defaultValue={editingRegion?.translations?.en?.name || editingRegion?.name} 
+                required 
+                placeholder={t('taxRegions.placeholders.nameEn')}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>{t('taxRegions.nameZh')}</Label>
+              <Input 
+                name="name_zh" 
+                defaultValue={editingRegion?.translations?.zh?.name || editingRegion?.name} 
+                required 
+                placeholder={t('taxRegions.placeholders.nameZh')}
+              />
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -288,6 +317,15 @@ export function TaxRegions() {
           </div>
         </form>
       </Modal>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title={t('taxRegions.deleteRegion')}
+        message={t('taxRegions.confirmDelete')}
+        variant="danger"
+      />
     </div>
   );
 }

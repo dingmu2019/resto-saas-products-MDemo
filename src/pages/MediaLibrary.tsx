@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Badge, Button, Modal, Input, Select, Label, Textarea } from '../components/ui';
+import { Card, Badge, Button, Modal, Input, Select, Label, Textarea, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, Image as ImageIcon, FileText, Video, Box, Edit2, Trash2, ExternalLink } from 'lucide-react';
 import { ProductMedia } from '../types';
@@ -13,6 +13,8 @@ export function MediaLibrary() {
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingMedia, setEditingMedia] = useState<ProductMedia | null>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [mediaToDelete, setMediaToDelete] = useState<number | null>(null);
 
   const getMediaIcon = (type: string) => {
     switch (type) {
@@ -33,7 +35,7 @@ export function MediaLibrary() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const mediaData: Partial<ProductMedia> = {
-      title: formData.get('title') as string,
+      title: formData.get('title_en') as string || formData.get('title') as string,
       url: formData.get('url') as string,
       mediaType: formData.get('mediaType') as any,
       productId: formData.get('productId') ? parseInt(formData.get('productId') as string) : undefined,
@@ -41,6 +43,10 @@ export function MediaLibrary() {
       isMain: formData.get('isMain') === 'on',
       sortOrder: parseInt(formData.get('sortOrder') as string),
       locale: formData.get('locale') as string,
+      translations: {
+        en: { title: formData.get('title_en') as string },
+        zh: { title: formData.get('title_zh') as string }
+      }
     };
 
     if (editingMedia) {
@@ -57,8 +63,14 @@ export function MediaLibrary() {
   };
 
   const handleDeleteMedia = (id: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setMedia(media.filter(m => m.id !== id));
+    setMediaToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (mediaToDelete !== null) {
+      setMedia(media.filter(m => m.id !== mediaToDelete));
+      setMediaToDelete(null);
     }
   };
 
@@ -101,10 +113,13 @@ export function MediaLibrary() {
                 </div>
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4 gap-2">
-                <Button variant="outline" size="sm" className="flex-1 bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20" asChild>
-                  <a href={m.url} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="w-3 h-3 mr-1" /> {t('common.view')}
-                  </a>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex-1 bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20"
+                  onClick={() => window.open(m.url, '_blank')}
+                >
+                  <ExternalLink className="w-3 h-3 mr-1" /> {t('common.view')}
                 </Button>
                 <Button variant="outline" size="sm" className="bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20" onClick={() => { setEditingMedia(m); setIsModalOpen(true); }}>
                   <Edit2 className="w-3 h-3" />
@@ -150,13 +165,46 @@ export function MediaLibrary() {
         title={editingMedia ? t('media.editMedia') : t('media.upload')}
       >
         <form onSubmit={handleSaveMedia} className="space-y-4">
-          <div className="space-y-2">
-            <Label>{t('media.mediaTitle')}</Label>
-            <Input name="title" defaultValue={editingMedia?.title} required />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>{t('media.mediaTitleEn')}</Label>
+              <Input name="title_en" defaultValue={editingMedia?.translations?.en?.title || editingMedia?.title} required />
+            </div>
+            <div className="space-y-2">
+              <Label>{t('media.mediaTitleZh')}</Label>
+              <Input name="title_zh" defaultValue={editingMedia?.translations?.zh?.title || editingMedia?.title} required />
+            </div>
           </div>
           <div className="space-y-2">
             <Label>{t('media.mediaUrl')}</Label>
-            <Input name="url" defaultValue={editingMedia?.url} required />
+            <div className="flex gap-2">
+              <Input name="url" defaultValue={editingMedia?.url} required className="flex-1" />
+              <div className="relative">
+                <input 
+                  type="file" 
+                  id="media-upload" 
+                  className="hidden" 
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      // In a real app, we would upload the file here.
+                      // For now, we'll just use a placeholder or createObjectURL
+                      const url = URL.createObjectURL(file);
+                      const urlInput = document.querySelector('input[name="url"]') as HTMLInputElement;
+                      if (urlInput) urlInput.value = url;
+                    }
+                  }}
+                />
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => document.getElementById('media-upload')?.click()}
+                  className="whitespace-nowrap"
+                >
+                  {t('media.upload')}
+                </Button>
+              </div>
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
@@ -209,6 +257,15 @@ export function MediaLibrary() {
           </div>
         </form>
       </Modal>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title={t('media.deleteMedia')}
+        message={t('media.confirmDelete')}
+        variant="danger"
+      />
     </div>
   );
 }

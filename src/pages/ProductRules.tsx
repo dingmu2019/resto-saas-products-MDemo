@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, Edit2, Trash2 } from 'lucide-react';
 import { ProductRule } from '../types';
@@ -13,6 +13,8 @@ export function ProductRules() {
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingRule, setEditingRule] = useState<ProductRule | null>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [ruleToDelete, setRuleToDelete] = useState<number | null>(null);
 
   const getSkuName = (skuId: number) => {
     const sku = skus.find(s => s.id === skuId);
@@ -44,7 +46,11 @@ export function ProductRules() {
       sourceSkuId: parseInt(formData.get('sourceSkuId') as string),
       targetSkuId: parseInt(formData.get('targetSkuId') as string),
       ruleType: formData.get('ruleType') as any,
-      message: formData.get('message') as string,
+      message: formData.get('message_en') as string || formData.get('message') as string,
+      translations: {
+        en: { message: formData.get('message_en') as string },
+        zh: { message: formData.get('message_zh') as string }
+      }
     };
 
     if (editingRule) {
@@ -61,8 +67,14 @@ export function ProductRules() {
   };
 
   const handleDeleteRule = (id: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setRules(rules.filter(r => r.id !== id));
+    setRuleToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (ruleToDelete !== null) {
+      setRules(rules.filter(r => r.id !== ruleToDelete));
+      setRuleToDelete(null);
     }
   };
 
@@ -151,9 +163,15 @@ export function ProductRules() {
               ))}
             </Select>
           </div>
-          <div className="space-y-2">
-            <Label>{t('rules.message')}</Label>
-            <Input name="message" defaultValue={editingRule?.message} />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>{t('rules.messageEn')}</Label>
+              <Input name="message_en" defaultValue={editingRule?.translations?.en?.message || editingRule?.message} />
+            </div>
+            <div className="space-y-2">
+              <Label>{t('rules.messageZh')}</Label>
+              <Input name="message_zh" defaultValue={editingRule?.translations?.zh?.message || editingRule?.message} />
+            </div>
           </div>
           <div className="flex justify-end gap-3 pt-6 border-t border-slate-100 dark:border-slate-800">
             <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)}>{t('common.cancel')}</Button>
@@ -161,6 +179,15 @@ export function ProductRules() {
           </div>
         </form>
       </Modal>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title={t('rules.deleteRule')}
+        message={t('rules.confirmDelete')}
+        variant="danger"
+      />
     </div>
   );
 }

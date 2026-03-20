@@ -1,16 +1,18 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Textarea, Label, Pagination } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Textarea, Label, Pagination, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
-import { Plus, Search, Filter, Edit2, Trash2, ChevronRight } from 'lucide-react';
+import { Plus, Search, Filter, Edit2, Trash2, ChevronRight, Globe } from 'lucide-react';
 import { Product } from '../types';
 
 export function Products() {
   const { t } = useTranslation();
   const { products, setProducts, categories } = useProductContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [productToDelete, setProductToDelete] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   
   // Pagination state
@@ -82,9 +84,15 @@ export function Products() {
     handleCloseModal();
   };
 
-  const handleDelete = (id: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setProducts(products.filter(p => p.id !== id));
+  const handleDeleteClick = (id: number) => {
+    setProductToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (productToDelete !== null) {
+      setProducts(products.filter(p => p.id !== productToDelete));
+      setProductToDelete(null);
     }
   };
 
@@ -145,7 +153,12 @@ export function Products() {
                 </Td>
                 <Td>
                   <div className="flex flex-col">
-                    <span className="font-semibold text-slate-900 dark:text-slate-100">{product.name}</span>
+                    <button 
+                      onClick={() => handleOpenModal(product)}
+                      className="font-semibold text-slate-900 dark:text-slate-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
+                    >
+                      {product.name}
+                    </button>
                     <span className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">{product.description}</span>
                   </div>
                 </Td>
@@ -166,11 +179,6 @@ export function Products() {
                 </Td>
                 <Td className="text-right">
                   <div className="flex items-center justify-end gap-2">
-                    <Link to={`/products/${product.id}`}>
-                      <Button variant="ghost" size="sm" className="text-indigo-600 dark:text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                        {t('product.viewDetails')}
-                      </Button>
-                    </Link>
                     <Button 
                       variant="ghost" 
                       size="sm" 
@@ -182,7 +190,7 @@ export function Products() {
                     <Button 
                       variant="ghost" 
                       size="sm" 
-                      onClick={(e) => { e.preventDefault(); handleDelete(product.id); }}
+                      onClick={(e) => { e.preventDefault(); handleDeleteClick(product.id); }}
                       className="text-slate-400 hover:text-rose-600 opacity-0 group-hover:opacity-100 transition-opacity"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -277,6 +285,77 @@ export function Products() {
             />
           </div>
 
+          <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg space-y-4 border border-slate-100 dark:border-slate-700">
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
+              <Globe className="w-4 h-4 text-indigo-500" />
+              {t('common.translations')}
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.name')} (EN)</Label>
+                <Input 
+                  value={(formData as any).translations?.en?.name || ''} 
+                  onChange={(e) => setFormData({ 
+                    ...formData, 
+                    translations: { 
+                      ...(formData as any).translations, 
+                      en: { ...(formData as any).translations?.en, name: e.target.value } 
+                    } 
+                  })}
+                  placeholder="English Name" 
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.name')} (ZH)</Label>
+                <Input 
+                  value={(formData as any).translations?.zh?.name || ''} 
+                  onChange={(e) => setFormData({ 
+                    ...formData, 
+                    translations: { 
+                      ...(formData as any).translations, 
+                      zh: { ...(formData as any).translations?.zh, name: e.target.value } 
+                    } 
+                  })}
+                  placeholder="中文名称" 
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.description')} (EN)</Label>
+                <Textarea 
+                  value={(formData as any).translations?.en?.description || ''} 
+                  onChange={(e) => setFormData({ 
+                    ...formData, 
+                    translations: { 
+                      ...(formData as any).translations, 
+                      en: { ...(formData as any).translations?.en, description: e.target.value } 
+                    } 
+                  })}
+                  placeholder="English Description" 
+                  className="h-20"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.description')} (ZH)</Label>
+                <Textarea 
+                  value={(formData as any).translations?.zh?.description || ''} 
+                  onChange={(e) => setFormData({ 
+                    ...formData, 
+                    translations: { 
+                      ...(formData as any).translations, 
+                      zh: { ...(formData as any).translations?.zh, description: e.target.value } 
+                    } 
+                  })}
+                  placeholder="中文描述" 
+                  className="h-20"
+                />
+              </div>
+            </div>
+          </div>
+
           <div className="flex justify-end gap-3 pt-4">
             <Button type="button" variant="outline" onClick={handleCloseModal}>
               {t('common.cancel')}
@@ -287,6 +366,14 @@ export function Products() {
           </div>
         </form>
       </Modal>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title={t('common.confirmDelete')}
+        message={t('product.deleteConfirmMessage')}
+      />
     </div>
   );
 }

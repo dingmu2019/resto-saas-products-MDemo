@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Textarea } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Textarea, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
-import { Layers, Plus, Search, Edit2, Trash2, ChevronRight } from 'lucide-react';
+import { Layers, Plus, Search, Edit2, Trash2, ChevronRight, Globe } from 'lucide-react';
 import { cn } from '../components/Layout';
 import { Category } from '../types';
 
 export function Categories() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { categories, setCategories } = useProductContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
+  const [categoryToDelete, setCategoryToDelete] = useState<number | null>(null);
 
   // Sort categories by path to ensure parents come before children
   const sortedCategories = [...categories]
@@ -27,9 +29,15 @@ export function Categories() {
     setIsModalOpen(true);
   };
 
-  const handleDeleteCategory = (id: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setCategories(categories.filter(c => c.id !== id));
+  const handleDeleteClick = (id: number) => {
+    setCategoryToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (categoryToDelete !== null) {
+      setCategories(categories.filter(c => c.id !== categoryToDelete));
+      setCategoryToDelete(null);
     }
   };
 
@@ -52,6 +60,16 @@ export function Categories() {
       path,
       sortOrder: parseInt(formData.get('sortOrder') as string) || 0,
       isActive: formData.get('isActive') === 'on',
+      translations: {
+        en: {
+          name: formData.get('name_en') as string || (formData.get('name') as string),
+          description: formData.get('description_en') as string || (formData.get('description') as string)
+        },
+        zh: {
+          name: formData.get('name_zh') as string || (formData.get('name') as string),
+          description: formData.get('description_zh') as string || (formData.get('description') as string)
+        }
+      }
     };
 
     if (editingCategory) {
@@ -146,7 +164,7 @@ export function Categories() {
                     <Button 
                       variant="ghost" 
                       size="sm" 
-                      onClick={() => handleDeleteCategory(cat.id)}
+                      onClick={() => handleDeleteClick(cat.id)}
                       className="opacity-0 group-hover:opacity-100 transition-opacity text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -191,6 +209,35 @@ export function Categories() {
             <Textarea name="description" defaultValue={editingCategory?.description} />
           </div>
 
+          <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-lg space-y-4 border border-slate-100 dark:border-slate-700">
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">
+              <Globe className="w-4 h-4 text-indigo-500" />
+              {t('common.translations')}
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.name')} (EN)</Label>
+                <Input name="name_en" defaultValue={editingCategory?.translations?.en?.name} placeholder="English Name" />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.name')} (ZH)</Label>
+                <Input name="name_zh" defaultValue={editingCategory?.translations?.zh?.name} placeholder="中文名称" />
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.description')} (EN)</Label>
+                <Input name="description_en" defaultValue={editingCategory?.translations?.en?.description} placeholder="English Description" />
+              </div>
+              <div className="space-y-1.5">
+                <Label className="text-xs">{t('common.description')} (ZH)</Label>
+                <Input name="description_zh" defaultValue={editingCategory?.translations?.zh?.description} placeholder="中文描述" />
+              </div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <Label>{t('category.sortOrder')}</Label>
@@ -213,6 +260,14 @@ export function Categories() {
           </div>
         </form>
       </Modal>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title={t('common.confirmDelete')}
+        message={t('category.deleteConfirmMessage')}
+      />
     </div>
   );
 }

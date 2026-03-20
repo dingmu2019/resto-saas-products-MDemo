@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui';
 import { Database, Table as TableIcon, Network } from 'lucide-react';
 import { ReactFlow, Background, Controls, MiniMap, useNodesState, useEdgesState, MarkerType } from '@xyflow/react';
+import { TableNode } from '../components/TableNode';
 import '@xyflow/react/dist/style.css';
 import schemaSql from '../data/schema.sql?raw';
 
@@ -96,7 +97,7 @@ const schemaData = [
       { name: 'product_id', type: 'bigint', comment: '所属产品族ID', defaultValue: '无', ref: 'products.id' },
       { name: 'sku_code', type: 'string', comment: 'SKU编码', defaultValue: '无' },
       { name: 'name', type: 'string', comment: 'SKU名称', defaultValue: '无' },
-      { name: 'billing_model', type: 'enum', comment: '计费模式', defaultValue: 'one_time' },
+      { name: 'billing_model', type: 'enum', comment: '计费模式 (recurring, one_time, usage_based, hybrid)', defaultValue: 'one_time' },
       { name: 'billing_term', type: 'enum', comment: '计费周期', defaultValue: 'none' },
       { name: 'billing_timing', type: 'enum', comment: '结算时机', defaultValue: 'in_advance' },
       { name: 'trial_days', type: 'number', comment: '试用天数', defaultValue: '0' },
@@ -168,9 +169,7 @@ const schemaData = [
       { name: 'name', type: 'string', comment: '分组名称', defaultValue: '无' },
       { name: 'description', type: 'string', comment: '分组描述', defaultValue: 'null' },
       { name: 'sort_order', type: 'number', comment: '排序权重', defaultValue: '0' },
-      { name: 'min_selections', type: 'number', comment: '最少选择数量', defaultValue: '1' },
-      { name: 'max_selections', type: 'number', comment: '最多选择数量', defaultValue: '1' },
-      { name: 'is_mutually_exclusive', type: 'boolean', comment: '组内选项是否互斥', defaultValue: 'false' },
+      { name: 'select_n', type: 'number', comment: '必须选取的固定数量 (N)，0 表示该组整体可选配', defaultValue: '1' },
       { name: 'allow_multiple_qty_per_item', type: 'boolean', comment: '单个选项是否允许选择多个数量', defaultValue: 'false' },
       { name: 'created_by', type: 'string', comment: '创建人', defaultValue: 'null' },
       { name: 'updated_by', type: 'string', comment: '修改人', defaultValue: 'null' },
@@ -255,19 +254,177 @@ const schemaData = [
   }
 ];
 
+const nodeTypes = {
+  table: TableNode,
+};
+
 const initialNodes = [
-  { id: 'product_categories', position: { x: 250, y: 0 }, data: { label: 'product_categories' }, style: { width: 150 } },
-  { id: 'products', position: { x: 250, y: 100 }, data: { label: 'products' }, style: { width: 150 } },
-  { id: 'product_skus', position: { x: 250, y: 200 }, data: { label: 'product_skus' }, style: { width: 150 } },
-  { id: 'product_media', position: { x: 50, y: 150 }, data: { label: 'product_media' }, style: { width: 150 } },
-  { id: 'product_entitlements', position: { x: 50, y: 250 }, data: { label: 'product_entitlements' }, style: { width: 150 } },
-  { id: 'product_rules', position: { x: 50, y: 350 }, data: { label: 'product_rules' }, style: { width: 150 } },
-  { id: 'bundle_groups', position: { x: 450, y: 200 }, data: { label: 'bundle_groups' }, style: { width: 150 } },
-  { id: 'bundle_options', position: { x: 450, y: 300 }, data: { label: 'bundle_options' }, style: { width: 150 } },
-  { id: 'price_books', position: { x: 450, y: 400 }, data: { label: 'price_books' }, style: { width: 150 } },
-  { id: 'price_book_entries', position: { x: 250, y: 400 }, data: { label: 'price_book_entries' }, style: { width: 150 } },
-  { id: 'tax_regions', position: { x: 650, y: 0 }, data: { label: 'tax_regions' }, style: { width: 150 } },
-  { id: 'tax_rates_mapping', position: { x: 650, y: 100 }, data: { label: 'tax_rates_mapping' }, style: { width: 150 } },
+  { 
+    id: 'product_categories', 
+    type: 'table',
+    position: { x: 400, y: 0 }, 
+    data: { 
+      label: 'product_categories',
+      fields: [
+        { name: 'id', type: 'bigint', isPrimary: true },
+        { name: 'parent_id', type: 'bigint', isForeign: true },
+        { name: 'code', type: 'string' },
+        { name: 'name', type: 'string' }
+      ]
+    } 
+  },
+  { 
+    id: 'products', 
+    type: 'table',
+    position: { x: 400, y: 150 }, 
+    data: { 
+      label: 'products',
+      fields: [
+        { name: 'id', type: 'bigint', isPrimary: true },
+        { name: 'category_id', type: 'bigint', isForeign: true },
+        { name: 'product_code', type: 'string' },
+        { name: 'name', type: 'string' }
+      ]
+    } 
+  },
+  { 
+    id: 'product_skus', 
+    type: 'table',
+    position: { x: 400, y: 300 }, 
+    data: { 
+      label: 'product_skus',
+      fields: [
+        { name: 'id', type: 'bigint', isPrimary: true },
+        { name: 'product_id', type: 'bigint', isForeign: true },
+        { name: 'sku_code', type: 'string' },
+        { name: 'name', type: 'string' }
+      ]
+    } 
+  },
+  { 
+    id: 'product_media', 
+    type: 'table',
+    position: { x: 100, y: 200 }, 
+    data: { 
+      label: 'product_media',
+      fields: [
+        { name: 'id', type: 'bigint', isPrimary: true },
+        { name: 'product_id', type: 'bigint', isForeign: true },
+        { name: 'sku_id', type: 'bigint', isForeign: true },
+        { name: 'url', type: 'string' }
+      ]
+    } 
+  },
+  { 
+    id: 'product_entitlements', 
+    type: 'table',
+    position: { x: 100, y: 350 }, 
+    data: { 
+      label: 'product_entitlements',
+      fields: [
+        { name: 'id', type: 'bigint', isPrimary: true },
+        { name: 'sku_id', type: 'bigint', isForeign: true },
+        { name: 'feature_code', type: 'string' },
+        { name: 'quota_value', type: 'bigint' }
+      ]
+    } 
+  },
+  { 
+    id: 'product_rules', 
+    type: 'table',
+    position: { x: 100, y: 500 }, 
+    data: { 
+      label: 'product_rules',
+      fields: [
+        { name: 'id', type: 'bigint', isPrimary: true },
+        { name: 'source_sku_id', type: 'bigint', isForeign: true },
+        { name: 'target_sku_id', type: 'bigint', isForeign: true },
+        { name: 'rule_type', type: 'enum' }
+      ]
+    } 
+  },
+  { 
+    id: 'bundle_groups', 
+    type: 'table',
+    position: { x: 700, y: 300 }, 
+    data: { 
+      label: 'bundle_groups',
+      fields: [
+        { name: 'id', type: 'bigint', isPrimary: true },
+        { name: 'bundle_sku_id', type: 'bigint', isForeign: true },
+        { name: 'name', type: 'string' }
+      ]
+    } 
+  },
+  { 
+    id: 'bundle_options', 
+    type: 'table',
+    position: { x: 700, y: 450 }, 
+    data: { 
+      label: 'bundle_options',
+      fields: [
+        { name: 'id', type: 'bigint', isPrimary: true },
+        { name: 'bundle_sku_id', type: 'bigint', isForeign: true },
+        { name: 'group_id', type: 'bigint', isForeign: true },
+        { name: 'component_sku_id', type: 'bigint', isForeign: true }
+      ]
+    } 
+  },
+  { 
+    id: 'price_books', 
+    type: 'table',
+    position: { x: 700, y: 600 }, 
+    data: { 
+      label: 'price_books',
+      fields: [
+        { name: 'id', type: 'bigint', isPrimary: true },
+        { name: 'code', type: 'string' },
+        { name: 'name', type: 'string' }
+      ]
+    } 
+  },
+  { 
+    id: 'price_book_entries', 
+    type: 'table',
+    position: { x: 400, y: 600 }, 
+    data: { 
+      label: 'price_book_entries',
+      fields: [
+        { name: 'id', type: 'bigint', isPrimary: true },
+        { name: 'price_book_id', type: 'bigint', isForeign: true },
+        { name: 'sku_id', type: 'bigint', isForeign: true },
+        { name: 'list_price', type: 'number' }
+      ]
+    } 
+  },
+  { 
+    id: 'tax_regions', 
+    type: 'table',
+    position: { x: 950, y: 0 }, 
+    data: { 
+      label: 'tax_regions',
+      fields: [
+        { name: 'id', type: 'bigint', isPrimary: true },
+        { name: 'parent_id', type: 'bigint', isForeign: true },
+        { name: 'region_code', type: 'string' },
+        { name: 'name', type: 'string' }
+      ]
+    } 
+  },
+  { 
+    id: 'tax_rates_mapping', 
+    type: 'table',
+    position: { x: 950, y: 200 }, 
+    data: { 
+      label: 'tax_rates_mapping',
+      fields: [
+        { name: 'id', type: 'bigint', isPrimary: true },
+        { name: 'tax_region_id', type: 'bigint', isForeign: true },
+        { name: 'tax_rate', type: 'number' },
+        { name: 'tax_name', type: 'string' }
+      ]
+    } 
+  },
 ];
 
 const initialEdges = [
@@ -359,6 +516,7 @@ export function DataModels() {
               edges={edges} 
               onNodesChange={onNodesChange}
               onEdgesChange={onEdgesChange}
+              nodeTypes={nodeTypes}
               fitView
               attributionPosition="bottom-right"
             >

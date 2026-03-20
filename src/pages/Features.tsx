@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Textarea } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Textarea, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, CheckCircle2, BarChart3, Layers, Edit2, Trash2 } from 'lucide-react';
 import { ProductFeature } from '../types';
@@ -13,6 +13,8 @@ export function Features() {
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingFeature, setEditingFeature] = useState<ProductFeature | null>(null);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [featureToDelete, setFeatureToDelete] = useState<number | null>(null);
 
   const getTypeBadge = (type: string) => {
     switch (type) {
@@ -51,9 +53,19 @@ export function Features() {
     const formData = new FormData(e.currentTarget);
     const featureData: Partial<ProductFeature> = {
       code: formData.get('code') as string,
-      name: formData.get('name') as string,
+      name: formData.get('name_en') as string || formData.get('name') as string,
       type: formData.get('type') as any,
-      description: formData.get('description') as string,
+      description: formData.get('description_en') as string || formData.get('description') as string,
+      translations: {
+        en: { 
+          name: formData.get('name_en') as string,
+          description: formData.get('description_en') as string
+        },
+        zh: { 
+          name: formData.get('name_zh') as string,
+          description: formData.get('description_zh') as string
+        }
+      }
     };
 
     if (editingFeature) {
@@ -70,8 +82,14 @@ export function Features() {
   };
 
   const handleDeleteFeature = (id: number) => {
-    if (window.confirm(t('common.confirmDelete'))) {
-      setFeatures(features.filter(f => f.id !== id));
+    setFeatureToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    if (featureToDelete !== null) {
+      setFeatures(features.filter(f => f.id !== featureToDelete));
+      setFeatureToDelete(null);
     }
   };
 
@@ -149,9 +167,15 @@ export function Features() {
             <Label>{t('features.code')}</Label>
             <Input name="code" defaultValue={editingFeature?.code} required />
           </div>
-          <div className="space-y-2">
-            <Label>{t('features.name')}</Label>
-            <Input name="name" defaultValue={editingFeature?.name} required />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>{t('features.nameEn')}</Label>
+              <Input name="name_en" defaultValue={editingFeature?.translations?.en?.name || editingFeature?.name} required />
+            </div>
+            <div className="space-y-2">
+              <Label>{t('features.nameZh')}</Label>
+              <Input name="name_zh" defaultValue={editingFeature?.translations?.zh?.name || editingFeature?.name} required />
+            </div>
           </div>
           <div className="space-y-2">
             <Label>{t('features.type')}</Label>
@@ -161,9 +185,15 @@ export function Features() {
               <option value="tier">{t('features.tier')}</option>
             </Select>
           </div>
-          <div className="space-y-2">
-            <Label>{t('features.description')}</Label>
-            <Textarea name="description" defaultValue={editingFeature?.description} rows={3} />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label>{t('features.descriptionEn')}</Label>
+              <Textarea name="description_en" defaultValue={editingFeature?.translations?.en?.description || editingFeature?.description} rows={3} />
+            </div>
+            <div className="space-y-2">
+              <Label>{t('features.descriptionZh')}</Label>
+              <Textarea name="description_zh" defaultValue={editingFeature?.translations?.zh?.description || editingFeature?.description} rows={3} />
+            </div>
           </div>
           <div className="flex justify-end gap-3 pt-6 border-t border-slate-100 dark:border-slate-800">
             <Button type="button" variant="outline" onClick={() => setIsModalOpen(false)}>{t('common.cancel')}</Button>
@@ -171,6 +201,15 @@ export function Features() {
           </div>
         </form>
       </Modal>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title={t('features.deleteFeature')}
+        message={t('features.confirmDelete')}
+        variant="danger"
+      />
     </div>
   );
 }
