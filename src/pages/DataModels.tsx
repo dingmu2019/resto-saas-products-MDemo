@@ -471,10 +471,16 @@ export function DataModels() {
 
   const highlightSql = (sql: string) => {
     return sql
-      .replace(/\b(CREATE TABLE|PRIMARY KEY|UNIQUE KEY|KEY|ENGINE|DEFAULT|CHARSET|COLLATE|COMMENT|NOT NULL|AUTO_INCREMENT|UNSIGNED|BIGINT|VARCHAR|JSON|TINYINT|INT|BOOLEAN|TIMESTAMP|CURRENT_TIMESTAMP|ON UPDATE|NULL|ENUM|DECIMAL|DATE|DATETIME|TEXT)\b/g, '<span class="text-indigo-300 font-bold">$1</span>')
-      .replace(/(`[^`]+`)/g, '<span class="text-emerald-300">$1</span>')
-      .replace(/('[^']*')/g, '<span class="text-amber-200">$1</span>')
-      .replace(/(--.*)/g, '<span class="text-slate-500 italic">$1</span>');
+      // Keywords
+      .replace(/\b(CREATE TABLE|PRIMARY KEY|UNIQUE KEY|KEY|ENGINE|DEFAULT|CHARSET|COLLATE|COMMENT|NOT NULL|AUTO_INCREMENT|UNSIGNED|ON UPDATE|NULL)\b/g, '<span style="color: #569CD6; font-weight: bold;">$1</span>')
+      // Types
+      .replace(/\b(BIGINT|VARCHAR|JSON|TINYINT|INT|BOOLEAN|TIMESTAMP|CURRENT_TIMESTAMP|ENUM|DECIMAL|DATE|DATETIME|TEXT)\b/g, '<span style="color: #4EC9B0;">$1</span>')
+      // Identifiers (backticks)
+      .replace(/(`[^`]+`)/g, '<span style="color: #9CDCFE;">$1</span>')
+      // Strings
+      .replace(/('[^']*')/g, '<span style="color: #CE9178;">$1</span>')
+      // Comments
+      .replace(/(--.*)/g, '<span style="color: #6A9955; font-style: italic;">$1</span>');
   };
 
   return (
@@ -614,25 +620,31 @@ export function DataModels() {
                     </table>
                   </div>
                 ) : (
-                  <div className="flex-1 flex flex-col bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
-                    <div className="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-800">
+                  <div className="flex-1 flex flex-col bg-[#1e1e1e] rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
+                    <div className="flex items-center justify-between px-4 py-2.5 bg-[#2d2d2d] border-b border-[#3e3e42]">
                       <div className="flex items-center gap-2">
                         <div className="flex gap-1.5">
-                          <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/40" />
-                          <div className="w-3 h-3 rounded-full bg-amber-500/20 border border-amber-500/40" />
-                          <div className="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/40" />
+                          <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+                          <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+                          <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
                         </div>
-                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest ml-2">SQL Script</span>
+                        <span className="text-xs font-mono text-[#cccccc] ml-3">{activeModel.name}.sql</span>
                       </div>
                       <button 
                         onClick={() => copyToClipboard(generateSql(activeModel))}
-                        className="text-[10px] font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-1.5 px-2 py-1 rounded hover:bg-slate-800"
+                        className="text-xs font-medium text-[#cccccc] hover:text-white transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded hover:bg-[#3e3e42]"
                       >
-                        COPY
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        Copy
                       </button>
                     </div>
-                    <div className="flex-1 p-6 overflow-auto custom-scrollbar">
-                      <pre className="font-mono text-sm leading-relaxed text-slate-100">
+                    <div className="flex-1 p-4 overflow-auto custom-scrollbar bg-[#1e1e1e]">
+                      <pre className="font-mono text-[13px] leading-relaxed text-[#d4d4d4] flex">
+                        <div className="flex flex-col text-right pr-4 select-none text-[#858585] border-r border-[#404040] mr-4 min-w-[2.5rem]">
+                          {generateSql(activeModel).split('\n').map((_, i) => (
+                            <span key={i}>{i + 1}</span>
+                          ))}
+                        </div>
                         <code dangerouslySetInnerHTML={{ __html: highlightSql(generateSql(activeModel)) }} />
                       </pre>
                     </div>
