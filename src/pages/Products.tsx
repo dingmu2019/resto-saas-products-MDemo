@@ -5,15 +5,25 @@ import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Sel
 import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, Filter, Edit2, Trash2, ChevronRight, Globe } from 'lucide-react';
 import { Product } from '../types';
+import { cn } from '../components/Layout';
+
+import { getTranslatedField } from '../utils/i18n';
 
 export function Products() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const { products, setProducts, categories } = useProductContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [productToDelete, setProductToDelete] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [filters, setFilters] = useState({
+    productType: '',
+    categoryId: '',
+    brand: ''
+  });
   
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -97,11 +107,27 @@ export function Products() {
   };
 
   const filteredProducts = useMemo(() => {
-    return products.filter(p => 
-      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.productCode.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [products, searchQuery]);
+    return products.filter(p => {
+      const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.productCode.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesType = !filters.productType || p.productType === filters.productType;
+      const matchesCategory = !filters.categoryId || p.categoryId === Number(filters.categoryId);
+      const matchesBrand = !filters.brand || (p.brand && p.brand.toLowerCase().includes(filters.brand.toLowerCase()));
+      
+      return matchesSearch && matchesType && matchesCategory && matchesBrand;
+    });
+  }, [products, searchQuery, filters]);
+
+  const hasActiveFilters = filters.productType || filters.categoryId || filters.brand;
+
+  const clearFilters = () => {
+    setFilters({
+      productType: '',
+      categoryId: '',
+      brand: ''
+    });
+  };
 
   const paginatedProducts = useMemo(() => {
     const start = (currentPage - 1) * pageSize;
@@ -122,9 +148,19 @@ export function Products() {
               className="pl-9 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-80 transition-all"
             />
           </div>
-          <Button variant="outline" className="gap-2 border-dashed">
+          <Button 
+            variant="outline" 
+            className={cn("gap-2 border-dashed", hasActiveFilters && "border-indigo-500 text-indigo-600 bg-indigo-50/50")}
+            onClick={() => setIsFilterModalOpen(true)}
+          >
             <Filter className="w-4 h-4" /> {t('common.filter')}
+            {hasActiveFilters && <Badge variant="info" className="ml-1 px-1.5 py-0 h-4 min-w-4 flex items-center justify-center rounded-full text-[9px]">!</Badge>}
           </Button>
+          {hasActiveFilters && (
+            <Button variant="ghost" size="sm" onClick={clearFilters} className="text-slate-400 hover:text-slate-600 text-xs font-medium">
+              {t('common.clear')}
+            </Button>
+          )}
         </div>
         <Button onClick={() => handleOpenModal()} className="gap-2 shadow-lg shadow-indigo-500/20">
           <Plus className="w-4 h-4" /> {t('product.newProduct')}
@@ -157,9 +193,9 @@ export function Products() {
                       onClick={() => handleOpenModal(product)}
                       className="font-semibold text-slate-900 dark:text-slate-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
                     >
-                      {product.name}
+                      {getTranslatedField(product, 'name', currentLang)}
                     </button>
-                    <span className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">{product.description}</span>
+                    <span className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">{getTranslatedField(product, 'description', currentLang)}</span>
                   </div>
                 </Td>
                 <Td>
@@ -261,7 +297,7 @@ export function Products() {
                 onChange={(e) => setFormData({ ...formData, categoryId: Number(e.target.value) })}
               >
                 {categories.map(cat => (
-                  <option key={cat.id} value={cat.id}>{cat.name}</option>
+                  <option key={cat.id} value={cat.id}>{getTranslatedField(cat, 'name', currentLang)}</option>
                 ))}
               </Select>
             </div>
@@ -374,6 +410,62 @@ export function Products() {
         title={t('common.confirmDelete')}
         message={t('product.deleteConfirmMessage')}
       />
+
+      <Modal
+        isOpen={isFilterModalOpen}
+        onClose={() => setIsFilterModalOpen(false)}
+        title={t('common.filter')}
+      >
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 gap-4">
+            <div className="space-y-1.5">
+              <Label>{t('product.type')}</Label>
+              <Select 
+                value={filters.productType}
+                onChange={(e) => setFilters({ ...filters, productType: e.target.value })}
+              >
+                <option value="">{t('common.all')}</option>
+                <option value="software">{t('product.software')}</option>
+                <option value="hardware">{t('product.hardware')}</option>
+                <option value="consumable">{t('product.consumable')}</option>
+                <option value="bundle">{t('product.bundle')}</option>
+                <option value="service">{t('product.service')}</option>
+              </Select>
+            </div>
+            
+            <div className="space-y-1.5">
+              <Label>{t('app.categories')}</Label>
+              <Select 
+                value={filters.categoryId}
+                onChange={(e) => setFilters({ ...filters, categoryId: e.target.value })}
+              >
+                <option value="">{t('common.all')}</option>
+                {categories.map(cat => (
+                  <option key={cat.id} value={cat.id}>{getTranslatedField(cat, 'name', currentLang)}</option>
+                ))}
+              </Select>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('product.brand')}</Label>
+              <Input 
+                value={filters.brand}
+                onChange={(e) => setFilters({ ...filters, brand: e.target.value })}
+                placeholder={t('product.brandPlaceholder')}
+              />
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4">
+            <Button variant="outline" onClick={clearFilters}>
+              {t('common.clear')}
+            </Button>
+            <Button onClick={() => setIsFilterModalOpen(false)}>
+              {t('common.apply')}
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

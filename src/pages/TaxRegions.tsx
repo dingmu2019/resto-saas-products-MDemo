@@ -15,8 +15,11 @@ import { Card, Button, Input, Modal, Select, Pagination, ConfirmModal, Label } f
 import { useProductContext } from '../contexts/ProductProvider';
 import { TaxRegion } from '../types';
 
+import { getTranslatedField } from '../utils/i18n';
+
 export function TaxRegions() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const { taxRegions: regions, setTaxRegions: setRegions } = useProductContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,7 +33,7 @@ export function TaxRegions() {
 
   const filteredRegions = useMemo(() => {
     return regions.filter(region => 
-      region.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      getTranslatedField(region, 'name', currentLang).toLowerCase().includes(searchTerm.toLowerCase()) ||
       region.regionCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
       region.countryCode.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -127,8 +130,8 @@ export function TaxRegions() {
           <table className="w-full text-sm text-left">
             <thead className="text-xs text-slate-500 uppercase bg-slate-50 dark:bg-slate-900/50">
               <tr>
-                <th className="px-4 py-3 font-medium">{t('taxRegions.regionCode')}</th>
                 <th className="px-4 py-3 font-medium">{t('taxRegions.countryCode')}</th>
+                <th className="px-4 py-3 font-medium">{t('taxRegions.regionCode')}</th>
                 <th className="px-4 py-3 font-medium">{t('taxRegions.level')}</th>
                 <th className="px-4 py-3 font-medium">{t('sku.name')}</th>
                 <th className="px-4 py-3 font-medium">{t('common.status')}</th>
@@ -138,15 +141,15 @@ export function TaxRegions() {
             <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
               {paginatedRegions.map((region) => (
                 <tr key={region.id} className="hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
-                  <td className="px-4 py-4 font-mono text-xs">{region.regionCode}</td>
                   <td className="px-4 py-4">{region.countryCode}</td>
+                  <td className="px-4 py-4 font-mono text-xs">{region.regionCode}</td>
                   <td className="px-4 py-4">
                     <div className="flex items-center gap-2">
                       {getLevelIcon(region.level)}
                       <span className="capitalize">{t(`taxRegions.levels.${region.level}`)}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-4 font-medium">{region.name}</td>
+                  <td className="px-4 py-4 font-medium">{getTranslatedField(region, 'name', currentLang)}</td>
                   <td className="px-4 py-4">
                     <span className={cn(
                       "inline-flex items-center px-2 py-1 rounded-full text-xs font-medium",
@@ -264,7 +267,7 @@ export function TaxRegions() {
               <Select name="parentId" defaultValue={editingRegion?.parentId || ''}>
                 <option value="">{t('common.none')}</option>
                 {regions.map(r => (
-                  <option key={r.id} value={r.id}>{r.name}</option>
+                  <option key={r.id} value={r.id}>{getTranslatedField(r, 'name', currentLang)}</option>
                 ))}
               </Select>
             </div>

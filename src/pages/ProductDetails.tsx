@@ -7,9 +7,12 @@ import { ArrowLeft, Box, Shield, FileText, Tag, Image as ImageIcon, Info, Edit2,
 import { cn } from '../components/Layout';
 import { ProductSku, ProductEntitlement, ProductMedia } from '../types';
 
+import { getTranslatedField } from '../utils/i18n';
+
 export function ProductDetails() {
   const { id } = useParams();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const { 
     products, setProducts, 
     skus, setSkus, 
@@ -238,7 +241,7 @@ export function ProductDetails() {
           </Link>
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">{product.name}</h1>
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">{getTranslatedField(product, 'name', currentLang)}</h1>
               <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded font-mono text-[11px] text-slate-600 dark:text-slate-400">
                 {product.productCode}
               </span>
@@ -302,7 +305,7 @@ export function ProductDetails() {
                           {sku.skuCode}
                         </span>
                       </Td>
-                      <Td className="font-bold text-slate-900 dark:text-slate-100">{sku.name}</Td>
+                      <Td className="font-bold text-slate-900 dark:text-slate-100">{getTranslatedField(sku, 'name', currentLang)}</Td>
                       <Td>
                         <Badge variant="outline" className="text-[10px] uppercase tracking-tighter font-semibold bg-slate-50 dark:bg-slate-900">
                           {t(`sku.${sku.billingModel}`)}
@@ -355,7 +358,7 @@ export function ProductDetails() {
                     <Tr key={sku.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/10 transition-colors">
                       <Td>
                         <div className="flex flex-col gap-0.5">
-                          <span className="font-bold text-sm text-slate-900 dark:text-slate-100">{sku.name}</span>
+                          <span className="font-bold text-sm text-slate-900 dark:text-slate-100">{getTranslatedField(sku, 'name', currentLang)}</span>
                           <span className="text-[10px] font-mono text-slate-400 tracking-tighter">{sku.skuCode}</span>
                         </div>
                       </Td>
@@ -686,7 +689,7 @@ export function ProductDetails() {
             <Label>{t('sku.title')}</Label>
             <Select name="skuId" defaultValue={editingEntitlement?.skuId || productSkus[0]?.id}>
               {productSkus.map(sku => (
-                <option key={sku.id} value={sku.id}>{sku.name} ({sku.skuCode})</option>
+                <option key={sku.id} value={sku.id}>{getTranslatedField(sku, 'name', currentLang)} ({sku.skuCode})</option>
               ))}
             </Select>
           </div>

@@ -134,7 +134,7 @@
     "eos": "停止销售 (EOS)",
     "eol": "生命周期结束 (EOL)",
     "retired": "已退役",
-    "billingTiming": "计费时机",
+    "billingTiming": "计费时序",
     "in_advance": "预付",
     "in_arrears": "后付",
     "trialDays": "试用天数",
@@ -148,6 +148,15 @@
     "countryOfOrigin": "原产国",
     "provisioningHandler": "交付处理器",
     "technicalSpecs": "技术规格",
+    "monthly": "按月",
+    "annual": "按年",
+    "triennial": "三年期",
+    "none": "无",
+    "entitlements": "权益配置",
+    "feature": "功能",
+    "type": "类型",
+    "status": "状态",
+    "value": "值",
     "totalSkus": "SKU 总数",
     "activeSkus": "激活 SKU",
     "quotaValue": "配额值",
@@ -225,6 +234,9 @@
     "digital": "数字产品",
     "service": "服务",
     "bundle": "套餐",
+    "software": "软件",
+    "hardware": "硬件",
+    "consumable": "耗材",
     "salesTax": "销售税",
     "vat": "增值税",
     "gst": "消费税 (GST)",
@@ -246,6 +258,8 @@
     "parentRegion": "上级区域",
     "level": "层级",
     "isActive": "启用状态",
+    "nameEn": "英文名称",
+    "nameZh": "中文名称",
     "levels": {
       "country": "国家",
       "state": "州/省",
@@ -256,7 +270,9 @@
     "placeholders": {
       "regionCode": "例如：US-CA",
       "countryCode": "例如：US",
-      "name": "例如：加利福尼亚"
+      "name": "例如：加利福尼亚",
+      "nameEn": "例如：Singapore",
+      "nameZh": "例如：新加坡"
     }
   },
   "rules": {
@@ -322,6 +338,7 @@
     "code": "手册编码",
     "name": "手册名称",
     "currency": "货币",
+    "applicableRegions": "适用国家/地区",
     "status": "状态",
     "entries": "价格条目",
     "addEntry": "添加条目",

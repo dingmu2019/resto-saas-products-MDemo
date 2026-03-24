@@ -5,8 +5,11 @@ import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, Edit2, Trash2 } from 'lucide-react';
 import { TaxRateMapping } from '../types';
 
+import { getTranslatedField } from '../utils/i18n';
+
 export function Taxes() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const { taxRegions, taxRates, setTaxRates } = useProductContext();
   const [searchQuery, setSearchQuery] = useState('');
   
@@ -17,7 +20,7 @@ export function Taxes() {
   const [rateToDelete, setRateToDelete] = useState<number | null>(null);
 
   const getRegionName = (regionId: number) => {
-    return taxRegions.find(r => r.id === regionId)?.name || t('common.unknown');
+    return getTranslatedField(taxRegions.find(r => r.id === regionId), 'name', currentLang) || t('common.unknown');
   };
 
   const filteredRates = taxRates.filter(rate => {
@@ -141,7 +144,7 @@ export function Taxes() {
             <Select name="taxRegionId" defaultValue={editingRate?.taxRegionId} required>
               <option value="">{t('taxes.selectRegion')}</option>
               {taxRegions.map(region => (
-                <option key={region.id} value={region.id}>{region.name}</option>
+                <option key={region.id} value={region.id}>{getTranslatedField(region, 'name', currentLang)}</option>
               ))}
             </Select>
           </div>

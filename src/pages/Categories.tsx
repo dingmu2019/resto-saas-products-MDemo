@@ -6,8 +6,11 @@ import { Layers, Plus, Search, Edit2, Trash2, ChevronRight, Globe } from 'lucide
 import { cn } from '../components/Layout';
 import { Category } from '../types';
 
+import { getTranslatedField } from '../utils/i18n';
+
 export function Categories() {
   const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const { categories, setCategories } = useProductContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -133,7 +136,7 @@ export function Categories() {
                       "font-medium",
                       cat.level === 1 ? "text-slate-900 dark:text-white text-base" : "text-slate-600 dark:text-slate-300 text-sm"
                     )}>
-                      {cat.name}
+                      {getTranslatedField(cat, 'name', currentLang)}
                     </span>
                   </div>
                 </Td>
@@ -142,7 +145,7 @@ export function Categories() {
                     {cat.code}
                   </span>
                 </Td>
-                <Td className="text-slate-500 text-xs max-w-xs truncate">{cat.description}</Td>
+                <Td className="text-slate-500 text-xs max-w-xs truncate">{getTranslatedField(cat, 'description', currentLang)}</Td>
                 <Td>
                   <Badge variant="outline" className="text-[10px] font-mono">L{cat.level}</Badge>
                 </Td>

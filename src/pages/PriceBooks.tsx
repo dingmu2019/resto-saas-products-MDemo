@@ -6,9 +6,12 @@ import { BookOpen, Search, Plus, DollarSign, Tag, Globe, Calendar, ChevronRight,
 import { cn } from '../components/Layout';
 import { PriceBook, PriceBookEntry } from '../types';
 
+import { getTranslatedField } from '../utils/i18n';
+
 export function PriceBooks() {
-  const { t } = useTranslation();
-  const { priceBooks, setPriceBooks, priceBookEntries, setPriceBookEntries, skus } = useProductContext();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
+  const { priceBooks, setPriceBooks, priceBookEntries, setPriceBookEntries, skus, products } = useProductContext();
   const [activePbId, setActivePbId] = useState<number | null>(priceBooks[0]?.id || null);
   const [isPbModalOpen, setIsPbModalOpen] = useState(false);
   const [isEntryModalOpen, setIsEntryModalOpen] = useState(false);
@@ -30,7 +33,7 @@ export function PriceBooks() {
 
   const filteredPriceBooks = useMemo(() => {
     return priceBooks.filter(pb => 
-      pb.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      getTranslatedField(pb, 'name', currentLang).toLowerCase().includes(searchQuery.toLowerCase()) || 
       pb.code.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [priceBooks, searchQuery]);
@@ -48,10 +51,6 @@ export function PriceBooks() {
     const start = (entryPage - 1) * entryPageSize;
     return activePbEntries.slice(start, start + entryPageSize);
   }, [activePbEntries, entryPage, entryPageSize]);
-
-  const getSkuCode = (id: number) => {
-    return skus.find(s => s.id === id)?.skuCode || t('common.unknown');
-  };
 
   const activePb = priceBooks.find(pb => pb.id === activePbId);
 
@@ -103,6 +102,7 @@ export function PriceBooks() {
       isActive: formData.get('isActive') === 'on',
       validFrom: formData.get('validFrom') as string,
       validTo: formData.get('validTo') as string || undefined,
+      applicableRegions: (formData.get('applicableRegions') as string)?.split(',').map(s => s.trim()).filter(Boolean),
       priceDisplayPrecision: parseInt(formData.get('priceDisplayPrecision') as string) || 2,
       translations: {
         en: { name: formData.get('name_en') as string },
@@ -197,7 +197,7 @@ export function PriceBooks() {
                       "font-semibold text-sm transition-colors",
                       activePbId === pb.id ? "text-indigo-600 dark:text-indigo-400" : "text-slate-900 dark:text-slate-50"
                     )}>
-                      {pb.name}
+                      {getTranslatedField(pb, 'name', currentLang)}
                     </h4>
                     <div className="flex gap-1">
                       <Badge variant={pb.isActive ? 'success' : 'default'} className="text-[10px] uppercase tracking-wider">
@@ -226,6 +226,12 @@ export function PriceBooks() {
                       <span className="font-bold text-slate-700 dark:text-slate-300">{pb.currency}</span>
                     </div>
                   </div>
+                  {pb.applicableRegions && pb.applicableRegions.length > 0 && (
+                    <div className="flex items-center gap-1 mt-2 text-[10px] text-slate-500">
+                      <Globe className="w-3 h-3" />
+                      <span className="truncate">{pb.applicableRegions.join(', ')}</span>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -267,64 +273,126 @@ export function PriceBooks() {
             <Table>
               <Thead>
                 <Tr className="bg-slate-50/30 dark:bg-slate-800/10">
+                  <Th className="w-48">{t('sku.name')}</Th>
                   <Th className="w-40">{t('priceBook.skuCode')}</Th>
-                  <Th className="w-32">{t('priceBook.strategy')}</Th>
+                  <Th className="w-32">{t('product.type')}</Th>
+                  <Th className="w-40">{t('product.code')}</Th>
+                  <Th className="w-48">{t('product.name')}</Th>
                   <Th className="text-right">{t('priceBook.listPrice')}</Th>
                   <Th className="text-right">{t('priceBook.minPrice')}</Th>
                   <Th className="text-right">{t('priceBook.maxDiscount')}</Th>
+                  <Th className="w-32">{t('priceBook.strategy')}</Th>
+                  <Th className="w-32">{t('sku.billingModel')}</Th>
+                  <Th className="w-32">{t('sku.billingTerm')}</Th>
+                  <Th className="w-32">{t('sku.billingTiming')}</Th>
+                  <Th className="w-24">{t('sku.uom')}</Th>
+                  <Th className="w-32">{t('sku.lifecycle')}</Th>
                   <Th className="w-24 text-right">{t('sku.actions')}</Th>
                 </Tr>
               </Thead>
               <Tbody>
-                {paginatedEntries.map((entry) => (
-                  <Tr key={entry.id} className="group hover:bg-slate-50/30 dark:hover:bg-slate-800/20 transition-colors">
-                    <Td>
-                      <span className="font-mono text-[11px] tracking-tight text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 bg-indigo-50 dark:bg-indigo-900/20 rounded border border-indigo-100 dark:border-indigo-800/50">
-                        {getSkuCode(entry.skuId)}
-                      </span>
-                    </Td>
-                    <Td>
-                      <Badge variant="outline" className="text-[10px] font-mono uppercase tracking-wider">
-                        {t(`priceBook.${entry.pricingStrategy}`)}
-                      </Badge>
-                    </Td>
-                    <Td className="text-right font-bold text-slate-900 dark:text-white">
-                      {activePb?.currency === 'USD' ? '$' : activePb?.currency === 'CNY' ? '¥' : ''}
-                      {entry.listPrice.toLocaleString(undefined, { minimumFractionDigits: activePb?.priceDisplayPrecision || 2 })}
-                    </Td>
-                    <Td className="text-right text-slate-500 text-sm">
-                      {entry.minPrice ? (
-                        <>
-                          {activePb?.currency === 'USD' ? '$' : activePb?.currency === 'CNY' ? '¥' : ''}
-                          {entry.minPrice.toLocaleString(undefined, { minimumFractionDigits: activePb?.priceDisplayPrecision || 2 })}
-                        </>
-                      ) : '-'}
-                    </Td>
-                    <Td className="text-right">
-                      {entry.maxDiscountRate ? (
-                        <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-0.5 rounded-full border border-emerald-100 dark:border-emerald-800/50">
-                          {(entry.maxDiscountRate * 100).toFixed(0)}%
+                {paginatedEntries.map((entry) => {
+                  const sku = skus.find(s => s.id === entry.skuId);
+                  const product = sku ? products.find(p => p.id === sku.productId) : null;
+                  
+                  return (
+                    <Tr key={entry.id} className="group hover:bg-slate-50/30 dark:hover:bg-slate-800/20 transition-colors">
+                      <Td className="max-w-[200px] truncate">
+                        <span className="text-sm font-medium text-slate-900 dark:text-white">
+                          {sku ? getTranslatedField(sku, 'name', currentLang) : '-'}
                         </span>
-                      ) : '-'}
-                    </Td>
-                    <Td className="text-right">
-                      <div className="flex items-center justify-end gap-1">
-                        <button 
-                          onClick={() => handleOpenEntryModal(entry)}
-                          className="p-1 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
-                          <Edit2 className="w-3.5 h-3.5" />
-                        </button>
-                        <button 
-                          onClick={() => handleDeleteEntry(entry.id)}
-                          className="p-1 text-slate-400 hover:text-red-600 dark:hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </Td>
-                  </Tr>
-                ))}
+                      </Td>
+                      <Td>
+                        <span className="font-mono text-[11px] tracking-tight text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 bg-indigo-50 dark:bg-indigo-900/20 rounded border border-indigo-100 dark:border-indigo-800/50">
+                          {sku?.skuCode || entry.skuId}
+                        </span>
+                      </Td>
+                      <Td>
+                        {product ? (
+                          <Badge variant="outline" className="text-[10px] lowercase first-letter:uppercase">
+                            {t(`product.${product.productType}`)}
+                          </Badge>
+                        ) : '-'}
+                      </Td>
+                      <Td>
+                        <span className="text-xs text-slate-500 font-mono">
+                          {product?.productCode || '-'}
+                        </span>
+                      </Td>
+                      <Td>
+                        <span className="text-xs text-slate-600 dark:text-slate-400">
+                          {product ? getTranslatedField(product, 'name', currentLang) : '-'}
+                        </span>
+                      </Td>
+                      <Td className="text-right font-bold text-slate-900 dark:text-white">
+                        {activePb?.currency === 'USD' ? '$' : activePb?.currency === 'CNY' ? '¥' : ''}
+                        {entry.listPrice.toLocaleString(undefined, { minimumFractionDigits: activePb?.priceDisplayPrecision || 2 })}
+                      </Td>
+                      <Td className="text-right text-slate-500 text-sm">
+                        {entry.minPrice ? (
+                          <>
+                            {activePb?.currency === 'USD' ? '$' : activePb?.currency === 'CNY' ? '¥' : ''}
+                            {entry.minPrice.toLocaleString(undefined, { minimumFractionDigits: activePb?.priceDisplayPrecision || 2 })}
+                          </>
+                        ) : '-'}
+                      </Td>
+                      <Td className="text-right">
+                        {entry.maxDiscountRate ? (
+                          <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 px-2 py-0.5 rounded-full border border-emerald-100 dark:border-emerald-800/50">
+                            {(entry.maxDiscountRate * 100).toFixed(0)}%
+                          </span>
+                        ) : '-'}
+                      </Td>
+                      <Td>
+                        <Badge variant="outline" className="text-[10px] font-mono uppercase tracking-wider">
+                          {t(`priceBook.${entry.pricingStrategy}`)}
+                        </Badge>
+                      </Td>
+                      <Td>
+                        {sku ? (
+                          <Badge variant="info" className="text-[10px] lowercase first-letter:uppercase">
+                            {t(`sku.${sku.billingModel}`)}
+                          </Badge>
+                        ) : '-'}
+                      </Td>
+                      <Td className="text-xs">
+                        {sku ? t(`sku.${sku.billingTerm}`) : '-'}
+                      </Td>
+                      <Td className="text-xs">
+                        {sku ? t(`sku.${sku.billingTiming}`) : '-'}
+                      </Td>
+                      <Td className="text-xs">
+                        {sku?.uom || '-'}
+                      </Td>
+                      <Td>
+                        {sku ? (
+                          <Badge 
+                            variant={sku.lifecycleStatus === 'active' ? 'success' : sku.lifecycleStatus === 'draft' ? 'warning' : 'default'}
+                            className="text-[10px]"
+                          >
+                            {t(`sku.${sku.lifecycleStatus}`)}
+                          </Badge>
+                        ) : '-'}
+                      </Td>
+                      <Td className="text-right">
+                        <div className="flex items-center justify-end gap-1">
+                          <button 
+                            onClick={() => handleOpenEntryModal(entry)}
+                            className="p-1 text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            <Edit2 className="w-3.5 h-3.5" />
+                          </button>
+                          <button 
+                            onClick={() => handleDeleteEntry(entry.id)}
+                            className="p-1 text-slate-400 hover:text-red-600 dark:hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </Td>
+                    </Tr>
+                  );
+                })}
               </Tbody>
             </Table>
             <div className="p-4 border-t border-slate-100 dark:border-slate-800">
@@ -407,6 +475,15 @@ export function PriceBooks() {
             </div>
           </div>
 
+          <div className="space-y-1.5">
+            <Label>{t('priceBook.applicableRegions')}</Label>
+            <Input 
+              name="applicableRegions" 
+              defaultValue={editingPb?.applicableRegions?.join(', ')} 
+              placeholder="e.g. US, CN, SG"
+            />
+          </div>
+
           <div className="flex items-center gap-2 pt-2">
             <input 
               type="checkbox" 
@@ -462,7 +539,7 @@ export function PriceBooks() {
             <Select name="skuId" required defaultValue={editingEntry?.skuId}>
               <option value="">{t('sku.searchPlaceholder')}</option>
               {skus.map(s => (
-                <option key={s.id} value={s.id}>{s.skuCode} - {s.name}</option>
+                <option key={s.id} value={s.id}>{s.skuCode} - {getTranslatedField(s, 'name', currentLang)}</option>
               ))}
             </Select>
           </div>

@@ -6,8 +6,11 @@ import { Search, Plus, Package, Settings, ChevronRight, Check, Layers, Edit2, Tr
 import { cn } from '../components/Layout';
 import { BundleGroup, BundleOption } from '../types';
 
+import { getTranslatedField } from '../utils/i18n';
+
 export function Bundles() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const { 
     products, 
     skus, 
@@ -58,7 +61,7 @@ export function Bundles() {
 
   const getSkuName = (skuId: number) => {
     const sku = skus.find(s => s.id === skuId);
-    return sku ? `${sku.skuCode} - ${sku.name}` : t('common.unknown');
+    return sku ? `${sku.skuCode} - ${getTranslatedField(sku, 'name', currentLang)}` : t('common.unknown');
   };
 
   const getPricingBadge = (type: string, value?: number) => {
@@ -200,7 +203,7 @@ export function Bundles() {
                 )} />
               </div>
               <div className="flex-1 overflow-hidden">
-                <div className="font-semibold text-sm truncate">{sku.name}</div>
+                <div className="font-semibold text-sm truncate">{getTranslatedField(sku, 'name', currentLang)}</div>
                 <div className="text-[10px] font-mono opacity-60 truncate tracking-tighter">{sku.skuCode}</div>
               </div>
               <ChevronRight className={cn(
@@ -234,7 +237,7 @@ export function Bundles() {
                 </div>
                 <div>
                   <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                    {selectedSku.name}
+                    {getTranslatedField(selectedSku, 'name', currentLang)}
                     <Badge variant="info" className="text-[10px] uppercase tracking-wider">Bundle</Badge>
                   </h2>
                   <div className="flex items-center gap-2 mt-1">
@@ -264,8 +267,8 @@ export function Bundles() {
                           <Layers className="w-4 h-4 text-indigo-500" />
                         </div>
                         <div>
-                          <h3 className="font-bold text-sm text-slate-900 dark:text-white">{group.name}</h3>
-                          {group.description && <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1">{group.description}</p>}
+                          <h3 className="font-bold text-sm text-slate-900 dark:text-white">{getTranslatedField(group, 'name', currentLang)}</h3>
+                          {getTranslatedField(group, 'description', currentLang) && <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-1">{getTranslatedField(group, 'description', currentLang)}</p>}
                         </div>
                       </div>
                       <div className="flex items-center gap-4">
@@ -314,7 +317,7 @@ export function Bundles() {
                               <Td className="text-center text-[11px] font-mono text-slate-400">{idx + 1}</Td>
                               <Td>
                                 <div className="font-medium text-sm text-slate-900 dark:text-slate-100">
-                                  {sku?.name || 'Unknown'}
+                                  {sku ? getTranslatedField(sku, 'name', currentLang) : 'Unknown'}
                                 </div>
                                 <div className="text-[10px] font-mono text-slate-400">{sku?.skuCode}</div>
                               </Td>
@@ -487,7 +490,7 @@ export function Bundles() {
             <Select name="componentSkuId" defaultValue={editingOption?.componentSkuId} required>
               <option value="">{t('bundles.selectSku')}</option>
               {skus.filter(s => s.productId !== selectedSku?.productId).map(sku => (
-                <option key={sku.id} value={sku.id}>{sku.skuCode} - {sku.name}</option>
+                <option key={sku.id} value={sku.id}>{sku.skuCode} - {getTranslatedField(sku, 'name', currentLang)}</option>
               ))}
             </Select>
           </div>

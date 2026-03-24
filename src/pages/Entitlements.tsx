@@ -5,8 +5,11 @@ import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, ShieldCheck, Edit2, Trash2, Package, ListChecks } from 'lucide-react';
 import { ProductEntitlement } from '../types';
 
+import { getTranslatedField } from '../utils/i18n';
+
 export function Entitlements() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const { entitlements, setEntitlements, skus, features } = useProductContext();
   const [searchQuery, setSearchQuery] = useState('');
   
@@ -20,7 +23,7 @@ export function Entitlements() {
     return entitlements.filter(ent => {
       const sku = skus.find(s => s.id === ent.skuId);
       const feature = features.find(f => f.code === ent.featureCode);
-      const searchStr = `${sku?.name || ''} ${feature?.name || ''} ${ent.featureCode}`.toLowerCase();
+      const searchStr = `${sku ? getTranslatedField(sku, 'name', currentLang) : ''} ${feature ? getTranslatedField(feature, 'name', currentLang) : ''} ${ent.featureCode}`.toLowerCase();
       return searchStr.includes(searchQuery.toLowerCase());
     });
   }, [entitlements, skus, features, searchQuery]);
@@ -103,14 +106,14 @@ export function Entitlements() {
                   <Td>
                     <div className="flex items-center gap-2">
                       <Package className="w-4 h-4 text-slate-400" />
-                      <div className="font-medium text-slate-900 dark:text-white">{sku?.name || 'Unknown SKU'}</div>
+                      <div className="font-medium text-slate-900 dark:text-white">{sku ? getTranslatedField(sku, 'name', currentLang) : 'Unknown SKU'}</div>
                     </div>
                   </Td>
                   <Td>
                     <div className="flex items-center gap-2">
                       <ListChecks className="w-4 h-4 text-indigo-500" />
                       <div>
-                        <div className="font-medium text-slate-900 dark:text-white">{feature?.name || ent.featureCode}</div>
+                        <div className="font-medium text-slate-900 dark:text-white">{feature ? getTranslatedField(feature, 'name', currentLang) : ent.featureCode}</div>
                         <div className="text-xs text-slate-500 font-mono">{ent.featureCode}</div>
                       </div>
                     </div>
@@ -164,7 +167,7 @@ export function Entitlements() {
             <Select name="skuId" defaultValue={editingEntitlement?.skuId} required>
               <option value="">{t('sku.selectSku')}</option>
               {skus.map(sku => (
-                <option key={sku.id} value={sku.id}>{sku.name}</option>
+                <option key={sku.id} value={sku.id}>{getTranslatedField(sku, 'name', currentLang)}</option>
               ))}
             </Select>
           </div>
@@ -173,7 +176,7 @@ export function Entitlements() {
             <Select name="featureCode" defaultValue={editingEntitlement?.featureCode} required>
               <option value="">{t('features.selectFeature')}</option>
               {features.map(f => (
-                <option key={f.id} value={f.code}>{f.name} ({f.code})</option>
+                <option key={f.id} value={f.code}>{getTranslatedField(f, 'name', currentLang)} ({f.code})</option>
               ))}
             </Select>
           </div>

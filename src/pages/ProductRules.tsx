@@ -5,8 +5,11 @@ import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, Edit2, Trash2 } from 'lucide-react';
 import { ProductRule } from '../types';
 
+import { getTranslatedField } from '../utils/i18n';
+
 export function ProductRules() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const { skus, rules, setRules } = useProductContext();
   const [searchQuery, setSearchQuery] = useState('');
   
@@ -18,7 +21,7 @@ export function ProductRules() {
 
   const getSkuName = (skuId: number) => {
     const sku = skus.find(s => s.id === skuId);
-    return sku ? `${sku.skuCode} - ${sku.name}` : t('common.unknown');
+    return sku ? `${sku.skuCode} - ${getTranslatedField(sku, 'name', currentLang)}` : t('common.unknown');
   };
 
   const getRuleBadge = (type: string) => {
@@ -141,7 +144,7 @@ export function ProductRules() {
             <Select name="sourceSkuId" defaultValue={editingRule?.sourceSkuId} required>
               <option value="">{t('rules.selectSku')}</option>
               {skus.map(sku => (
-                <option key={sku.id} value={sku.id}>{sku.skuCode} - {sku.name}</option>
+                <option key={sku.id} value={sku.id}>{sku.skuCode} - {getTranslatedField(sku, 'name', currentLang)}</option>
               ))}
             </Select>
           </div>
@@ -159,7 +162,7 @@ export function ProductRules() {
             <Select name="targetSkuId" defaultValue={editingRule?.targetSkuId} required>
               <option value="">{t('rules.selectSku')}</option>
               {skus.map(sku => (
-                <option key={sku.id} value={sku.id}>{sku.skuCode} - {sku.name}</option>
+                <option key={sku.id} value={sku.id}>{sku.skuCode} - {getTranslatedField(sku, 'name', currentLang)}</option>
               ))}
             </Select>
           </div>

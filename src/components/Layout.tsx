@@ -29,7 +29,7 @@ export function Layout() {
     { path: '/tax-regions', label: t('app.taxRegions'), icon: Navigation },
     { path: '/media', label: t('app.media'), icon: ImageIcon },
     { path: '/price-books', label: t('app.priceBooks'), icon: BookOpen },
-    { path: '/cpq', label: t('app.cpqDemo'), icon: Monitor },
+    // { path: '/cpq', label: t('app.cpqDemo'), icon: Monitor }, // Hidden as requested
     { path: '/data-models', label: t('app.dataModels'), icon: Database },
   ];
 
@@ -70,20 +70,6 @@ export function Layout() {
             );
           })}
         </nav>
-
-        <div className="p-4 border-t border-slate-100 dark:border-slate-800/50">
-          <div className="px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-700 dark:text-indigo-300 font-semibold text-xs">
-                A
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-xs font-semibold truncate">Admin User</p>
-                <p className="text-[10px] text-slate-500 truncate">admin@restosuite.com</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </aside>
 
       {/* Main Content */}
@@ -100,13 +86,12 @@ export function Layout() {
                 const nextIndex = (themes.indexOf(theme) + 1) % themes.length;
                 setTheme(themes[nextIndex]);
               }}
-              className="flex items-center gap-2.5 px-4 py-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300 text-slate-600 dark:text-slate-400 border border-transparent hover:border-slate-200 dark:hover:border-slate-700"
+              className="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-300 text-slate-600 dark:text-slate-400 border border-transparent hover:border-slate-200 dark:hover:border-slate-700"
               title={t(`app.${theme}`)}
             >
-              {theme === 'light' && <Sun className="w-4 h-4" />}
-              {theme === 'dark' && <Moon className="w-4 h-4" />}
-              {theme === 'system' && <Monitor className="w-4 h-4" />}
-              <span className="text-xs font-semibold uppercase tracking-wider">{t(`app.${theme}`)}</span>
+              {theme === 'light' && <Sun className="w-5 h-5" />}
+              {theme === 'dark' && <Moon className="w-5 h-5" />}
+              {theme === 'system' && <Monitor className="w-5 h-5" />}
             </button>
 
             {/* Language Toggle */}
@@ -127,6 +112,16 @@ export function Layout() {
             <button className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
               <Settings className="w-5 h-5 text-slate-500" />
             </button>
+
+            <div className="flex items-center gap-3 pl-4 border-l border-slate-200 dark:border-slate-800">
+              <div className="flex flex-col items-end">
+                <p className="text-sm font-semibold text-slate-900 dark:text-white">Admin User</p>
+                <p className="text-[10px] text-slate-500">admin@restosuite.com</p>
+              </div>
+              <div className="w-9 h-9 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-700 dark:text-indigo-300 font-bold text-sm shadow-sm">
+                A
+              </div>
+            </div>
           </div>
         </header>
         

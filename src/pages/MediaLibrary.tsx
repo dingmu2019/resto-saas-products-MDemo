@@ -5,8 +5,11 @@ import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, Image as ImageIcon, FileText, Video, Box, Edit2, Trash2, ExternalLink } from 'lucide-react';
 import { ProductMedia } from '../types';
 
+import { getTranslatedField } from '../utils/i18n';
+
 export function MediaLibrary() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const { media, setMedia, products, skus } = useProductContext();
   const [searchQuery, setSearchQuery] = useState('');
   
@@ -27,7 +30,7 @@ export function MediaLibrary() {
   };
 
   const filteredMedia = media.filter(m => 
-    m.title?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    getTranslatedField(m, 'title', currentLang)?.toLowerCase().includes(searchQuery.toLowerCase()) || 
     m.url.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -101,7 +104,7 @@ export function MediaLibrary() {
               {m.mediaType === 'image' ? (
                 <img 
                   src={m.url} 
-                  alt={m.title} 
+                  alt={getTranslatedField(m, 'title', currentLang)} 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />
@@ -138,8 +141,8 @@ export function MediaLibrary() {
             </div>
             <div className="p-4 flex-1 flex flex-col">
               <div className="flex items-start justify-between gap-3 mb-3">
-                <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 line-clamp-2 leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" title={m.title}>
-                  {m.title || t('media.untitled')}
+                <h3 className="font-semibold text-sm text-slate-900 dark:text-slate-100 line-clamp-2 leading-snug group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" title={getTranslatedField(m, 'title', currentLang)}>
+                  {getTranslatedField(m, 'title', currentLang) || t('media.untitled')}
                 </h3>
                 <div className="shrink-0 p-1.5 bg-slate-50 dark:bg-slate-800 rounded-md">
                   {getMediaIcon(m.mediaType)}
@@ -227,7 +230,7 @@ export function MediaLibrary() {
               <Select name="productId" defaultValue={editingMedia?.productId}>
                 <option value="">{t('common.none')}</option>
                 {products.map(p => (
-                  <option key={p.id} value={p.id}>{p.name}</option>
+                  <option key={p.id} value={p.id}>{getTranslatedField(p, 'name', currentLang)}</option>
                 ))}
               </Select>
             </div>
@@ -236,7 +239,7 @@ export function MediaLibrary() {
               <Select name="skuId" defaultValue={editingMedia?.skuId}>
                 <option value="">{t('common.none')}</option>
                 {skus.map(s => (
-                  <option key={s.id} value={s.id}>{s.skuCode} - {s.name}</option>
+                  <option key={s.id} value={s.id}>{s.skuCode} - {getTranslatedField(s, 'name', currentLang)}</option>
                 ))}
               </Select>
             </div>

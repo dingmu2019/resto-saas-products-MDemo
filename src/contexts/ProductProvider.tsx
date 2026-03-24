@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
 import { Product, ProductSku, Category, PriceBook, PriceBookEntry, ProductMedia, ProductEntitlement, BundleGroup, BundleOption, ProductRule, TaxRegion, TaxRateMapping, ProductFeature } from '../types';
-import { mockProducts, mockSkus, mockCategories, mockPriceBooks, mockPriceBookEntries, mockMedia, mockEntitlements, mockBundleGroups, mockBundleOptions, mockRules, mockTaxRegions, mockTaxRates, mockFeatures } from '../data/mock';
+import { mockData } from '../data/mock';
 
 interface ProductContextType {
   products: Product[];
@@ -34,19 +34,19 @@ interface ProductContextType {
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
 export function ProductProvider({ children }: { children: React.ReactNode }) {
-  const [products, setProducts] = useState<Product[]>(mockProducts);
-  const [skus, setSkus] = useState<ProductSku[]>(mockSkus);
-  const [categories, setCategories] = useState<Category[]>(mockCategories);
-  const [priceBooks, setPriceBooks] = useState<PriceBook[]>(mockPriceBooks);
-  const [priceBookEntries, setPriceBookEntries] = useState<PriceBookEntry[]>(mockPriceBookEntries);
-  const [media, setMedia] = useState<ProductMedia[]>(mockMedia);
-  const [entitlements, setEntitlements] = useState<ProductEntitlement[]>(mockEntitlements);
-  const [bundleGroups, setBundleGroups] = useState<BundleGroup[]>(mockBundleGroups);
-  const [bundleOptions, setBundleOptions] = useState<BundleOption[]>(mockBundleOptions);
-  const [rules, setRules] = useState<ProductRule[]>(mockRules);
-  const [taxRegions, setTaxRegions] = useState<TaxRegion[]>(mockTaxRegions);
-  const [taxRates, setTaxRates] = useState<TaxRateMapping[]>(mockTaxRates);
-  const [features, setFeatures] = useState<ProductFeature[]>(mockFeatures);
+  const [products, setProducts] = useState<Product[]>(mockData.products);
+  const [skus, setSkus] = useState<ProductSku[]>(mockData.skus as ProductSku[]);
+  const [categories, setCategories] = useState<Category[]>(mockData.categories);
+  const [priceBooks, setPriceBooks] = useState<PriceBook[]>(mockData.priceBooks);
+  const [priceBookEntries, setPriceBookEntries] = useState<PriceBookEntry[]>(mockData.priceBookEntries);
+  const [media, setMedia] = useState<ProductMedia[]>(mockData.media);
+  const [entitlements, setEntitlements] = useState<ProductEntitlement[]>(mockData.entitlements);
+  const [bundleGroups, setBundleGroups] = useState<BundleGroup[]>(mockData.bundleGroups);
+  const [bundleOptions, setBundleOptions] = useState<BundleOption[]>(mockData.bundleOptions);
+  const [rules, setRules] = useState<ProductRule[]>(mockData.rules);
+  const [taxRegions, setTaxRegions] = useState<TaxRegion[]>(mockData.taxRegions);
+  const [taxRates, setTaxRates] = useState<TaxRateMapping[]>(mockData.taxRates);
+  const [features, setFeatures] = useState<ProductFeature[]>(mockData.features);
 
   return (
     <ProductContext.Provider value={{

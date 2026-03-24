@@ -5,8 +5,11 @@ import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, CheckCircle2, BarChart3, Layers, Edit2, Trash2 } from 'lucide-react';
 import { ProductFeature } from '../types';
 
+import { getTranslatedField } from '../utils/i18n';
+
 export function Features() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const { features, setFeatures } = useProductContext();
   const [searchQuery, setSearchQuery] = useState('');
   
@@ -44,7 +47,7 @@ export function Features() {
   };
 
   const filteredFeatures = features.filter(feature => 
-    feature.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    getTranslatedField(feature, 'name', currentLang).toLowerCase().includes(searchQuery.toLowerCase()) || 
     feature.code.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -133,12 +136,12 @@ export function Features() {
                   </span>
                 </Td>
                 <Td>
-                  <div className="font-medium text-slate-900 dark:text-white">{feature.name}</div>
+                  <div className="font-medium text-slate-900 dark:text-white">{getTranslatedField(feature, 'name', currentLang)}</div>
                 </Td>
                 <Td>{getTypeBadge(feature.type)}</Td>
                 <Td>
                   <div className="text-slate-500 dark:text-slate-400 text-sm line-clamp-2 leading-relaxed">
-                    {feature.description}
+                    {getTranslatedField(feature, 'description', currentLang)}
                   </div>
                 </Td>
                 <Td className="text-right">

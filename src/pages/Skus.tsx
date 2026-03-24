@@ -7,13 +7,24 @@ import { Plus, Search, Filter, Package, ChevronRight, Edit2, Trash2, RefreshCw, 
 import { ProductSku } from '../types';
 import { cn } from '../components/Layout';
 
+import { getTranslatedField } from '../utils/i18n';
+
 export function Skus() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
   const { skus, setSkus, products, entitlements, setEntitlements, features } = useProductContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState({
+    productId: '',
+    billingModel: '',
+    lifecycleStatus: '',
+    billingTerm: '',
+    productType: [] as string[]
+  });
   const [editingSku, setEditingSku] = useState<ProductSku | null>(null);
   const [viewingSku, setViewingSku] = useState<ProductSku | null>(null);
   const [skuToDelete, setSkuToDelete] = useState<number | null>(null);
@@ -24,11 +35,33 @@ export function Skus() {
   const [pageSize, setPageSize] = useState(10);
 
   const filteredSkus = useMemo(() => {
-    return skus.filter(sku => 
-      sku.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-      sku.skuCode.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [skus, searchQuery]);
+    return skus.filter(sku => {
+      const parentProduct = products.find(p => p.id === sku.productId);
+      const matchesSearch = sku.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        sku.skuCode.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesProduct = !filters.productId || sku.productId === Number(filters.productId);
+      const matchesBillingModel = !filters.billingModel || sku.billingModel === filters.billingModel;
+      const matchesLifecycle = !filters.lifecycleStatus || sku.lifecycleStatus === filters.lifecycleStatus;
+      const matchesBillingTerm = !filters.billingTerm || sku.billingTerm === filters.billingTerm;
+      const matchesProductType = filters.productType.length === 0 || 
+        (parentProduct && filters.productType.includes(parentProduct.productType));
+      
+      return matchesSearch && matchesProduct && matchesBillingModel && matchesLifecycle && matchesBillingTerm && matchesProductType;
+    });
+  }, [skus, searchQuery, filters, products]);
+
+  const hasActiveFilters = filters.productId || filters.billingModel || filters.lifecycleStatus || filters.billingTerm || filters.productType.length > 0;
+
+  const clearFilters = () => {
+    setFilters({
+      productId: '',
+      billingModel: '',
+      lifecycleStatus: '',
+      billingTerm: '',
+      productType: []
+    });
+  };
 
   const paginatedSkus = useMemo(() => {
     const start = (currentPage - 1) * pageSize;
@@ -188,9 +221,19 @@ export function Skus() {
               className="pl-9 pr-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-80 transition-all"
             />
           </div>
-          <Button variant="outline" className="gap-2 border-slate-200 dark:border-slate-800">
+          <Button 
+            variant="outline" 
+            className={cn("gap-2 border-slate-200 dark:border-slate-800", hasActiveFilters && "border-indigo-500 text-indigo-600 bg-indigo-50/50")}
+            onClick={() => setIsFilterModalOpen(true)}
+          >
             <Filter className="w-4 h-4" /> {t('common.filter')}
+            {hasActiveFilters && <Badge variant="info" className="ml-1 px-1.5 py-0 h-4 min-w-4 flex items-center justify-center rounded-full text-[9px]">!</Badge>}
           </Button>
+          {hasActiveFilters && (
+            <Button variant="ghost" size="sm" onClick={clearFilters} className="text-slate-400 hover:text-slate-600 text-xs font-medium">
+              {t('common.clear')}
+            </Button>
+          )}
         </div>
         <Button className="gap-2 shadow-lg shadow-indigo-500/20" onClick={() => handleOpenModal()}>
           <Plus className="w-4 h-4" /> {t('sku.newSku')}
@@ -227,7 +270,7 @@ export function Skus() {
                       onClick={() => handleViewDetails(sku)}
                       className="font-medium text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors text-left"
                     >
-                      {sku.name}
+                      {getTranslatedField(sku, 'name', currentLang)}
                     </button>
                   </Td>
                   <Td>
@@ -412,7 +455,7 @@ export function Skus() {
               <Select name="productId" required defaultValue={editingSku?.productId}>
                 <option value="">{t('product.searchPlaceholder')}</option>
                 {products.map(p => (
-                  <option key={p.id} value={p.id}>{p.name}</option>
+                  <option key={p.id} value={p.id}>{getTranslatedField(p, 'name', currentLang)}</option>
                 ))}
               </Select>
             </div>
@@ -588,7 +631,7 @@ export function Skus() {
                     <Select 
                       value={ent.featureCode} 
                       onChange={(e) => handleUpdateEntitlement(ent.id, { featureCode: e.target.value })}
-                      className="h-8 text-xs"
+                      className="h-9 text-xs"
                     >
                       {features.map(f => (
                         <option key={f.id} value={f.code}>{f.name}</option>
@@ -600,7 +643,7 @@ export function Skus() {
                     <Select 
                       value={ent.entitlementType} 
                       onChange={(e) => handleUpdateEntitlement(ent.id, { entitlementType: e.target.value })}
-                      className="h-8 text-xs"
+                      className="h-9 text-xs"
                     >
                       <option value="boolean">Boolean</option>
                       <option value="quota">Quota</option>
@@ -613,7 +656,7 @@ export function Skus() {
                       <Select 
                         value={ent.status} 
                         onChange={(e) => handleUpdateEntitlement(ent.id, { status: e.target.value })}
-                        className="h-8 text-xs"
+                        className="h-9 text-xs"
                       >
                         <option value="active">Active</option>
                         <option value="inactive">Inactive</option>
@@ -622,7 +665,7 @@ export function Skus() {
                       <Input 
                         value={ent.entitlementType === 'quota' ? ent.quotaValue : ent.tierValue}
                         onChange={(e) => handleUpdateEntitlement(ent.id, ent.entitlementType === 'quota' ? { quotaValue: parseInt(e.target.value) } : { tierValue: e.target.value })}
-                        className="h-8 text-xs"
+                        className="h-9 text-xs"
                       />
                     )}
                   </div>
@@ -659,6 +702,105 @@ export function Skus() {
         title={t('common.confirmDelete')}
         message={t('common.confirmDeleteMessage')}
       />
+
+      <Modal
+        isOpen={isFilterModalOpen}
+        onClose={() => setIsFilterModalOpen(false)}
+        title={t('common.filter')}
+      >
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 gap-4">
+            <div className="space-y-1.5">
+              <Label>{t('sku.parentProduct')}</Label>
+              <Select 
+                value={filters.productId}
+                onChange={(e) => setFilters({ ...filters, productId: e.target.value })}
+              >
+                <option value="">{t('common.all')}</option>
+                {products.map(p => (
+                  <option key={p.id} value={p.id}>{getTranslatedField(p, 'name', currentLang)}</option>
+                ))}
+              </Select>
+            </div>
+
+            <div className="space-y-3">
+              <Label>{t('product.type')}</Label>
+              <div className="grid grid-cols-2 gap-3 p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800">
+                {['software', 'hardware', 'service', 'bundle', 'consumable'].map((type) => (
+                  <label key={type} className="flex items-center gap-2 cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      checked={filters.productType.includes(type)}
+                      onChange={(e) => {
+                        const newTypes = e.target.checked
+                          ? [...filters.productType, type]
+                          : filters.productType.filter(t => t !== type);
+                        setFilters({ ...filters, productType: newTypes });
+                      }}
+                      className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+                    />
+                    <span className="text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-200 transition-colors">
+                      {t(`product.${type}`)}
+                    </span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('sku.billingModel')}</Label>
+              <Select 
+                value={filters.billingModel}
+                onChange={(e) => setFilters({ ...filters, billingModel: e.target.value })}
+              >
+                <option value="">{t('common.all')}</option>
+                <option value="one_time">{t('sku.one_time')}</option>
+                <option value="recurring">{t('sku.recurring')}</option>
+                <option value="usage_based">{t('sku.usage_based')}</option>
+              </Select>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('sku.lifecycle')}</Label>
+              <Select 
+                value={filters.lifecycleStatus}
+                onChange={(e) => setFilters({ ...filters, lifecycleStatus: e.target.value })}
+              >
+                <option value="">{t('common.all')}</option>
+                <option value="draft">{t('sku.draft')}</option>
+                <option value="active">{t('sku.active')}</option>
+                <option value="eos">{t('sku.eos')}</option>
+                <option value="eol">{t('sku.eol')}</option>
+              </Select>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label>{t('sku.billingTerm')}</Label>
+              <Select 
+                value={filters.billingTerm}
+                onChange={(e) => setFilters({ ...filters, billingTerm: e.target.value })}
+              >
+                <option value="">{t('common.all')}</option>
+                <option value="none">{t('sku.none')}</option>
+                <option value="daily">{t('sku.daily')}</option>
+                <option value="weekly">{t('sku.weekly')}</option>
+                <option value="monthly">{t('sku.monthly')}</option>
+                <option value="quarterly">{t('sku.quarterly')}</option>
+                <option value="annual">{t('sku.annual')}</option>
+              </Select>
+            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4">
+            <Button variant="outline" onClick={clearFilters}>
+              {t('common.clear')}
+            </Button>
+            <Button onClick={() => setIsFilterModalOpen(false)}>
+              {t('common.apply')}
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

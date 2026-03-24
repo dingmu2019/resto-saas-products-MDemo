@@ -1,0 +1,3249 @@
+{
+  "products": [
+    {
+      "id": 101,
+      "categoryId": 111,
+      "productCode": "PRD-QSR_EDITION-101",
+      "name": "RestoSuite 快餐版收银系统",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 快餐版 类别下的代表性产品：RestoSuite 快餐版收银系统。",
+      "translations": {
+        "en": {
+          "name": "QSR Edition - Model 1",
+          "description": "This is a representative product in the QSR Edition category: QSR Edition - Model 1."
+        },
+        "zh": {
+          "name": "RestoSuite 快餐版收银系统",
+          "description": "这是 快餐版 类别下的代表性产品：RestoSuite 快餐版收银系统。"
+        }
+      }
+    },
+    {
+      "id": 102,
+      "categoryId": 112,
+      "productCode": "PRD-FSR_EDITION-102",
+      "name": "RestoSuite 正餐版收银系统",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 正餐版 类别下的代表性产品：RestoSuite 正餐版收银系统。",
+      "translations": {
+        "en": {
+          "name": "FSR Edition - Model 2",
+          "description": "This is a representative product in the FSR Edition category: FSR Edition - Model 2."
+        },
+        "zh": {
+          "name": "RestoSuite 正餐版收银系统",
+          "description": "这是 正餐版 类别下的代表性产品：RestoSuite 正餐版收银系统。"
+        }
+      }
+    },
+    {
+      "id": 103,
+      "categoryId": 121,
+      "productCode": "PRD-ONLINE_ORDERING-103",
+      "name": "RestoOrder 微信小程序点餐",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 线上点餐 类别下的代表性产品：RestoOrder 微信小程序点餐。",
+      "translations": {
+        "en": {
+          "name": "Online Ordering - Model 3",
+          "description": "This is a representative product in the Online Ordering category: Online Ordering - Model 3."
+        },
+        "zh": {
+          "name": "RestoOrder 微信小程序点餐",
+          "description": "这是 线上点餐 类别下的代表性产品：RestoOrder 微信小程序点餐。"
+        }
+      }
+    },
+    {
+      "id": 104,
+      "categoryId": 122,
+      "productCode": "PRD-LOYALTY_MARKETING-104",
+      "name": "RestoCRM 会员营销系统",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 会员与营销 类别下的代表性产品：RestoCRM 会员营销系统。",
+      "translations": {
+        "en": {
+          "name": "Loyalty & Marketing - Model 4",
+          "description": "This is a representative product in the Loyalty & Marketing category: Loyalty & Marketing - Model 4."
+        },
+        "zh": {
+          "name": "RestoCRM 会员营销系统",
+          "description": "这是 会员与营销 类别下的代表性产品：RestoCRM 会员营销系统。"
+        }
+      }
+    },
+    {
+      "id": 105,
+      "categoryId": 131,
+      "productCode": "PRD-KDS-105",
+      "name": "RestoKDS 厨房显示系统",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 厨房显控 类别下的代表性产品：RestoKDS 厨房显示系统。",
+      "translations": {
+        "en": {
+          "name": "KDS - Model 5",
+          "description": "This is a representative product in the KDS category: KDS - Model 5."
+        },
+        "zh": {
+          "name": "RestoKDS 厨房显示系统",
+          "description": "这是 厨房显控 类别下的代表性产品：RestoKDS 厨房显示系统。"
+        }
+      }
+    },
+    {
+      "id": 106,
+      "categoryId": 132,
+      "productCode": "PRD-INVENTORY-106",
+      "name": "RestoInv 智能进销存",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 进销存管理 类别下的代表性产品：RestoInv 智能进销存。",
+      "translations": {
+        "en": {
+          "name": "Inventory - Model 6",
+          "description": "This is a representative product in the Inventory category: Inventory - Model 6."
+        },
+        "zh": {
+          "name": "RestoInv 智能进销存",
+          "description": "这是 进销存管理 类别下的代表性产品：RestoInv 智能进销存。"
+        }
+      }
+    },
+    {
+      "id": 107,
+      "categoryId": 211,
+      "productCode": "PRD-COUNTERTOP_POS-107",
+      "name": "Sunmi T2s 桌面收银机",
+      "productType": "hardware",
+      "brand": "Sunmi",
+      "description": "这是 桌面收银机 类别下的代表性产品：Sunmi T2s 桌面收银机。",
+      "translations": {
+        "en": {
+          "name": "Countertop POS - Model 7",
+          "description": "This is a representative product in the Countertop POS category: Countertop POS - Model 7."
+        },
+        "zh": {
+          "name": "Sunmi T2s 桌面收银机",
+          "description": "这是 桌面收银机 类别下的代表性产品：Sunmi T2s 桌面收银机。"
+        }
+      }
+    },
+    {
+      "id": 108,
+      "categoryId": 212,
+      "productCode": "PRD-MOBILE_KIOSK-108",
+      "name": "Sunmi V2 PRO 移动点单机",
+      "productType": "hardware",
+      "brand": "Sunmi",
+      "description": "这是 移动与自助设备 类别下的代表性产品：Sunmi V2 PRO 移动点单机。",
+      "translations": {
+        "en": {
+          "name": "Mobile & Kiosk - Model 8",
+          "description": "This is a representative product in the Mobile & Kiosk category: Mobile & Kiosk - Model 8."
+        },
+        "zh": {
+          "name": "Sunmi V2 PRO 移动点单机",
+          "description": "这是 移动与自助设备 类别下的代表性产品：Sunmi V2 PRO 移动点单机。"
+        }
+      }
+    },
+    {
+      "id": 109,
+      "categoryId": 221,
+      "productCode": "PRD-PRINTERS-109",
+      "name": "Epson TM-T88VI 热敏打印机",
+      "productType": "hardware",
+      "brand": "Sunmi",
+      "description": "这是 打印机 类别下的代表性产品：Epson TM-T88VI 热敏打印机。",
+      "translations": {
+        "en": {
+          "name": "Printers - Model 9",
+          "description": "This is a representative product in the Printers category: Printers - Model 9."
+        },
+        "zh": {
+          "name": "Epson TM-T88VI 热敏打印机",
+          "description": "这是 打印机 类别下的代表性产品：Epson TM-T88VI 热敏打印机。"
+        }
+      }
+    },
+    {
+      "id": 110,
+      "categoryId": 222,
+      "productCode": "PRD-NETWORKING-110",
+      "name": "Cisco Meraki 商业路由器",
+      "productType": "hardware",
+      "brand": "Sunmi",
+      "description": "这是 网络基建 类别下的代表性产品：Cisco Meraki 商业路由器。",
+      "translations": {
+        "en": {
+          "name": "Networking - Model 10",
+          "description": "This is a representative product in the Networking category: Networking - Model 10."
+        },
+        "zh": {
+          "name": "Cisco Meraki 商业路由器",
+          "description": "这是 网络基建 类别下的代表性产品：Cisco Meraki 商业路由器。"
+        }
+      }
+    },
+    {
+      "id": 111,
+      "categoryId": 311,
+      "productCode": "PRD-CC_PROCESSING-111",
+      "name": "Stripe 信用卡收单服务",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 信用卡收单 类别下的代表性产品：Stripe 信用卡收单服务。",
+      "translations": {
+        "en": {
+          "name": "Credit Card Processing - Model 11",
+          "description": "This is a representative product in the Credit Card Processing category: Credit Card Processing - Model 11."
+        },
+        "zh": {
+          "name": "Stripe 信用卡收单服务",
+          "description": "这是 信用卡收单 类别下的代表性产品：Stripe 信用卡收单服务。"
+        }
+      }
+    },
+    {
+      "id": 112,
+      "categoryId": 312,
+      "productCode": "PRD-LOCAL_WALLETS-112",
+      "name": "微信/支付宝 聚合支付",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 本地钱包与扫码 类别下的代表性产品：微信/支付宝 聚合支付。",
+      "translations": {
+        "en": {
+          "name": "Local Wallets - Model 12",
+          "description": "This is a representative product in the Local Wallets category: Local Wallets - Model 12."
+        },
+        "zh": {
+          "name": "微信/支付宝 聚合支付",
+          "description": "这是 本地钱包与扫码 类别下的代表性产品：微信/支付宝 聚合支付。"
+        }
+      }
+    },
+    {
+      "id": 113,
+      "categoryId": 321,
+      "productCode": "PRD-CARD_READERS-113",
+      "name": "Sunmi P2 智能支付终端",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 刷卡设备 类别下的代表性产品：Sunmi P2 智能支付终端。",
+      "translations": {
+        "en": {
+          "name": "Card Readers - Model 13",
+          "description": "This is a representative product in the Card Readers category: Card Readers - Model 13."
+        },
+        "zh": {
+          "name": "Sunmi P2 智能支付终端",
+          "description": "这是 刷卡设备 类别下的代表性产品：Sunmi P2 智能支付终端。"
+        }
+      }
+    },
+    {
+      "id": 114,
+      "categoryId": 411,
+      "productCode": "PRD-DEPLOYMENT-114",
+      "name": "标准上门安装服务",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 部署服务 类别下的代表性产品：标准上门安装服务。",
+      "translations": {
+        "en": {
+          "name": "Deployment - Model 14",
+          "description": "This is a representative product in the Deployment category: Deployment - Model 14."
+        },
+        "zh": {
+          "name": "标准上门安装服务",
+          "description": "这是 部署服务 类别下的代表性产品：标准上门安装服务。"
+        }
+      }
+    },
+    {
+      "id": 115,
+      "categoryId": 412,
+      "productCode": "PRD-TRAINING-115",
+      "name": "店长系统操作培训",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 培训服务 类别下的代表性产品：店长系统操作培训。",
+      "translations": {
+        "en": {
+          "name": "Training - Model 15",
+          "description": "This is a representative product in the Training category: Training - Model 15."
+        },
+        "zh": {
+          "name": "店长系统操作培训",
+          "description": "这是 培训服务 类别下的代表性产品：店长系统操作培训。"
+        }
+      }
+    },
+    {
+      "id": 116,
+      "categoryId": 421,
+      "productCode": "PRD-PHYSICAL_SUPPLIES-116",
+      "name": "80mm 热敏打印纸 (50卷)",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 物理耗材 类别下的代表性产品：80mm 热敏打印纸 (50卷)。",
+      "translations": {
+        "en": {
+          "name": "Physical Supplies - Model 16",
+          "description": "This is a representative product in the Physical Supplies category: Physical Supplies - Model 16."
+        },
+        "zh": {
+          "name": "80mm 热敏打印纸 (50卷)",
+          "description": "这是 物理耗材 类别下的代表性产品：80mm 热敏打印纸 (50卷)。"
+        }
+      }
+    },
+    {
+      "id": 117,
+      "categoryId": 422,
+      "productCode": "PRD-VIRTUAL_CREDITS-117",
+      "name": "短信发送额度 (10000条)",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 虚拟消耗品 类别下的代表性产品：短信发送额度 (10000条)。",
+      "translations": {
+        "en": {
+          "name": "Virtual Credits - Model 17",
+          "description": "This is a representative product in the Virtual Credits category: Virtual Credits - Model 17."
+        },
+        "zh": {
+          "name": "短信发送额度 (10000条)",
+          "description": "这是 虚拟消耗品 类别下的代表性产品：短信发送额度 (10000条)。"
+        }
+      }
+    },
+    {
+      "id": 118,
+      "categoryId": 111,
+      "productCode": "PRD-QSR_EDITION-118",
+      "name": "RestoLite 奶茶店专版",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 快餐版 类别下的代表性产品：RestoLite 奶茶店专版。",
+      "translations": {
+        "en": {
+          "name": "QSR Edition - Model 18",
+          "description": "This is a representative product in the QSR Edition category: QSR Edition - Model 18."
+        },
+        "zh": {
+          "name": "RestoLite 奶茶店专版",
+          "description": "这是 快餐版 类别下的代表性产品：RestoLite 奶茶店专版。"
+        }
+      }
+    },
+    {
+      "id": 119,
+      "categoryId": 112,
+      "productCode": "PRD-FSR_EDITION-119",
+      "name": "RestoDine 高级餐厅版",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 正餐版 类别下的代表性产品：RestoDine 高级餐厅版。",
+      "translations": {
+        "en": {
+          "name": "FSR Edition - Model 19",
+          "description": "This is a representative product in the FSR Edition category: FSR Edition - Model 19."
+        },
+        "zh": {
+          "name": "RestoDine 高级餐厅版",
+          "description": "这是 正餐版 类别下的代表性产品：RestoDine 高级餐厅版。"
+        }
+      }
+    },
+    {
+      "id": 120,
+      "categoryId": 121,
+      "productCode": "PRD-ONLINE_ORDERING-120",
+      "name": "RestoWeb 网页外卖系统",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 线上点餐 类别下的代表性产品：RestoWeb 网页外卖系统。",
+      "translations": {
+        "en": {
+          "name": "Online Ordering - Model 20",
+          "description": "This is a representative product in the Online Ordering category: Online Ordering - Model 20."
+        },
+        "zh": {
+          "name": "RestoWeb 网页外卖系统",
+          "description": "这是 线上点餐 类别下的代表性产品：RestoWeb 网页外卖系统。"
+        }
+      }
+    },
+    {
+      "id": 121,
+      "categoryId": 122,
+      "productCode": "PRD-LOYALTY_MARKETING-121",
+      "name": "RestoLoyalty 积分商城",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 会员与营销 类别下的代表性产品：RestoLoyalty 积分商城。",
+      "translations": {
+        "en": {
+          "name": "Loyalty & Marketing - Model 21",
+          "description": "This is a representative product in the Loyalty & Marketing category: Loyalty & Marketing - Model 21."
+        },
+        "zh": {
+          "name": "RestoLoyalty 积分商城",
+          "description": "这是 会员与营销 类别下的代表性产品：RestoLoyalty 积分商城。"
+        }
+      }
+    },
+    {
+      "id": 122,
+      "categoryId": 131,
+      "productCode": "PRD-KDS-122",
+      "name": "RestoPrep 备餐管理屏",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 厨房显控 类别下的代表性产品：RestoPrep 备餐管理屏。",
+      "translations": {
+        "en": {
+          "name": "KDS - Model 22",
+          "description": "This is a representative product in the KDS category: KDS - Model 22."
+        },
+        "zh": {
+          "name": "RestoPrep 备餐管理屏",
+          "description": "这是 厨房显控 类别下的代表性产品：RestoPrep 备餐管理屏。"
+        }
+      }
+    },
+    {
+      "id": 123,
+      "categoryId": 132,
+      "productCode": "PRD-INVENTORY-123",
+      "name": "RestoSupply 供应链管理",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 进销存管理 类别下的代表性产品：RestoSupply 供应链管理。",
+      "translations": {
+        "en": {
+          "name": "Inventory - Model 23",
+          "description": "This is a representative product in the Inventory category: Inventory - Model 23."
+        },
+        "zh": {
+          "name": "RestoSupply 供应链管理",
+          "description": "这是 进销存管理 类别下的代表性产品：RestoSupply 供应链管理。"
+        }
+      }
+    },
+    {
+      "id": 124,
+      "categoryId": 211,
+      "productCode": "PRD-COUNTERTOP_POS-124",
+      "name": "Sunmi T3 PRO 双屏收银机",
+      "productType": "hardware",
+      "brand": "Sunmi",
+      "description": "这是 桌面收银机 类别下的代表性产品：Sunmi T3 PRO 双屏收银机。",
+      "translations": {
+        "en": {
+          "name": "Countertop POS - Model 24",
+          "description": "This is a representative product in the Countertop POS category: Countertop POS - Model 24."
+        },
+        "zh": {
+          "name": "Sunmi T3 PRO 双屏收银机",
+          "description": "这是 桌面收银机 类别下的代表性产品：Sunmi T3 PRO 双屏收银机。"
+        }
+      }
+    },
+    {
+      "id": 125,
+      "categoryId": 212,
+      "productCode": "PRD-MOBILE_KIOSK-125",
+      "name": "Sunmi K2 自助点餐机",
+      "productType": "hardware",
+      "brand": "Sunmi",
+      "description": "这是 移动与自助设备 类别下的代表性产品：Sunmi K2 自助点餐机。",
+      "translations": {
+        "en": {
+          "name": "Mobile & Kiosk - Model 25",
+          "description": "This is a representative product in the Mobile & Kiosk category: Mobile & Kiosk - Model 25."
+        },
+        "zh": {
+          "name": "Sunmi K2 自助点餐机",
+          "description": "这是 移动与自助设备 类别下的代表性产品：Sunmi K2 自助点餐机。"
+        }
+      }
+    },
+    {
+      "id": 126,
+      "categoryId": 221,
+      "productCode": "PRD-PRINTERS-126",
+      "name": "Sunmi 80mm 云打印机",
+      "productType": "hardware",
+      "brand": "Sunmi",
+      "description": "这是 打印机 类别下的代表性产品：Sunmi 80mm 云打印机。",
+      "translations": {
+        "en": {
+          "name": "Printers - Model 26",
+          "description": "This is a representative product in the Printers category: Printers - Model 26."
+        },
+        "zh": {
+          "name": "Sunmi 80mm 云打印机",
+          "description": "这是 打印机 类别下的代表性产品：Sunmi 80mm 云打印机。"
+        }
+      }
+    },
+    {
+      "id": 127,
+      "categoryId": 222,
+      "productCode": "PRD-NETWORKING-127",
+      "name": "Ubiquiti UniFi AP",
+      "productType": "hardware",
+      "brand": "Sunmi",
+      "description": "这是 网络基建 类别下的代表性产品：Ubiquiti UniFi AP。",
+      "translations": {
+        "en": {
+          "name": "Networking - Model 27",
+          "description": "This is a representative product in the Networking category: Networking - Model 27."
+        },
+        "zh": {
+          "name": "Ubiquiti UniFi AP",
+          "description": "这是 网络基建 类别下的代表性产品：Ubiquiti UniFi AP。"
+        }
+      }
+    },
+    {
+      "id": 128,
+      "categoryId": 311,
+      "productCode": "PRD-CC_PROCESSING-128",
+      "name": "Square 支付网关",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 信用卡收单 类别下的代表性产品：Square 支付网关。",
+      "translations": {
+        "en": {
+          "name": "Credit Card Processing - Model 28",
+          "description": "This is a representative product in the Credit Card Processing category: Credit Card Processing - Model 28."
+        },
+        "zh": {
+          "name": "Square 支付网关",
+          "description": "这是 信用卡收单 类别下的代表性产品：Square 支付网关。"
+        }
+      }
+    },
+    {
+      "id": 129,
+      "categoryId": 312,
+      "productCode": "PRD-LOCAL_WALLETS-129",
+      "name": "Apple Pay / Google Pay 接入",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 本地钱包与扫码 类别下的代表性产品：Apple Pay / Google Pay 接入。",
+      "translations": {
+        "en": {
+          "name": "Local Wallets - Model 29",
+          "description": "This is a representative product in the Local Wallets category: Local Wallets - Model 29."
+        },
+        "zh": {
+          "name": "Apple Pay / Google Pay 接入",
+          "description": "这是 本地钱包与扫码 类别下的代表性产品：Apple Pay / Google Pay 接入。"
+        }
+      }
+    },
+    {
+      "id": 130,
+      "categoryId": 321,
+      "productCode": "PRD-CARD_READERS-130",
+      "name": "Verifone V400m 刷卡机",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 刷卡设备 类别下的代表性产品：Verifone V400m 刷卡机。",
+      "translations": {
+        "en": {
+          "name": "Card Readers - Model 30",
+          "description": "This is a representative product in the Card Readers category: Card Readers - Model 30."
+        },
+        "zh": {
+          "name": "Verifone V400m 刷卡机",
+          "description": "这是 刷卡设备 类别下的代表性产品：Verifone V400m 刷卡机。"
+        }
+      }
+    },
+    {
+      "id": 131,
+      "categoryId": 411,
+      "productCode": "PRD-DEPLOYMENT-131",
+      "name": "高级网络布线与调试",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 部署服务 类别下的代表性产品：高级网络布线与调试。",
+      "translations": {
+        "en": {
+          "name": "Deployment - Model 31",
+          "description": "This is a representative product in the Deployment category: Deployment - Model 31."
+        },
+        "zh": {
+          "name": "高级网络布线与调试",
+          "description": "这是 部署服务 类别下的代表性产品：高级网络布线与调试。"
+        }
+      }
+    },
+    {
+      "id": 132,
+      "categoryId": 412,
+      "productCode": "PRD-TRAINING-132",
+      "name": "收银员基础培训",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 培训服务 类别下的代表性产品：收银员基础培训。",
+      "translations": {
+        "en": {
+          "name": "Training - Model 32",
+          "description": "This is a representative product in the Training category: Training - Model 32."
+        },
+        "zh": {
+          "name": "收银员基础培训",
+          "description": "这是 培训服务 类别下的代表性产品：收银员基础培训。"
+        }
+      }
+    },
+    {
+      "id": 133,
+      "categoryId": 421,
+      "productCode": "PRD-PHYSICAL_SUPPLIES-133",
+      "name": "收银机专用钱箱",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 物理耗材 类别下的代表性产品：收银机专用钱箱。",
+      "translations": {
+        "en": {
+          "name": "Physical Supplies - Model 33",
+          "description": "This is a representative product in the Physical Supplies category: Physical Supplies - Model 33."
+        },
+        "zh": {
+          "name": "收银机专用钱箱",
+          "description": "这是 物理耗材 类别下的代表性产品：收银机专用钱箱。"
+        }
+      }
+    },
+    {
+      "id": 134,
+      "categoryId": 422,
+      "productCode": "PRD-VIRTUAL_CREDITS-134",
+      "name": "电子发票开具额度",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 虚拟消耗品 类别下的代表性产品：电子发票开具额度。",
+      "translations": {
+        "en": {
+          "name": "Virtual Credits - Model 34",
+          "description": "This is a representative product in the Virtual Credits category: Virtual Credits - Model 34."
+        },
+        "zh": {
+          "name": "电子发票开具额度",
+          "description": "这是 虚拟消耗品 类别下的代表性产品：电子发票开具额度。"
+        }
+      }
+    },
+    {
+      "id": 135,
+      "categoryId": 111,
+      "productCode": "PRD-QSR_EDITION-135",
+      "name": "RestoPro 连锁快餐版",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 快餐版 类别下的代表性产品：RestoPro 连锁快餐版。",
+      "translations": {
+        "en": {
+          "name": "QSR Edition - Model 35",
+          "description": "This is a representative product in the QSR Edition category: QSR Edition - Model 35."
+        },
+        "zh": {
+          "name": "RestoPro 连锁快餐版",
+          "description": "这是 快餐版 类别下的代表性产品：RestoPro 连锁快餐版。"
+        }
+      }
+    },
+    {
+      "id": 136,
+      "categoryId": 112,
+      "productCode": "PRD-FSR_EDITION-136",
+      "name": "RestoBistro 小酒馆专版",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 正餐版 类别下的代表性产品：RestoBistro 小酒馆专版。",
+      "translations": {
+        "en": {
+          "name": "FSR Edition - Model 36",
+          "description": "This is a representative product in the FSR Edition category: FSR Edition - Model 36."
+        },
+        "zh": {
+          "name": "RestoBistro 小酒馆专版",
+          "description": "这是 正餐版 类别下的代表性产品：RestoBistro 小酒馆专版。"
+        }
+      }
+    },
+    {
+      "id": 137,
+      "categoryId": 121,
+      "productCode": "PRD-ONLINE_ORDERING-137",
+      "name": "RestoApp 独立品牌APP",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 线上点餐 类别下的代表性产品：RestoApp 独立品牌APP。",
+      "translations": {
+        "en": {
+          "name": "Online Ordering - Model 37",
+          "description": "This is a representative product in the Online Ordering category: Online Ordering - Model 37."
+        },
+        "zh": {
+          "name": "RestoApp 独立品牌APP",
+          "description": "这是 线上点餐 类别下的代表性产品：RestoApp 独立品牌APP。"
+        }
+      }
+    },
+    {
+      "id": 138,
+      "categoryId": 122,
+      "productCode": "PRD-LOYALTY_MARKETING-138",
+      "name": "RestoCoupon 智能优惠券引擎",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 会员与营销 类别下的代表性产品：RestoCoupon 智能优惠券引擎。",
+      "translations": {
+        "en": {
+          "name": "Loyalty & Marketing - Model 38",
+          "description": "This is a representative product in the Loyalty & Marketing category: Loyalty & Marketing - Model 38."
+        },
+        "zh": {
+          "name": "RestoCoupon 智能优惠券引擎",
+          "description": "这是 会员与营销 类别下的代表性产品：RestoCoupon 智能优惠券引擎。"
+        }
+      }
+    },
+    {
+      "id": 139,
+      "categoryId": 131,
+      "productCode": "PRD-KDS-139",
+      "name": "RestoExpedite 传菜调度系统",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 厨房显控 类别下的代表性产品：RestoExpedite 传菜调度系统。",
+      "translations": {
+        "en": {
+          "name": "KDS - Model 39",
+          "description": "This is a representative product in the KDS category: KDS - Model 39."
+        },
+        "zh": {
+          "name": "RestoExpedite 传菜调度系统",
+          "description": "这是 厨房显控 类别下的代表性产品：RestoExpedite 传菜调度系统。"
+        }
+      }
+    },
+    {
+      "id": 140,
+      "categoryId": 132,
+      "productCode": "PRD-INVENTORY-140",
+      "name": "RestoCost 成本核算模块",
+      "productType": "software",
+      "brand": "RestoSuite",
+      "description": "这是 进销存管理 类别下的代表性产品：RestoCost 成本核算模块。",
+      "translations": {
+        "en": {
+          "name": "Inventory - Model 40",
+          "description": "This is a representative product in the Inventory category: Inventory - Model 40."
+        },
+        "zh": {
+          "name": "RestoCost 成本核算模块",
+          "description": "这是 进销存管理 类别下的代表性产品：RestoCost 成本核算模块。"
+        }
+      }
+    },
+    {
+      "id": 141,
+      "categoryId": 211,
+      "productCode": "PRD-COUNTERTOP_POS-141",
+      "name": "Elo 15寸一体机",
+      "productType": "hardware",
+      "brand": "Sunmi",
+      "description": "这是 桌面收银机 类别下的代表性产品：Elo 15寸一体机。",
+      "translations": {
+        "en": {
+          "name": "Countertop POS - Model 41",
+          "description": "This is a representative product in the Countertop POS category: Countertop POS - Model 41."
+        },
+        "zh": {
+          "name": "Elo 15寸一体机",
+          "description": "这是 桌面收银机 类别下的代表性产品：Elo 15寸一体机。"
+        }
+      }
+    },
+    {
+      "id": 142,
+      "categoryId": 212,
+      "productCode": "PRD-MOBILE_KIOSK-142",
+      "name": "iPad Pro 12.9寸点餐平板",
+      "productType": "hardware",
+      "brand": "Sunmi",
+      "description": "这是 移动与自助设备 类别下的代表性产品：iPad Pro 12.9寸点餐平板。",
+      "translations": {
+        "en": {
+          "name": "Mobile & Kiosk - Model 42",
+          "description": "This is a representative product in the Mobile & Kiosk category: Mobile & Kiosk - Model 42."
+        },
+        "zh": {
+          "name": "iPad Pro 12.9寸点餐平板",
+          "description": "这是 移动与自助设备 类别下的代表性产品：iPad Pro 12.9寸点餐平板。"
+        }
+      }
+    },
+    {
+      "id": 143,
+      "categoryId": 221,
+      "productCode": "PRD-PRINTERS-143",
+      "name": "Star Micronics 蓝牙打印机",
+      "productType": "hardware",
+      "brand": "Sunmi",
+      "description": "这是 打印机 类别下的代表性产品：Star Micronics 蓝牙打印机。",
+      "translations": {
+        "en": {
+          "name": "Printers - Model 43",
+          "description": "This is a representative product in the Printers category: Printers - Model 43."
+        },
+        "zh": {
+          "name": "Star Micronics 蓝牙打印机",
+          "description": "这是 打印机 类别下的代表性产品：Star Micronics 蓝牙打印机。"
+        }
+      }
+    },
+    {
+      "id": 144,
+      "categoryId": 222,
+      "productCode": "PRD-NETWORKING-144",
+      "name": "Netgear 24口千兆交换机",
+      "productType": "hardware",
+      "brand": "Sunmi",
+      "description": "这是 网络基建 类别下的代表性产品：Netgear 24口千兆交换机。",
+      "translations": {
+        "en": {
+          "name": "Networking - Model 44",
+          "description": "This is a representative product in the Networking category: Networking - Model 44."
+        },
+        "zh": {
+          "name": "Netgear 24口千兆交换机",
+          "description": "这是 网络基建 类别下的代表性产品：Netgear 24口千兆交换机。"
+        }
+      }
+    },
+    {
+      "id": 145,
+      "categoryId": 311,
+      "productCode": "PRD-CC_PROCESSING-145",
+      "name": "Adyen 全球支付处理",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 信用卡收单 类别下的代表性产品：Adyen 全球支付处理。",
+      "translations": {
+        "en": {
+          "name": "Credit Card Processing - Model 45",
+          "description": "This is a representative product in the Credit Card Processing category: Credit Card Processing - Model 45."
+        },
+        "zh": {
+          "name": "Adyen 全球支付处理",
+          "description": "这是 信用卡收单 类别下的代表性产品：Adyen 全球支付处理。"
+        }
+      }
+    },
+    {
+      "id": 146,
+      "categoryId": 312,
+      "productCode": "PRD-LOCAL_WALLETS-146",
+      "name": "本地电子钱包网关",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 本地钱包与扫码 类别下的代表性产品：本地电子钱包网关。",
+      "translations": {
+        "en": {
+          "name": "Local Wallets - Model 46",
+          "description": "This is a representative product in the Local Wallets category: Local Wallets - Model 46."
+        },
+        "zh": {
+          "name": "本地电子钱包网关",
+          "description": "这是 本地钱包与扫码 类别下的代表性产品：本地电子钱包网关。"
+        }
+      }
+    },
+    {
+      "id": 147,
+      "categoryId": 321,
+      "productCode": "PRD-CARD_READERS-147",
+      "name": "Ingenico Lane/3000",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 刷卡设备 类别下的代表性产品：Ingenico Lane/3000。",
+      "translations": {
+        "en": {
+          "name": "Card Readers - Model 47",
+          "description": "This is a representative product in the Card Readers category: Card Readers - Model 47."
+        },
+        "zh": {
+          "name": "Ingenico Lane/3000",
+          "description": "这是 刷卡设备 类别下的代表性产品：Ingenico Lane/3000。"
+        }
+      }
+    },
+    {
+      "id": 148,
+      "categoryId": 411,
+      "productCode": "PRD-DEPLOYMENT-148",
+      "name": "多门店批量部署服务",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 部署服务 类别下的代表性产品：多门店批量部署服务。",
+      "translations": {
+        "en": {
+          "name": "Deployment - Model 48",
+          "description": "This is a representative product in the Deployment category: Deployment - Model 48."
+        },
+        "zh": {
+          "name": "多门店批量部署服务",
+          "description": "这是 部署服务 类别下的代表性产品：多门店批量部署服务。"
+        }
+      }
+    },
+    {
+      "id": 149,
+      "categoryId": 412,
+      "productCode": "PRD-TRAINING-149",
+      "name": "后台管理与报表培训",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 培训服务 类别下的代表性产品：后台管理与报表培训。",
+      "translations": {
+        "en": {
+          "name": "Training - Model 49",
+          "description": "This is a representative product in the Training category: Training - Model 49."
+        },
+        "zh": {
+          "name": "后台管理与报表培训",
+          "description": "这是 培训服务 类别下的代表性产品：后台管理与报表培训。"
+        }
+      }
+    },
+    {
+      "id": 150,
+      "categoryId": 421,
+      "productCode": "PRD-PHYSICAL_SUPPLIES-150",
+      "name": "员工点餐卡/手环",
+      "productType": "service",
+      "brand": "RestoSuite",
+      "description": "这是 物理耗材 类别下的代表性产品：员工点餐卡/手环。",
+      "translations": {
+        "en": {
+          "name": "Physical Supplies - Model 50",
+          "description": "This is a representative product in the Physical Supplies category: Physical Supplies - Model 50."
+        },
+        "zh": {
+          "name": "员工点餐卡/手环",
+          "description": "这是 物理耗材 类别下的代表性产品：员工点餐卡/手环。"
+        }
+      }
+    },
+    {
+      "id": 151,
+      "categoryId": 111,
+      "productCode": "BND-PKG-1",
+      "name": "快餐全能创业套装",
+      "productType": "bundle",
+      "brand": "RestoSuite",
+      "description": "包含软件、硬件和服务的综合套餐 - 快餐全能创业套装"
+    },
+    {
+      "id": 152,
+      "categoryId": 111,
+      "productCode": "BND-PKG-2",
+      "name": "正餐豪华数字化套装",
+      "productType": "bundle",
+      "brand": "RestoSuite",
+      "description": "包含软件、硬件和服务的综合套餐 - 正餐豪华数字化套装"
+    },
+    {
+      "id": 153,
+      "categoryId": 111,
+      "productCode": "BND-PKG-3",
+      "name": "移动点餐先锋套装",
+      "productType": "bundle",
+      "brand": "RestoSuite",
+      "description": "包含软件、硬件和服务的综合套餐 - 移动点餐先锋套装"
+    },
+    {
+      "id": 154,
+      "categoryId": 111,
+      "productCode": "BND-PKG-4",
+      "name": "后厨效率提升套装",
+      "productType": "bundle",
+      "brand": "RestoSuite",
+      "description": "包含软件、硬件和服务的综合套餐 - 后厨效率提升套装"
+    },
+    {
+      "id": 155,
+      "categoryId": 111,
+      "productCode": "BND-PKG-5",
+      "name": "全渠道营销增长套装",
+      "productType": "bundle",
+      "brand": "RestoSuite",
+      "description": "包含软件、硬件和服务的综合套餐 - 全渠道营销增长套装"
+    }
+  ],
+  "skus": [
+    {
+      "id": 1001,
+      "productId": 101,
+      "skuCode": "SKU-QSR_EDITION-101-1",
+      "name": "RestoSuite 快餐版收银系统 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "QSR Edition - Model 1 - Monthly"
+        },
+        "zh": {
+          "name": "RestoSuite 快餐版收银系统 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1002,
+      "productId": 102,
+      "skuCode": "SKU-FSR_EDITION-102-1",
+      "name": "RestoSuite 正餐版收银系统 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "FSR Edition - Model 2 - Monthly"
+        },
+        "zh": {
+          "name": "RestoSuite 正餐版收银系统 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1003,
+      "productId": 102,
+      "skuCode": "SKU-FSR_EDITION-102-2",
+      "name": "RestoSuite 正餐版收银系统 - 年付版",
+      "billingModel": "recurring",
+      "billingTerm": "annual",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "FSR Edition - Model 2 - Annual"
+        },
+        "zh": {
+          "name": "RestoSuite 正餐版收银系统 - 年付版"
+        }
+      }
+    },
+    {
+      "id": 1004,
+      "productId": 103,
+      "skuCode": "SKU-ONLINE_ORDERING-103-1",
+      "name": "RestoOrder 微信小程序点餐 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Online Ordering - Model 3 - Monthly"
+        },
+        "zh": {
+          "name": "RestoOrder 微信小程序点餐 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1005,
+      "productId": 103,
+      "skuCode": "SKU-ONLINE_ORDERING-103-2",
+      "name": "RestoOrder 微信小程序点餐 - 年付版",
+      "billingModel": "recurring",
+      "billingTerm": "annual",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Online Ordering - Model 3 - Annual"
+        },
+        "zh": {
+          "name": "RestoOrder 微信小程序点餐 - 年付版"
+        }
+      }
+    },
+    {
+      "id": 1006,
+      "productId": 103,
+      "skuCode": "SKU-ONLINE_ORDERING-103-3",
+      "name": "RestoOrder 微信小程序点餐 - 终身版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Online Ordering - Model 3 - Lifetime"
+        },
+        "zh": {
+          "name": "RestoOrder 微信小程序点餐 - 终身版"
+        }
+      }
+    },
+    {
+      "id": 1007,
+      "productId": 104,
+      "skuCode": "SKU-LOYALTY_MARKETING-104-1",
+      "name": "RestoCRM 会员营销系统 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Loyalty & Marketing - Model 4 - Monthly"
+        },
+        "zh": {
+          "name": "RestoCRM 会员营销系统 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1008,
+      "productId": 105,
+      "skuCode": "SKU-KDS-105-1",
+      "name": "RestoKDS 厨房显示系统 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "KDS - Model 5 - Monthly"
+        },
+        "zh": {
+          "name": "RestoKDS 厨房显示系统 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1009,
+      "productId": 105,
+      "skuCode": "SKU-KDS-105-2",
+      "name": "RestoKDS 厨房显示系统 - 年付版",
+      "billingModel": "recurring",
+      "billingTerm": "annual",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "KDS - Model 5 - Annual"
+        },
+        "zh": {
+          "name": "RestoKDS 厨房显示系统 - 年付版"
+        }
+      }
+    },
+    {
+      "id": 1010,
+      "productId": 106,
+      "skuCode": "SKU-INVENTORY-106-1",
+      "name": "RestoInv 智能进销存 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Inventory - Model 6 - Monthly"
+        },
+        "zh": {
+          "name": "RestoInv 智能进销存 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1011,
+      "productId": 106,
+      "skuCode": "SKU-INVENTORY-106-2",
+      "name": "RestoInv 智能进销存 - 年付版",
+      "billingModel": "recurring",
+      "billingTerm": "annual",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Inventory - Model 6 - Annual"
+        },
+        "zh": {
+          "name": "RestoInv 智能进销存 - 年付版"
+        }
+      }
+    },
+    {
+      "id": 1012,
+      "productId": 106,
+      "skuCode": "SKU-INVENTORY-106-3",
+      "name": "RestoInv 智能进销存 - 终身版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Inventory - Model 6 - Lifetime"
+        },
+        "zh": {
+          "name": "RestoInv 智能进销存 - 终身版"
+        }
+      }
+    },
+    {
+      "id": 1013,
+      "productId": 107,
+      "skuCode": "SKU-COUNTERTOP_POS-107-1",
+      "name": "Sunmi T2s 桌面收银机 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Countertop POS - Model 7 - Standard"
+        },
+        "zh": {
+          "name": "Sunmi T2s 桌面收银机 - 标准版"
+        }
+      }
+    },
+    {
+      "id": 1014,
+      "productId": 108,
+      "skuCode": "SKU-MOBILE_KIOSK-108-1",
+      "name": "Sunmi V2 PRO 移动点单机 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Mobile & Kiosk - Model 8 - Standard"
+        },
+        "zh": {
+          "name": "Sunmi V2 PRO 移动点单机 - 标准版"
+        }
+      }
+    },
+    {
+      "id": 1015,
+      "productId": 108,
+      "skuCode": "SKU-MOBILE_KIOSK-108-2",
+      "name": "Sunmi V2 PRO 移动点单机 - 高配版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Mobile & Kiosk - Model 8 - Pro"
+        },
+        "zh": {
+          "name": "Sunmi V2 PRO 移动点单机 - 高配版"
+        }
+      }
+    },
+    {
+      "id": 1016,
+      "productId": 109,
+      "skuCode": "SKU-PRINTERS-109-1",
+      "name": "Epson TM-T88VI 热敏打印机 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Printers - Model 9 - Standard"
+        },
+        "zh": {
+          "name": "Epson TM-T88VI 热敏打印机 - 标准版"
+        }
+      }
+    },
+    {
+      "id": 1017,
+      "productId": 109,
+      "skuCode": "SKU-PRINTERS-109-2",
+      "name": "Epson TM-T88VI 热敏打印机 - 高配版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Printers - Model 9 - Pro"
+        },
+        "zh": {
+          "name": "Epson TM-T88VI 热敏打印机 - 高配版"
+        }
+      }
+    },
+    {
+      "id": 1018,
+      "productId": 109,
+      "skuCode": "SKU-PRINTERS-109-3",
+      "name": "Epson TM-T88VI 热敏打印机 - 旗舰版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Printers - Model 9 - Ultimate"
+        },
+        "zh": {
+          "name": "Epson TM-T88VI 热敏打印机 - 旗舰版"
+        }
+      }
+    },
+    {
+      "id": 1019,
+      "productId": 110,
+      "skuCode": "SKU-NETWORKING-110-1",
+      "name": "Cisco Meraki 商业路由器 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Networking - Model 10 - Standard"
+        },
+        "zh": {
+          "name": "Cisco Meraki 商业路由器 - 标准版"
+        }
+      }
+    },
+    {
+      "id": 1020,
+      "productId": 111,
+      "skuCode": "SKU-CC_PROCESSING-111-1",
+      "name": "Stripe 信用卡收单服务 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Credit Card Processing - Model 11 - Spec 1"
+        },
+        "zh": {
+          "name": "Stripe 信用卡收单服务 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1021,
+      "productId": 111,
+      "skuCode": "SKU-CC_PROCESSING-111-2",
+      "name": "Stripe 信用卡收单服务 - 规格 2",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Credit Card Processing - Model 11 - Spec 2"
+        },
+        "zh": {
+          "name": "Stripe 信用卡收单服务 - 规格 2"
+        }
+      }
+    },
+    {
+      "id": 1022,
+      "productId": 112,
+      "skuCode": "SKU-LOCAL_WALLETS-112-1",
+      "name": "微信/支付宝 聚合支付 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Local Wallets - Model 12 - Spec 1"
+        },
+        "zh": {
+          "name": "微信/支付宝 聚合支付 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1023,
+      "productId": 112,
+      "skuCode": "SKU-LOCAL_WALLETS-112-2",
+      "name": "微信/支付宝 聚合支付 - 规格 2",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Local Wallets - Model 12 - Spec 2"
+        },
+        "zh": {
+          "name": "微信/支付宝 聚合支付 - 规格 2"
+        }
+      }
+    },
+    {
+      "id": 1024,
+      "productId": 112,
+      "skuCode": "SKU-LOCAL_WALLETS-112-3",
+      "name": "微信/支付宝 聚合支付 - 规格 3",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Local Wallets - Model 12 - Spec 3"
+        },
+        "zh": {
+          "name": "微信/支付宝 聚合支付 - 规格 3"
+        }
+      }
+    },
+    {
+      "id": 1025,
+      "productId": 113,
+      "skuCode": "SKU-CARD_READERS-113-1",
+      "name": "Sunmi P2 智能支付终端 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Card Readers - Model 13 - Spec 1"
+        },
+        "zh": {
+          "name": "Sunmi P2 智能支付终端 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1026,
+      "productId": 114,
+      "skuCode": "SKU-DEPLOYMENT-114-1",
+      "name": "标准上门安装服务 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Deployment - Model 14 - Spec 1"
+        },
+        "zh": {
+          "name": "标准上门安装服务 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1027,
+      "productId": 114,
+      "skuCode": "SKU-DEPLOYMENT-114-2",
+      "name": "标准上门安装服务 - 规格 2",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Deployment - Model 14 - Spec 2"
+        },
+        "zh": {
+          "name": "标准上门安装服务 - 规格 2"
+        }
+      }
+    },
+    {
+      "id": 1028,
+      "productId": 115,
+      "skuCode": "SKU-TRAINING-115-1",
+      "name": "店长系统操作培训 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Training - Model 15 - Spec 1"
+        },
+        "zh": {
+          "name": "店长系统操作培训 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1029,
+      "productId": 115,
+      "skuCode": "SKU-TRAINING-115-2",
+      "name": "店长系统操作培训 - 规格 2",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Training - Model 15 - Spec 2"
+        },
+        "zh": {
+          "name": "店长系统操作培训 - 规格 2"
+        }
+      }
+    },
+    {
+      "id": 1030,
+      "productId": 115,
+      "skuCode": "SKU-TRAINING-115-3",
+      "name": "店长系统操作培训 - 规格 3",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Training - Model 15 - Spec 3"
+        },
+        "zh": {
+          "name": "店长系统操作培训 - 规格 3"
+        }
+      }
+    },
+    {
+      "id": 1031,
+      "productId": 116,
+      "skuCode": "SKU-PHYSICAL_SUPPLIES-116-1",
+      "name": "80mm 热敏打印纸 (50卷) - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Physical Supplies - Model 16 - Spec 1"
+        },
+        "zh": {
+          "name": "80mm 热敏打印纸 (50卷) - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1032,
+      "productId": 117,
+      "skuCode": "SKU-VIRTUAL_CREDITS-117-1",
+      "name": "短信发送额度 (10000条) - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Virtual Credits - Model 17 - Spec 1"
+        },
+        "zh": {
+          "name": "短信发送额度 (10000条) - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1033,
+      "productId": 117,
+      "skuCode": "SKU-VIRTUAL_CREDITS-117-2",
+      "name": "短信发送额度 (10000条) - 规格 2",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Virtual Credits - Model 17 - Spec 2"
+        },
+        "zh": {
+          "name": "短信发送额度 (10000条) - 规格 2"
+        }
+      }
+    },
+    {
+      "id": 1034,
+      "productId": 118,
+      "skuCode": "SKU-QSR_EDITION-118-1",
+      "name": "RestoLite 奶茶店专版 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "QSR Edition - Model 18 - Monthly"
+        },
+        "zh": {
+          "name": "RestoLite 奶茶店专版 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1035,
+      "productId": 118,
+      "skuCode": "SKU-QSR_EDITION-118-2",
+      "name": "RestoLite 奶茶店专版 - 年付版",
+      "billingModel": "recurring",
+      "billingTerm": "annual",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "QSR Edition - Model 18 - Annual"
+        },
+        "zh": {
+          "name": "RestoLite 奶茶店专版 - 年付版"
+        }
+      }
+    },
+    {
+      "id": 1036,
+      "productId": 118,
+      "skuCode": "SKU-QSR_EDITION-118-3",
+      "name": "RestoLite 奶茶店专版 - 终身版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "QSR Edition - Model 18 - Lifetime"
+        },
+        "zh": {
+          "name": "RestoLite 奶茶店专版 - 终身版"
+        }
+      }
+    },
+    {
+      "id": 1037,
+      "productId": 119,
+      "skuCode": "SKU-FSR_EDITION-119-1",
+      "name": "RestoDine 高级餐厅版 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "FSR Edition - Model 19 - Monthly"
+        },
+        "zh": {
+          "name": "RestoDine 高级餐厅版 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1038,
+      "productId": 120,
+      "skuCode": "SKU-ONLINE_ORDERING-120-1",
+      "name": "RestoWeb 网页外卖系统 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Online Ordering - Model 20 - Monthly"
+        },
+        "zh": {
+          "name": "RestoWeb 网页外卖系统 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1039,
+      "productId": 120,
+      "skuCode": "SKU-ONLINE_ORDERING-120-2",
+      "name": "RestoWeb 网页外卖系统 - 年付版",
+      "billingModel": "recurring",
+      "billingTerm": "annual",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Online Ordering - Model 20 - Annual"
+        },
+        "zh": {
+          "name": "RestoWeb 网页外卖系统 - 年付版"
+        }
+      }
+    },
+    {
+      "id": 1040,
+      "productId": 121,
+      "skuCode": "SKU-LOYALTY_MARKETING-121-1",
+      "name": "RestoLoyalty 积分商城 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Loyalty & Marketing - Model 21 - Monthly"
+        },
+        "zh": {
+          "name": "RestoLoyalty 积分商城 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1041,
+      "productId": 121,
+      "skuCode": "SKU-LOYALTY_MARKETING-121-2",
+      "name": "RestoLoyalty 积分商城 - 年付版",
+      "billingModel": "recurring",
+      "billingTerm": "annual",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Loyalty & Marketing - Model 21 - Annual"
+        },
+        "zh": {
+          "name": "RestoLoyalty 积分商城 - 年付版"
+        }
+      }
+    },
+    {
+      "id": 1042,
+      "productId": 121,
+      "skuCode": "SKU-LOYALTY_MARKETING-121-3",
+      "name": "RestoLoyalty 积分商城 - 终身版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Loyalty & Marketing - Model 21 - Lifetime"
+        },
+        "zh": {
+          "name": "RestoLoyalty 积分商城 - 终身版"
+        }
+      }
+    },
+    {
+      "id": 1043,
+      "productId": 122,
+      "skuCode": "SKU-KDS-122-1",
+      "name": "RestoPrep 备餐管理屏 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "KDS - Model 22 - Monthly"
+        },
+        "zh": {
+          "name": "RestoPrep 备餐管理屏 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1044,
+      "productId": 123,
+      "skuCode": "SKU-INVENTORY-123-1",
+      "name": "RestoSupply 供应链管理 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Inventory - Model 23 - Monthly"
+        },
+        "zh": {
+          "name": "RestoSupply 供应链管理 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1045,
+      "productId": 123,
+      "skuCode": "SKU-INVENTORY-123-2",
+      "name": "RestoSupply 供应链管理 - 年付版",
+      "billingModel": "recurring",
+      "billingTerm": "annual",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Inventory - Model 23 - Annual"
+        },
+        "zh": {
+          "name": "RestoSupply 供应链管理 - 年付版"
+        }
+      }
+    },
+    {
+      "id": 1046,
+      "productId": 124,
+      "skuCode": "SKU-COUNTERTOP_POS-124-1",
+      "name": "Sunmi T3 PRO 双屏收银机 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Countertop POS - Model 24 - Standard"
+        },
+        "zh": {
+          "name": "Sunmi T3 PRO 双屏收银机 - 标准版"
+        }
+      }
+    },
+    {
+      "id": 1047,
+      "productId": 124,
+      "skuCode": "SKU-COUNTERTOP_POS-124-2",
+      "name": "Sunmi T3 PRO 双屏收银机 - 高配版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Countertop POS - Model 24 - Pro"
+        },
+        "zh": {
+          "name": "Sunmi T3 PRO 双屏收银机 - 高配版"
+        }
+      }
+    },
+    {
+      "id": 1048,
+      "productId": 124,
+      "skuCode": "SKU-COUNTERTOP_POS-124-3",
+      "name": "Sunmi T3 PRO 双屏收银机 - 旗舰版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Countertop POS - Model 24 - Ultimate"
+        },
+        "zh": {
+          "name": "Sunmi T3 PRO 双屏收银机 - 旗舰版"
+        }
+      }
+    },
+    {
+      "id": 1049,
+      "productId": 125,
+      "skuCode": "SKU-MOBILE_KIOSK-125-1",
+      "name": "Sunmi K2 自助点餐机 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Mobile & Kiosk - Model 25 - Standard"
+        },
+        "zh": {
+          "name": "Sunmi K2 自助点餐机 - 标准版"
+        }
+      }
+    },
+    {
+      "id": 1050,
+      "productId": 126,
+      "skuCode": "SKU-PRINTERS-126-1",
+      "name": "Sunmi 80mm 云打印机 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Printers - Model 26 - Standard"
+        },
+        "zh": {
+          "name": "Sunmi 80mm 云打印机 - 标准版"
+        }
+      }
+    },
+    {
+      "id": 1051,
+      "productId": 126,
+      "skuCode": "SKU-PRINTERS-126-2",
+      "name": "Sunmi 80mm 云打印机 - 高配版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Printers - Model 26 - Pro"
+        },
+        "zh": {
+          "name": "Sunmi 80mm 云打印机 - 高配版"
+        }
+      }
+    },
+    {
+      "id": 1052,
+      "productId": 127,
+      "skuCode": "SKU-NETWORKING-127-1",
+      "name": "Ubiquiti UniFi AP - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Networking - Model 27 - Standard"
+        },
+        "zh": {
+          "name": "Ubiquiti UniFi AP - 标准版"
+        }
+      }
+    },
+    {
+      "id": 1053,
+      "productId": 127,
+      "skuCode": "SKU-NETWORKING-127-2",
+      "name": "Ubiquiti UniFi AP - 高配版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Networking - Model 27 - Pro"
+        },
+        "zh": {
+          "name": "Ubiquiti UniFi AP - 高配版"
+        }
+      }
+    },
+    {
+      "id": 1054,
+      "productId": 127,
+      "skuCode": "SKU-NETWORKING-127-3",
+      "name": "Ubiquiti UniFi AP - 旗舰版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Networking - Model 27 - Ultimate"
+        },
+        "zh": {
+          "name": "Ubiquiti UniFi AP - 旗舰版"
+        }
+      }
+    },
+    {
+      "id": 1055,
+      "productId": 128,
+      "skuCode": "SKU-CC_PROCESSING-128-1",
+      "name": "Square 支付网关 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Credit Card Processing - Model 28 - Spec 1"
+        },
+        "zh": {
+          "name": "Square 支付网关 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1056,
+      "productId": 129,
+      "skuCode": "SKU-LOCAL_WALLETS-129-1",
+      "name": "Apple Pay / Google Pay 接入 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Local Wallets - Model 29 - Spec 1"
+        },
+        "zh": {
+          "name": "Apple Pay / Google Pay 接入 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1057,
+      "productId": 129,
+      "skuCode": "SKU-LOCAL_WALLETS-129-2",
+      "name": "Apple Pay / Google Pay 接入 - 规格 2",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Local Wallets - Model 29 - Spec 2"
+        },
+        "zh": {
+          "name": "Apple Pay / Google Pay 接入 - 规格 2"
+        }
+      }
+    },
+    {
+      "id": 1058,
+      "productId": 130,
+      "skuCode": "SKU-CARD_READERS-130-1",
+      "name": "Verifone V400m 刷卡机 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Card Readers - Model 30 - Spec 1"
+        },
+        "zh": {
+          "name": "Verifone V400m 刷卡机 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1059,
+      "productId": 130,
+      "skuCode": "SKU-CARD_READERS-130-2",
+      "name": "Verifone V400m 刷卡机 - 规格 2",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Card Readers - Model 30 - Spec 2"
+        },
+        "zh": {
+          "name": "Verifone V400m 刷卡机 - 规格 2"
+        }
+      }
+    },
+    {
+      "id": 1060,
+      "productId": 130,
+      "skuCode": "SKU-CARD_READERS-130-3",
+      "name": "Verifone V400m 刷卡机 - 规格 3",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Card Readers - Model 30 - Spec 3"
+        },
+        "zh": {
+          "name": "Verifone V400m 刷卡机 - 规格 3"
+        }
+      }
+    },
+    {
+      "id": 1061,
+      "productId": 131,
+      "skuCode": "SKU-DEPLOYMENT-131-1",
+      "name": "高级网络布线与调试 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Deployment - Model 31 - Spec 1"
+        },
+        "zh": {
+          "name": "高级网络布线与调试 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1062,
+      "productId": 132,
+      "skuCode": "SKU-TRAINING-132-1",
+      "name": "收银员基础培训 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Training - Model 32 - Spec 1"
+        },
+        "zh": {
+          "name": "收银员基础培训 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1063,
+      "productId": 132,
+      "skuCode": "SKU-TRAINING-132-2",
+      "name": "收银员基础培训 - 规格 2",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Training - Model 32 - Spec 2"
+        },
+        "zh": {
+          "name": "收银员基础培训 - 规格 2"
+        }
+      }
+    },
+    {
+      "id": 1064,
+      "productId": 133,
+      "skuCode": "SKU-PHYSICAL_SUPPLIES-133-1",
+      "name": "收银机专用钱箱 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Physical Supplies - Model 33 - Spec 1"
+        },
+        "zh": {
+          "name": "收银机专用钱箱 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1065,
+      "productId": 133,
+      "skuCode": "SKU-PHYSICAL_SUPPLIES-133-2",
+      "name": "收银机专用钱箱 - 规格 2",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Physical Supplies - Model 33 - Spec 2"
+        },
+        "zh": {
+          "name": "收银机专用钱箱 - 规格 2"
+        }
+      }
+    },
+    {
+      "id": 1066,
+      "productId": 133,
+      "skuCode": "SKU-PHYSICAL_SUPPLIES-133-3",
+      "name": "收银机专用钱箱 - 规格 3",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Physical Supplies - Model 33 - Spec 3"
+        },
+        "zh": {
+          "name": "收银机专用钱箱 - 规格 3"
+        }
+      }
+    },
+    {
+      "id": 1067,
+      "productId": 134,
+      "skuCode": "SKU-VIRTUAL_CREDITS-134-1",
+      "name": "电子发票开具额度 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Virtual Credits - Model 34 - Spec 1"
+        },
+        "zh": {
+          "name": "电子发票开具额度 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1068,
+      "productId": 135,
+      "skuCode": "SKU-QSR_EDITION-135-1",
+      "name": "RestoPro 连锁快餐版 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "QSR Edition - Model 35 - Monthly"
+        },
+        "zh": {
+          "name": "RestoPro 连锁快餐版 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1069,
+      "productId": 135,
+      "skuCode": "SKU-QSR_EDITION-135-2",
+      "name": "RestoPro 连锁快餐版 - 年付版",
+      "billingModel": "recurring",
+      "billingTerm": "annual",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "QSR Edition - Model 35 - Annual"
+        },
+        "zh": {
+          "name": "RestoPro 连锁快餐版 - 年付版"
+        }
+      }
+    },
+    {
+      "id": 1070,
+      "productId": 136,
+      "skuCode": "SKU-FSR_EDITION-136-1",
+      "name": "RestoBistro 小酒馆专版 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "FSR Edition - Model 36 - Monthly"
+        },
+        "zh": {
+          "name": "RestoBistro 小酒馆专版 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1071,
+      "productId": 136,
+      "skuCode": "SKU-FSR_EDITION-136-2",
+      "name": "RestoBistro 小酒馆专版 - 年付版",
+      "billingModel": "recurring",
+      "billingTerm": "annual",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "FSR Edition - Model 36 - Annual"
+        },
+        "zh": {
+          "name": "RestoBistro 小酒馆专版 - 年付版"
+        }
+      }
+    },
+    {
+      "id": 1072,
+      "productId": 136,
+      "skuCode": "SKU-FSR_EDITION-136-3",
+      "name": "RestoBistro 小酒馆专版 - 终身版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "FSR Edition - Model 36 - Lifetime"
+        },
+        "zh": {
+          "name": "RestoBistro 小酒馆专版 - 终身版"
+        }
+      }
+    },
+    {
+      "id": 1073,
+      "productId": 137,
+      "skuCode": "SKU-ONLINE_ORDERING-137-1",
+      "name": "RestoApp 独立品牌APP - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Online Ordering - Model 37 - Monthly"
+        },
+        "zh": {
+          "name": "RestoApp 独立品牌APP - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1074,
+      "productId": 138,
+      "skuCode": "SKU-LOYALTY_MARKETING-138-1",
+      "name": "RestoCoupon 智能优惠券引擎 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Loyalty & Marketing - Model 38 - Monthly"
+        },
+        "zh": {
+          "name": "RestoCoupon 智能优惠券引擎 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1075,
+      "productId": 138,
+      "skuCode": "SKU-LOYALTY_MARKETING-138-2",
+      "name": "RestoCoupon 智能优惠券引擎 - 年付版",
+      "billingModel": "recurring",
+      "billingTerm": "annual",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Loyalty & Marketing - Model 38 - Annual"
+        },
+        "zh": {
+          "name": "RestoCoupon 智能优惠券引擎 - 年付版"
+        }
+      }
+    },
+    {
+      "id": 1076,
+      "productId": 139,
+      "skuCode": "SKU-KDS-139-1",
+      "name": "RestoExpedite 传菜调度系统 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "KDS - Model 39 - Monthly"
+        },
+        "zh": {
+          "name": "RestoExpedite 传菜调度系统 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1077,
+      "productId": 139,
+      "skuCode": "SKU-KDS-139-2",
+      "name": "RestoExpedite 传菜调度系统 - 年付版",
+      "billingModel": "recurring",
+      "billingTerm": "annual",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "KDS - Model 39 - Annual"
+        },
+        "zh": {
+          "name": "RestoExpedite 传菜调度系统 - 年付版"
+        }
+      }
+    },
+    {
+      "id": 1078,
+      "productId": 139,
+      "skuCode": "SKU-KDS-139-3",
+      "name": "RestoExpedite 传菜调度系统 - 终身版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "KDS - Model 39 - Lifetime"
+        },
+        "zh": {
+          "name": "RestoExpedite 传菜调度系统 - 终身版"
+        }
+      }
+    },
+    {
+      "id": 1079,
+      "productId": 140,
+      "skuCode": "SKU-INVENTORY-140-1",
+      "name": "RestoCost 成本核算模块 - 月付版",
+      "billingModel": "recurring",
+      "billingTerm": "monthly",
+      "billingTiming": "in_advance",
+      "trialDays": 14,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Inventory - Model 40 - Monthly"
+        },
+        "zh": {
+          "name": "RestoCost 成本核算模块 - 月付版"
+        }
+      }
+    },
+    {
+      "id": 1080,
+      "productId": 141,
+      "skuCode": "SKU-COUNTERTOP_POS-141-1",
+      "name": "Elo 15寸一体机 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Countertop POS - Model 41 - Standard"
+        },
+        "zh": {
+          "name": "Elo 15寸一体机 - 标准版"
+        }
+      }
+    },
+    {
+      "id": 1081,
+      "productId": 141,
+      "skuCode": "SKU-COUNTERTOP_POS-141-2",
+      "name": "Elo 15寸一体机 - 高配版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Countertop POS - Model 41 - Pro"
+        },
+        "zh": {
+          "name": "Elo 15寸一体机 - 高配版"
+        }
+      }
+    },
+    {
+      "id": 1082,
+      "productId": 142,
+      "skuCode": "SKU-MOBILE_KIOSK-142-1",
+      "name": "iPad Pro 12.9寸点餐平板 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Mobile & Kiosk - Model 42 - Standard"
+        },
+        "zh": {
+          "name": "iPad Pro 12.9寸点餐平板 - 标准版"
+        }
+      }
+    },
+    {
+      "id": 1083,
+      "productId": 142,
+      "skuCode": "SKU-MOBILE_KIOSK-142-2",
+      "name": "iPad Pro 12.9寸点餐平板 - 高配版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Mobile & Kiosk - Model 42 - Pro"
+        },
+        "zh": {
+          "name": "iPad Pro 12.9寸点餐平板 - 高配版"
+        }
+      }
+    },
+    {
+      "id": 1084,
+      "productId": 142,
+      "skuCode": "SKU-MOBILE_KIOSK-142-3",
+      "name": "iPad Pro 12.9寸点餐平板 - 旗舰版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Mobile & Kiosk - Model 42 - Ultimate"
+        },
+        "zh": {
+          "name": "iPad Pro 12.9寸点餐平板 - 旗舰版"
+        }
+      }
+    },
+    {
+      "id": 1085,
+      "productId": 143,
+      "skuCode": "SKU-PRINTERS-143-1",
+      "name": "Star Micronics 蓝牙打印机 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Printers - Model 43 - Standard"
+        },
+        "zh": {
+          "name": "Star Micronics 蓝牙打印机 - 标准版"
+        }
+      }
+    },
+    {
+      "id": 1086,
+      "productId": 144,
+      "skuCode": "SKU-NETWORKING-144-1",
+      "name": "Netgear 24口千兆交换机 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Networking - Model 44 - Standard"
+        },
+        "zh": {
+          "name": "Netgear 24口千兆交换机 - 标准版"
+        }
+      }
+    },
+    {
+      "id": 1087,
+      "productId": 144,
+      "skuCode": "SKU-NETWORKING-144-2",
+      "name": "Netgear 24口千兆交换机 - 高配版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Unit",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": true,
+      "translations": {
+        "en": {
+          "name": "Networking - Model 44 - Pro"
+        },
+        "zh": {
+          "name": "Netgear 24口千兆交换机 - 高配版"
+        }
+      }
+    },
+    {
+      "id": 1088,
+      "productId": 145,
+      "skuCode": "SKU-CC_PROCESSING-145-1",
+      "name": "Adyen 全球支付处理 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Credit Card Processing - Model 45 - Spec 1"
+        },
+        "zh": {
+          "name": "Adyen 全球支付处理 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1089,
+      "productId": 145,
+      "skuCode": "SKU-CC_PROCESSING-145-2",
+      "name": "Adyen 全球支付处理 - 规格 2",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Credit Card Processing - Model 45 - Spec 2"
+        },
+        "zh": {
+          "name": "Adyen 全球支付处理 - 规格 2"
+        }
+      }
+    },
+    {
+      "id": 1090,
+      "productId": 145,
+      "skuCode": "SKU-CC_PROCESSING-145-3",
+      "name": "Adyen 全球支付处理 - 规格 3",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Credit Card Processing - Model 45 - Spec 3"
+        },
+        "zh": {
+          "name": "Adyen 全球支付处理 - 规格 3"
+        }
+      }
+    },
+    {
+      "id": 1091,
+      "productId": 146,
+      "skuCode": "SKU-LOCAL_WALLETS-146-1",
+      "name": "本地电子钱包网关 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Local Wallets - Model 46 - Spec 1"
+        },
+        "zh": {
+          "name": "本地电子钱包网关 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1092,
+      "productId": 147,
+      "skuCode": "SKU-CARD_READERS-147-1",
+      "name": "Ingenico Lane/3000 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Card Readers - Model 47 - Spec 1"
+        },
+        "zh": {
+          "name": "Ingenico Lane/3000 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1093,
+      "productId": 147,
+      "skuCode": "SKU-CARD_READERS-147-2",
+      "name": "Ingenico Lane/3000 - 规格 2",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Card Readers - Model 47 - Spec 2"
+        },
+        "zh": {
+          "name": "Ingenico Lane/3000 - 规格 2"
+        }
+      }
+    },
+    {
+      "id": 1094,
+      "productId": 148,
+      "skuCode": "SKU-DEPLOYMENT-148-1",
+      "name": "多门店批量部署服务 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Deployment - Model 48 - Spec 1"
+        },
+        "zh": {
+          "name": "多门店批量部署服务 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1095,
+      "productId": 148,
+      "skuCode": "SKU-DEPLOYMENT-148-2",
+      "name": "多门店批量部署服务 - 规格 2",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Deployment - Model 48 - Spec 2"
+        },
+        "zh": {
+          "name": "多门店批量部署服务 - 规格 2"
+        }
+      }
+    },
+    {
+      "id": 1096,
+      "productId": 148,
+      "skuCode": "SKU-DEPLOYMENT-148-3",
+      "name": "多门店批量部署服务 - 规格 3",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Deployment - Model 48 - Spec 3"
+        },
+        "zh": {
+          "name": "多门店批量部署服务 - 规格 3"
+        }
+      }
+    },
+    {
+      "id": 1097,
+      "productId": 149,
+      "skuCode": "SKU-TRAINING-149-1",
+      "name": "后台管理与报表培训 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Training - Model 49 - Spec 1"
+        },
+        "zh": {
+          "name": "后台管理与报表培训 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1098,
+      "productId": 150,
+      "skuCode": "SKU-PHYSICAL_SUPPLIES-150-1",
+      "name": "员工点餐卡/手环 - 规格 1",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Physical Supplies - Model 50 - Spec 1"
+        },
+        "zh": {
+          "name": "员工点餐卡/手环 - 规格 1"
+        }
+      }
+    },
+    {
+      "id": 1099,
+      "productId": 150,
+      "skuCode": "SKU-PHYSICAL_SUPPLIES-150-2",
+      "name": "员工点餐卡/手环 - 规格 2",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "License",
+      "lifecycleStatus": "active",
+      "isShippable": false,
+      "isSerialized": false,
+      "translations": {
+        "en": {
+          "name": "Physical Supplies - Model 50 - Spec 2"
+        },
+        "zh": {
+          "name": "员工点餐卡/手环 - 规格 2"
+        }
+      }
+    },
+    {
+      "id": 1100,
+      "productId": 151,
+      "skuCode": "SKU-BND-1",
+      "name": "快餐全能创业套装 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Bundle",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": false
+    },
+    {
+      "id": 1101,
+      "productId": 152,
+      "skuCode": "SKU-BND-2",
+      "name": "正餐豪华数字化套装 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Bundle",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": false
+    },
+    {
+      "id": 1102,
+      "productId": 153,
+      "skuCode": "SKU-BND-3",
+      "name": "移动点餐先锋套装 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Bundle",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": false
+    },
+    {
+      "id": 1103,
+      "productId": 154,
+      "skuCode": "SKU-BND-4",
+      "name": "后厨效率提升套装 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Bundle",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": false
+    },
+    {
+      "id": 1104,
+      "productId": 155,
+      "skuCode": "SKU-BND-5",
+      "name": "全渠道营销增长套装 - 标准版",
+      "billingModel": "one_time",
+      "billingTerm": "none",
+      "billingTiming": "in_advance",
+      "trialDays": 0,
+      "uom": "Bundle",
+      "lifecycleStatus": "active",
+      "isShippable": true,
+      "isSerialized": false
+    }
+  ]
+}

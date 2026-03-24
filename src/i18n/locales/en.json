@@ -148,6 +148,15 @@
     "countryOfOrigin": "Origin",
     "provisioningHandler": "Provisioning Handler",
     "technicalSpecs": "Technical Specifications",
+    "monthly": "Monthly",
+    "annual": "Annual",
+    "triennial": "Triennial",
+    "none": "None",
+    "entitlements": "Entitlements",
+    "feature": "Feature",
+    "type": "Type",
+    "status": "Status",
+    "value": "Value",
     "totalSkus": "Total SKUs",
     "activeSkus": "Active SKUs",
     "quotaValue": "Quota Value",
@@ -225,6 +234,9 @@
     "digital": "Digital Product",
     "service": "Service",
     "bundle": "Bundle",
+    "software": "Software",
+    "hardware": "Hardware",
+    "consumable": "Consumable",
     "salesTax": "Sales Tax",
     "vat": "VAT",
     "gst": "GST",
@@ -246,6 +258,8 @@
     "parentRegion": "Parent Region",
     "level": "Level",
     "isActive": "Active",
+    "nameEn": "Name (EN)",
+    "nameZh": "Name (ZH)",
     "levels": {
       "country": "Country",
       "state": "State/Province",
@@ -256,7 +270,9 @@
     "placeholders": {
       "regionCode": "e.g. US-CA",
       "countryCode": "e.g. US",
-      "name": "e.g. California"
+      "name": "e.g. California",
+      "nameEn": "e.g. Singapore",
+      "nameZh": "e.g. 新加坡"
     }
   },
   "rules": {
@@ -322,6 +338,7 @@
     "code": "Price Book Code",
     "name": "Price Book Name",
     "currency": "Currency",
+    "applicableRegions": "Applicable Regions",
     "status": "Status",
     "entries": "Price Entries",
     "addEntry": "Add Entry",

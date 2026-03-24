@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui';
 import { Package, Tags, BookOpen, Activity, ArrowUpRight, TrendingUp, Users, DollarSign } from 'lucide-react';
-import { mockProducts, mockSkus, mockPriceBooks } from '../data/mock';
+import { mockData } from '../data/mock';
 import { motion } from 'motion/react';
 
 export function Dashboard() {
@@ -11,7 +11,7 @@ export function Dashboard() {
   const stats = [
     {
       title: t('dashboard.totalProducts'),
-      value: mockProducts.length,
+      value: mockData.products.length,
       icon: Package,
       color: 'text-blue-600 dark:text-blue-400',
       bg: 'bg-blue-50 dark:bg-blue-900/20',
@@ -20,7 +20,7 @@ export function Dashboard() {
     },
     {
       title: t('dashboard.activeSkus'),
-      value: mockSkus.filter(s => s.lifecycleStatus === 'active').length,
+      value: mockData.skus.filter(s => s.lifecycleStatus === 'active').length,
       icon: Tags,
       color: 'text-emerald-600 dark:text-emerald-400',
       bg: 'bg-emerald-50 dark:bg-emerald-900/20',
@@ -29,7 +29,7 @@ export function Dashboard() {
     },
     {
       title: t('dashboard.activePriceBooks'),
-      value: mockPriceBooks.filter(pb => pb.isActive).length,
+      value: mockData.priceBooks.filter(pb => pb.isActive).length,
       icon: BookOpen,
       color: 'text-amber-600 dark:text-amber-400',
       bg: 'bg-amber-50 dark:bg-amber-900/20',
