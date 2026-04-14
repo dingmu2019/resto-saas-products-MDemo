@@ -1,10 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, CardHeader, CardTitle, CardContent } from '../components/ui';
-import { Database, Table as TableIcon, Network } from 'lucide-react';
-import { ReactFlow, Background, Controls, MiniMap, useNodesState, useEdgesState, MarkerType } from '@xyflow/react';
-import { TableNode } from '../components/TableNode';
-import '@xyflow/react/dist/style.css';
+import { Card } from '../components/ui';
+import { Database, Table as TableIcon } from 'lucide-react';
 import schemaSql from '../data/schema.sql?raw';
 
 const schemaData = [
@@ -243,204 +240,12 @@ const schemaData = [
   }
 ];
 
-const nodeTypes = {
-  table: TableNode,
-};
-
-const initialNodes = [
-  { 
-    id: 'product_categories', 
-    type: 'table',
-    position: { x: 400, y: 0 }, 
-    data: { 
-      label: 'product_categories',
-      fields: [
-        { name: 'id', type: 'bigint', isPrimary: true },
-        { name: 'parent_id', type: 'bigint', isForeign: true },
-        { name: 'code', type: 'string' },
-        { name: 'name', type: 'string' }
-      ]
-    } 
-  },
-  { 
-    id: 'products', 
-    type: 'table',
-    position: { x: 400, y: 150 }, 
-    data: { 
-      label: 'products',
-      fields: [
-        { name: 'id', type: 'bigint', isPrimary: true },
-        { name: 'category_id', type: 'bigint', isForeign: true },
-        { name: 'product_code', type: 'string' },
-        { name: 'name', type: 'string' }
-      ]
-    } 
-  },
-  { 
-    id: 'product_skus', 
-    type: 'table',
-    position: { x: 400, y: 300 }, 
-    data: { 
-      label: 'product_skus',
-      fields: [
-        { name: 'id', type: 'bigint', isPrimary: true },
-        { name: 'product_id', type: 'bigint', isForeign: true },
-        { name: 'sku_code', type: 'string' },
-        { name: 'name', type: 'string' }
-      ]
-    } 
-  },
-  { 
-    id: 'product_media', 
-    type: 'table',
-    position: { x: 100, y: 200 }, 
-    data: { 
-      label: 'product_media',
-      fields: [
-        { name: 'id', type: 'bigint', isPrimary: true },
-        { name: 'product_id', type: 'bigint', isForeign: true },
-        { name: 'sku_id', type: 'bigint', isForeign: true },
-        { name: 'url', type: 'string' }
-      ]
-    } 
-  },
-  { 
-    id: 'product_entitlements', 
-    type: 'table',
-    position: { x: 100, y: 350 }, 
-    data: { 
-      label: 'product_entitlements',
-      fields: [
-        { name: 'id', type: 'bigint', isPrimary: true },
-        { name: 'sku_id', type: 'bigint', isForeign: true },
-        { name: 'feature_code', type: 'string' },
-        { name: 'quota_value', type: 'bigint' }
-      ]
-    } 
-  },
-  { 
-    id: 'product_rules', 
-    type: 'table',
-    position: { x: 100, y: 500 }, 
-    data: { 
-      label: 'product_rules',
-      fields: [
-        { name: 'id', type: 'bigint', isPrimary: true },
-        { name: 'source_sku_id', type: 'bigint', isForeign: true },
-        { name: 'target_sku_id', type: 'bigint', isForeign: true },
-        { name: 'rule_type', type: 'enum' }
-      ]
-    } 
-  },
-  { 
-    id: 'bundle_groups', 
-    type: 'table',
-    position: { x: 700, y: 300 }, 
-    data: { 
-      label: 'bundle_groups',
-      fields: [
-        { name: 'id', type: 'bigint', isPrimary: true },
-        { name: 'bundle_sku_id', type: 'bigint', isForeign: true },
-        { name: 'name', type: 'string' }
-      ]
-    } 
-  },
-  { 
-    id: 'bundle_options', 
-    type: 'table',
-    position: { x: 700, y: 450 }, 
-    data: { 
-      label: 'bundle_options',
-      fields: [
-        { name: 'id', type: 'bigint', isPrimary: true },
-        { name: 'bundle_sku_id', type: 'bigint', isForeign: true },
-        { name: 'group_id', type: 'bigint', isForeign: true },
-        { name: 'component_sku_id', type: 'bigint', isForeign: true }
-      ]
-    } 
-  },
-  { 
-    id: 'price_books', 
-    type: 'table',
-    position: { x: 700, y: 600 }, 
-    data: { 
-      label: 'price_books',
-      fields: [
-        { name: 'id', type: 'bigint', isPrimary: true },
-        { name: 'code', type: 'string' },
-        { name: 'name', type: 'string' }
-      ]
-    } 
-  },
-  { 
-    id: 'price_book_entries', 
-    type: 'table',
-    position: { x: 400, y: 600 }, 
-    data: { 
-      label: 'price_book_entries',
-      fields: [
-        { name: 'id', type: 'bigint', isPrimary: true },
-        { name: 'price_book_id', type: 'bigint', isForeign: true },
-        { name: 'sku_id', type: 'bigint', isForeign: true },
-        { name: 'list_price', type: 'number' }
-      ]
-    } 
-  },
-  { 
-    id: 'tax_regions', 
-    type: 'table',
-    position: { x: 950, y: 0 }, 
-    data: { 
-      label: 'tax_regions',
-      fields: [
-        { name: 'id', type: 'bigint', isPrimary: true },
-        { name: 'parent_id', type: 'bigint', isForeign: true },
-        { name: 'region_code', type: 'string' },
-        { name: 'name', type: 'string' }
-      ]
-    } 
-  },
-  { 
-    id: 'tax_rates_mapping', 
-    type: 'table',
-    position: { x: 950, y: 200 }, 
-    data: { 
-      label: 'tax_rates_mapping',
-      fields: [
-        { name: 'id', type: 'bigint', isPrimary: true },
-        { name: 'tax_region_id', type: 'bigint', isForeign: true },
-        { name: 'tax_rate', type: 'number' },
-        { name: 'tax_name', type: 'string' }
-      ]
-    } 
-  },
-];
-
-const initialEdges = [
-  { id: 'e-cat-parent', source: 'product_categories', target: 'product_categories', label: 'parentId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-  { id: 'e-prod-cat', source: 'products', target: 'product_categories', label: 'categoryId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-  { id: 'e-sku-prod', source: 'product_skus', target: 'products', label: 'productId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-  { id: 'e-media-prod', source: 'product_media', target: 'products', label: 'productId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-  { id: 'e-media-sku', source: 'product_media', target: 'product_skus', label: 'skuId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-  { id: 'e-ent-sku', source: 'product_entitlements', target: 'product_skus', label: 'skuId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-  { id: 'e-rule-source', source: 'product_rules', target: 'product_skus', label: 'sourceSkuId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-  { id: 'e-rule-target', source: 'product_rules', target: 'product_skus', label: 'targetSkuId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-  { id: 'e-bg-sku', source: 'bundle_groups', target: 'product_skus', label: 'bundleSkuId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-  { id: 'e-bo-sku', source: 'bundle_options', target: 'product_skus', label: 'bundleSkuId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-  { id: 'e-bo-bg', source: 'bundle_options', target: 'bundle_groups', label: 'groupId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-  { id: 'e-bo-comp', source: 'bundle_options', target: 'product_skus', label: 'componentSkuId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-  { id: 'e-pbe-pb', source: 'price_book_entries', target: 'price_books', label: 'priceBookId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-  { id: 'e-pbe-sku', source: 'price_book_entries', target: 'product_skus', label: 'skuId', type: 'smoothstep', markerEnd: { type: MarkerType.ArrowClosed } },
-    ];
-
 export function DataModels() {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<string>('ER_DIAGRAM');
+  const [activeTab, setActiveTab] = useState<string>(schemaData[0].name);
   const [viewMode, setViewMode] = useState<'table' | 'script'>('script');
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  const tabs = [{ id: 'ER_DIAGRAM', label: t('dataModels.erDiagram') }, ...schemaData.map(s => ({ id: s.name, label: s.name }))];
+  const tabs = schemaData.map(s => ({ id: s.name, label: s.name }));
 
   const activeModel = useMemo(() => schemaData.find(s => s.name === activeTab), [activeTab]);
 
@@ -486,7 +291,7 @@ export function DataModels() {
             key={tab.id}
             onClick={() => {
               setActiveTab(tab.id);
-              if (tab.id !== 'ER_DIAGRAM') setViewMode('script');
+              setViewMode('script');
             }}
             className={`
               px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors
@@ -495,33 +300,16 @@ export function DataModels() {
                 : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'}
             `}
           >
-            {tab.id === 'ER_DIAGRAM' ? <Network className="w-4 h-4 inline-block mr-2" /> : <TableIcon className="w-4 h-4 inline-block mr-2" />}
+            <TableIcon className="w-4 h-4 inline-block mr-2" />
             {tab.label}
           </button>
         ))}
       </div>
 
       <Card className="min-h-[600px] flex flex-col">
-        {activeTab === 'ER_DIAGRAM' ? (
-          <div className="flex-1 w-full h-[600px] bg-slate-50/50 dark:bg-slate-900/50 rounded-xl overflow-hidden">
-            <ReactFlow 
-              nodes={nodes} 
-              edges={edges} 
-              onNodesChange={onNodesChange}
-              onEdgesChange={onEdgesChange}
-              nodeTypes={nodeTypes}
-              fitView
-              attributionPosition="bottom-right"
-            >
-              <Background color="#ccc" gap={16} />
-              <Controls />
-              <MiniMap />
-            </ReactFlow>
-          </div>
-        ) : (
-          <div className="p-6 flex-1 flex flex-col">
-            {activeModel && (
-              <div className="space-y-6 flex-1 flex flex-col">
+        <div className="p-6 flex-1 flex flex-col">
+          {activeModel && (
+            <div className="space-y-6 flex-1 flex flex-col">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
                   <div className="flex items-center gap-2">
                     <TableIcon className="w-5 h-5 text-indigo-500" />
@@ -642,8 +430,7 @@ export function DataModels() {
               </div>
             )}
           </div>
-        )}
-      </Card>
-    </div>
-  );
-}
+        </Card>
+      </div>
+    );
+  }
