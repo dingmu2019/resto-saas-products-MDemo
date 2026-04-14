@@ -106,6 +106,13 @@ export function Skus() {
             {t('sku.usage_based')}
           </Badge>
         );
+      case 'hybrid':
+        return (
+          <Badge variant="info" className="text-[10px] uppercase tracking-wider flex items-center gap-1">
+            <RefreshCw className="w-3 h-3" />
+            {t('sku.hybrid')}
+          </Badge>
+        );
       default: return <Badge className="text-[10px] uppercase tracking-wider">{model}</Badge>;
     }
   };
@@ -292,13 +299,15 @@ export function Skus() {
                   </Td>
                   <Td>{getBillingBadge(sku.billingModel)}</Td>
                   <Td>
-                    <span className="text-xs text-slate-500 dark:text-slate-400 capitalize bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">
-                      {sku.billingTerm !== 'none' ? sku.billingTerm : '-'}
-                    </span>
+                    {sku.billingTerm !== 'none' ? (
+                      <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-800/50">
+                        {t(`sku.${sku.billingTerm}`)}
+                      </span>
+                    ) : (
+                      <span className="text-slate-300 dark:text-slate-700 italic">-</span>
+                    )}
                   </Td>
-                  <Td>
-                    <span className="text-xs font-medium text-slate-600 dark:text-slate-300">{sku.uom}</span>
-                  </Td>
+                  <Td className="text-slate-500 text-xs font-medium">{t(`sku.${sku.uom.toLowerCase()}`)}</Td>
                   <Td>
                     <div title={t(`sku.${sku.lifecycleStatus}Desc`)}>
                       {getLifecycleBadge(sku.lifecycleStatus)}
@@ -395,11 +404,13 @@ export function Skus() {
               </div>
               <div className="space-y-1">
                 <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('sku.billingTerm')}</p>
-                <p className="text-sm text-slate-700 dark:text-slate-200 capitalize">{viewingSku.billingTerm}</p>
+                <p className="text-sm text-slate-700 dark:text-slate-200">
+                  {viewingSku.billingTerm !== 'none' ? t(`sku.${viewingSku.billingTerm}`) : '-'}
+                </p>
               </div>
               <div className="space-y-1">
                 <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('sku.uom')}</p>
-                <p className="text-sm text-slate-700 dark:text-slate-200">{viewingSku.uom}</p>
+                <p className="text-sm text-slate-700 dark:text-slate-200">{t(`sku.${viewingSku.uom.toLowerCase()}`)}</p>
               </div>
             </div>
 
@@ -503,6 +514,7 @@ export function Skus() {
                 <option value="biweekly">{t('sku.biweekly')}</option>
                 <option value="monthly">{t('sku.monthly')}</option>
                 <option value="quarterly">{t('sku.quarterly')}</option>
+                <option value="semiannual">{t('sku.semiannual')}</option>
                 <option value="annual">{t('sku.annual')}</option>
                 <option value="biennial">{t('sku.biennial')}</option>
                 <option value="triennial">{t('sku.triennial')}</option>
@@ -827,9 +839,13 @@ export function Skus() {
                 <option value="none">{t('sku.none')}</option>
                 <option value="daily">{t('sku.daily')}</option>
                 <option value="weekly">{t('sku.weekly')}</option>
+                <option value="biweekly">{t('sku.biweekly')}</option>
                 <option value="monthly">{t('sku.monthly')}</option>
                 <option value="quarterly">{t('sku.quarterly')}</option>
                 <option value="annual">{t('sku.annual')}</option>
+                <option value="biennial">{t('sku.biennial')}</option>
+                <option value="triennial">{t('sku.triennial')}</option>
+                <option value="custom">{t('sku.custom')}</option>
               </Select>
             </div>
           </div>

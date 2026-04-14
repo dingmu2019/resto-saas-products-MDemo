@@ -233,9 +233,12 @@ export function PriceBooks() {
                     <span className="font-mono text-slate-500 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-slate-700">
                       {pb.code}
                     </span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-slate-400">{pb.partnerTier ? t(`priceBook.${pb.partnerTier.toLowerCase()}`) : ''}</span>
-                      <span className="font-bold text-slate-700 dark:text-slate-300">{pb.currency}</span>
+                    <div className="flex items-center gap-2 mt-1">
+                      <Badge variant="info" className="text-[9px] uppercase">{pb.partnerTier ? t(`priceBook.${pb.partnerTier.toLowerCase()}`) : t('common.none')}</Badge>
+                      <span className="w-1 h-1 rounded-full bg-slate-200 dark:bg-slate-700" />
+                      <span className="text-[10px] text-slate-400">{t(`priceBook.${pb.type}`)}</span>
+                      <span className="w-1 h-1 rounded-full bg-slate-200 dark:bg-slate-700" />
+                      <span className="text-[10px] text-slate-400 uppercase font-bold text-indigo-600 dark:text-indigo-400">{pb.currency}</span>
                     </div>
                   </div>
                   {pb.applicableRegions && pb.applicableRegions.length > 0 && (

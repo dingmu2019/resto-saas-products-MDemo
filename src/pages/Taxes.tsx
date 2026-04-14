@@ -115,8 +115,8 @@ export function Taxes() {
               <Tr key={rate.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/10 transition-colors group">
                 <Td className="font-medium">{rate.countryCode}{rate.stateCode ? ` - ${rate.stateCode}` : ''}</Td>
                 <Td>{rate.taxName}</Td>
-                <Td className="capitalize text-slate-500 dark:text-slate-400">{rate.productType}</Td>
-                <Td><Badge variant="default">{rate.taxType}</Badge></Td>
+                <Td className="capitalize text-slate-500 dark:text-slate-400">{t(`taxes.${rate.productType}`)}</Td>
+                <Td><Badge variant="default">{t(`taxes.${rate.taxType.toLowerCase()}`)}</Badge></Td>
                 <Td className="font-mono text-indigo-600 dark:text-indigo-400">{(rate.combinedTaxRate * 100).toFixed(2)}%</Td>
                 <Td>{rate.isTaxInclusive ? <Badge variant="success">{t('taxes.yes')}</Badge> : <Badge variant="warning">{t('taxes.no')}</Badge>}</Td>
                 <Td>{rate.isB2bExempt ? <Badge variant="success">{t('taxes.yes')}</Badge> : <Badge variant="default">{t('taxes.no')}</Badge>}</Td>

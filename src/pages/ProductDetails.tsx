@@ -338,7 +338,7 @@ export function ProductDetails() {
                           <span className="text-slate-300 dark:text-slate-700">-</span>
                         )}
                       </Td>
-                      <Td className="text-slate-500 text-xs font-medium">{sku.uom}</Td>
+                      <Td className="text-slate-500 text-xs font-medium">{t(`sku.${sku.uom.toLowerCase()}`)}</Td>
                       <Td>
                         <div title={t(`sku.${sku.lifecycleStatus}Desc`)}>
                           {getLifecycleBadge(sku.lifecycleStatus)}
