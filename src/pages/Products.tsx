@@ -42,7 +42,8 @@ export function Products() {
     const cat = categories.find(c => c.id === id);
     if (!cat) return t('product.unknown');
     return cat.path.split('/').filter(Boolean).map(pId => {
-      return categories.find(c => c.id === Number(pId))?.name || pId;
+      const parentCat = categories.find(c => c.id === Number(pId));
+      return parentCat ? getTranslatedField(parentCat, 'name', currentLang) : pId;
     }).join(' > ');
   };
 
@@ -108,7 +109,8 @@ export function Products() {
 
   const filteredProducts = useMemo(() => {
     return products.filter(p => {
-      const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      const productName = getTranslatedField(p, 'name', currentLang);
+      const matchesSearch = productName.toLowerCase().includes(searchQuery.toLowerCase()) ||
         p.productCode.toLowerCase().includes(searchQuery.toLowerCase());
       
       const matchesType = !filters.productType || p.productType === filters.productType;

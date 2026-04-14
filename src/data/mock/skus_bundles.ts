@@ -93,7 +93,7 @@ export const mockBundleSkus: ProductSku[] = [
   },
   {
     id: 1105,
-    productId: 148,
+    productId: 157,
     skuCode: 'SKU-BND-148-1',
     name: 'RestoSuite 餐饮全能开店套餐 - 旗舰版',
     billingModel: 'one_time',

@@ -3,7 +3,7 @@ import { Product } from '../../types';
 export const mockProducts: Product[] = [
   {
     id: 101,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-101',
     name: 'RestoPOS 快餐版 POS 软件',
     description: '专为快餐和饮品店设计的轻量级 POS 系统，支持扫码点餐、外卖集成。',
@@ -21,7 +21,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 102,
-    categoryId: 1,
+    categoryId: 112,
     productCode: 'PROD-POS_SW-102',
     name: 'RestoPOS 正餐版 POS 软件',
     description: '功能强大的正餐 POS 系统，支持桌台管理、预订、多打印机调度。',
@@ -39,7 +39,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 103,
-    categoryId: 1,
+    categoryId: 112,
     productCode: 'PROD-POS_SW-103',
     name: 'RestoPOS 零售版 POS 软件',
     description: '适用于精品零售店，支持库存管理、会员积分、条码扫描。',
@@ -57,7 +57,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 104,
-    categoryId: 2,
+    categoryId: 11,
     productCode: 'PROD-POS_SW-104',
     name: 'RestoPOS 连锁总部管理系统',
     description: '集中管理多门店菜单、价格、员工权限及报表汇总。',
@@ -75,7 +75,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 105,
-    categoryId: 3,
+    categoryId: 121,
     productCode: 'PROD-POS_SW-105',
     name: 'RestoPOS 移动点餐 APP',
     description: '支持服务员手持设备点餐，实时同步后厨。',
@@ -93,7 +93,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 106,
-    categoryId: 3,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-106',
     name: 'RestoPOS 自助点餐 Kiosk 软件',
     description: '用于自助点餐机，支持多语言、会员登录、聚合支付。',
@@ -111,7 +111,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 146,
-    categoryId: 3,
+    categoryId: 121,
     productCode: 'PROD-POS_SW-146',
     name: 'RestoPOS 扫码点餐系统',
     description: '支持顾客手机扫码点餐，自动同步后厨，提升翻台率。',
@@ -129,7 +129,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 147,
-    categoryId: 3,
+    categoryId: 131,
     productCode: 'PROD-POS_SW-147',
     name: 'RestoPOS 厨房打印调度软件',
     description: '智能调度厨房小票打印，支持分单、合单打印。',
@@ -147,7 +147,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 107,
-    categoryId: 4,
+    categoryId: 211,
     productCode: 'PROD-POS_HW-107',
     name: 'RestoPOS 15寸单屏收银机',
     description: '高性能 15 寸电容触摸屏，铝合金机身，稳定耐用。',
@@ -165,7 +165,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 108,
-    categoryId: 4,
+    categoryId: 211,
     productCode: 'PROD-POS_HW-108',
     name: 'RestoPOS 15寸双屏收银机',
     description: '主屏 15 寸 + 客显屏 15 寸，支持广告展示和订单确认。',
@@ -183,7 +183,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 109,
-    categoryId: 5,
+    categoryId: 221,
     productCode: 'PROD-POS_HW-109',
     name: 'RestoPOS 80mm 热敏小票打印机',
     description: '高速打印，支持切刀，多种接口（USB/LAN/Serial）。',
@@ -201,7 +201,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 110,
-    categoryId: 5,
+    categoryId: 221,
     productCode: 'PROD-POS_HW-110',
     name: 'RestoPOS 厨房标签打印机',
     description: '支持不干胶标签打印，防油防水设计，适合厨房环境。',
@@ -219,7 +219,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 111,
-    categoryId: 6,
+    categoryId: 211,
     productCode: 'PROD-POS_HW-111',
     name: 'RestoPOS 智能钱箱',
     description: '标准三档锁，重型钢结构，支持 RJ11 接口。',
@@ -237,7 +237,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 112,
-    categoryId: 6,
+    categoryId: 211,
     productCode: 'PROD-POS_HW-112',
     name: 'RestoPOS 二维码扫描枪',
     description: '支持屏幕扫码，快速识别微信、支付宝付款码。',
@@ -255,7 +255,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 113,
-    categoryId: 7,
+    categoryId: 131,
     productCode: 'PROD-POS_HW-113',
     name: 'RestoPOS 10寸厨房显示屏 (KDS)',
     description: '工业级触摸屏，支持壁挂，实时显示待做订单。',
@@ -273,7 +273,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 114,
-    categoryId: 8,
+    categoryId: 212,
     productCode: 'PROD-POS_HW-114',
     name: 'RestoPOS 移动支付手持终端',
     description: '内置打印机，支持 4G/WiFi，随时随地收银。',
@@ -291,7 +291,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 115,
-    categoryId: 9,
+    categoryId: 211,
     productCode: 'PROD-POS_HW-115',
     name: 'RestoPOS 智能电子秤',
     description: '高精度称重，与 POS 系统无缝对接，适合生鲜零售。',
@@ -309,7 +309,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 116,
-    categoryId: 10,
+    categoryId: 212,
     productCode: 'PROD-POS_HW-116',
     name: 'RestoPOS 呼叫器套装',
     description: '包含 1 个发射主机和 10 个接收子机，适合排队取餐。',
@@ -327,7 +327,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 117,
-    categoryId: 11,
+    categoryId: 222,
     productCode: 'PROD-POS_HW-117',
     name: 'RestoPOS 路由器 (商用版)',
     description: '支持多设备稳定连接，保障收银系统网络畅通。',
@@ -345,7 +345,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 118,
-    categoryId: 12,
+    categoryId: 222,
     productCode: 'PROD-POS_HW-118',
     name: 'RestoPOS 备用电源 (UPS)',
     description: '防止意外断电导致的数据丢失，支持 POS 运行 30 分钟。',
@@ -363,7 +363,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 119,
-    categoryId: 13,
+    categoryId: 211,
     productCode: 'PROD-POS_HW-119',
     name: 'RestoPOS 15寸电容触摸屏 (备件)',
     description: '原厂 15 寸触摸屏备件。',
@@ -381,7 +381,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 120,
-    categoryId: 13,
+    categoryId: 221,
     productCode: 'PROD-POS_HW-120',
     name: 'RestoPOS 打印机切刀 (备件)',
     description: '适用于 80mm 热敏打印机的原厂切刀。',
@@ -399,7 +399,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 121,
-    categoryId: 14,
+    categoryId: 212,
     productCode: 'PROD-POS_HW-121',
     name: 'RestoPOS 21寸自助点餐机 (立式)',
     description: '大屏幕自助点餐，支持刷脸支付，提升餐厅效率。',
@@ -417,7 +417,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 122,
-    categoryId: 14,
+    categoryId: 212,
     productCode: 'PROD-POS_HW-122',
     name: 'RestoPOS 21寸自助点餐机 (壁挂)',
     description: '节省空间的自助点餐方案。',
@@ -435,7 +435,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 123,
-    categoryId: 15,
+    categoryId: 411,
     productCode: 'PROD-POS_SV-123',
     name: 'RestoPOS 基础安装服务',
     description: '专业工程师上门安装、调试收银系统。',
@@ -453,7 +453,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 124,
-    categoryId: 15,
+    categoryId: 412,
     productCode: 'PROD-POS_SV-124',
     name: 'RestoPOS 员工培训服务',
     description: '针对餐厅员工的系统操作培训。',
@@ -471,7 +471,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 125,
-    categoryId: 16,
+    categoryId: 41,
     productCode: 'PROD-POS_SV-125',
     name: 'RestoPOS 7x24 远程技术支持',
     description: '全天候远程协助，快速解决系统问题。',
@@ -489,7 +489,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 126,
-    categoryId: 16,
+    categoryId: 2,
     productCode: 'PROD-POS_SV-126',
     name: 'RestoPOS 硬件延保服务 (1年)',
     description: '为收银硬件提供额外 1 年的保修。',
@@ -507,7 +507,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 127,
-    categoryId: 17,
+    categoryId: 111,
     productCode: 'PROD-POS_BD-127',
     name: 'RestoPOS 快餐店开店套餐',
     description: '包含快餐版软件 + 单屏收银机 + 打印机 + 钱箱。',
@@ -525,7 +525,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 128,
-    categoryId: 17,
+    categoryId: 112,
     productCode: 'PROD-POS_BD-128',
     name: 'RestoPOS 正餐店专业套餐',
     description: '包含正餐版软件 + 双屏收银机 + 2台打印机 + 钱箱 + 5个呼叫器。',
@@ -543,7 +543,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 129,
-    categoryId: 18,
+    categoryId: 421,
     productCode: 'PROD-POS_CS-129',
     name: 'RestoPOS 80mm 热敏打印纸 (50卷)',
     description: '高品质热敏纸，显色清晰，不伤打印头。',
@@ -561,7 +561,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 130,
-    categoryId: 18,
+    categoryId: 421,
     productCode: 'PROD-POS_CS-130',
     name: 'RestoPOS 厨房标签纸 (20卷)',
     description: '防油防水不干胶标签，适合厨房使用。',
@@ -579,7 +579,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 131,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-131',
     name: 'RestoPOS 咖啡茶饮版 POS 软件',
     description: '支持复杂的配料选择、加料管理、标签自动打印。',
@@ -597,7 +597,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 132,
-    categoryId: 1,
+    categoryId: 112,
     productCode: 'PROD-POS_SW-132',
     name: 'RestoPOS 酒吧版 POS 软件',
     description: '支持开台存酒、分单支付、快乐时光价格自动切换。',
@@ -615,7 +615,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 133,
-    categoryId: 1,
+    categoryId: 112,
     productCode: 'PROD-POS_SW-133',
     name: 'RestoPOS 烘焙版 POS 软件',
     description: '支持称重计价、保质期管理、预订取货。',
@@ -633,7 +633,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 134,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-134',
     name: 'RestoPOS 美食广场版 POS 软件',
     description: '支持统一发卡、档口结算、多商户报表。',
@@ -651,7 +651,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 135,
-    categoryId: 1,
+    categoryId: 112,
     productCode: 'PROD-POS_SW-135',
     name: 'RestoPOS 酒店餐饮版 POS 软件',
     description: '支持房费挂账、宴会管理、与 PMS 系统集成。',
@@ -669,7 +669,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 136,
-    categoryId: 2,
+    categoryId: 132,
     productCode: 'PROD-POS_SW-136',
     name: 'RestoPOS 供应链管理系统',
     description: '集中采购、中央厨房加工、门店配送管理。',
@@ -687,7 +687,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 137,
-    categoryId: 2,
+    categoryId: 11,
     productCode: 'PROD-POS_SW-137',
     name: 'RestoPOS 财务集成模块',
     description: '自动同步销售数据至主流财务软件（如金蝶、用友）。',
@@ -705,7 +705,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 138,
-    categoryId: 3,
+    categoryId: 122,
     productCode: 'PROD-POS_SW-138',
     name: 'RestoPOS 顾客忠诚度 APP',
     description: '顾客端 APP，支持积分查询、优惠券领取、在线订位。',
@@ -723,7 +723,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 139,
-    categoryId: 3,
+    categoryId: 131,
     productCode: 'PROD-POS_SW-139',
     name: 'RestoPOS 厨房显示系统 (KDS) 软件',
     description: '运行于 KDS 硬件，支持订单分色显示、超时预警。',
@@ -741,7 +741,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 140,
-    categoryId: 3,
+    categoryId: 121,
     productCode: 'PROD-POS_SW-140',
     name: 'RestoPOS 智能排队系统软件',
     description: '支持在线取号、进度查询、语音叫号。',
@@ -759,7 +759,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 141,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-141',
     name: 'RestoPOS 英文版 POS 软件',
     description: '全英文界面，符合海外经营习惯及税制。',
@@ -777,7 +777,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 142,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-142',
     name: 'RestoPOS 多语言版 POS 软件',
     description: '支持中、英、日、韩等多国语言切换。',
@@ -795,7 +795,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 143,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-143',
     name: 'RestoPOS 离线版 POS 软件',
     description: '支持断网模式下正常收银，网络恢复后自动同步。',
@@ -813,7 +813,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 144,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-144',
     name: 'RestoPOS 极简版 POS 软件',
     description: '去除复杂功能，仅保留核心点餐收银，适合小微摊位。',
@@ -831,7 +831,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 145,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-145',
     name: 'RestoPOS 团餐版 POS 软件',
     description: '支持食堂刷卡、餐券核销、批量结算。',
@@ -848,8 +848,8 @@ export const mockProducts: Product[] = [
     }
   },
   {
-    id: 146,
-    categoryId: 1,
+    id: 155,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-146',
     name: 'RestoPOS 移动收银版 POS 软件',
     description: '专为手持终端优化，界面简洁，操作快捷。',
@@ -866,8 +866,8 @@ export const mockProducts: Product[] = [
     }
   },
   {
-    id: 147,
-    categoryId: 1,
+    id: 156,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-147',
     name: 'RestoPOS 智能报表版 POS 软件',
     description: '强化报表功能，支持自定义维度分析、自动发送邮件。',
@@ -884,8 +884,8 @@ export const mockProducts: Product[] = [
     }
   },
   {
-    id: 148,
-    categoryId: 1,
+    id: 157,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-148',
     name: 'RestoPOS 营销增强版 POS 软件',
     description: '内置多种营销工具，如满减、折扣、套餐自动匹配。',
@@ -903,7 +903,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 149,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-149',
     name: 'RestoPOS 员工管理版 POS 软件',
     description: '强化员工考勤、提成计算、权限精细化管理。',
@@ -921,7 +921,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 150,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-150',
     name: 'RestoPOS 客户关系版 POS 软件',
     description: '强化 CRM 功能，支持客户画像、精准营销推送。',
@@ -939,7 +939,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 151,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-151',
     name: 'RestoPOS 开放平台版 POS 软件',
     description: '提供完整 SDK/API，支持深度二次开发。',
@@ -957,7 +957,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 152,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-152',
     name: 'RestoPOS 云端备份版 POS 软件',
     description: '实时云端备份所有交易数据，安全无忧。',
@@ -975,7 +975,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 153,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-153',
     name: 'RestoPOS 智能库存版 POS 软件',
     description: '强化库存预警、自动补货建议。',
@@ -993,7 +993,7 @@ export const mockProducts: Product[] = [
   },
   {
     id: 154,
-    categoryId: 1,
+    categoryId: 111,
     productCode: 'PROD-POS_SW-154',
     name: 'RestoPOS 聚合支付版 POS 软件',
     description: '集成全球主流支付方式，一码通收。',
@@ -1010,7 +1010,7 @@ export const mockProducts: Product[] = [
     }
   },
   {
-    id: 148,
+    id: 157,
     categoryId: 3,
     productCode: 'PROD-BUNDLE-148',
     name: 'RestoSuite 餐饮全能开店套餐',
