@@ -234,11 +234,13 @@ export function PriceBooks() {
                       {pb.code}
                     </span>
                     <div className="flex items-center gap-2 mt-1">
-                      <Badge variant="info" className="text-[9px] uppercase">{pb.partnerTier ? t(`priceBook.${pb.partnerTier.toLowerCase()}`) : t('common.none')}</Badge>
+                      <Badge variant={pb.partnerTier ? "info" : "outline"} className="text-[9px] uppercase">{pb.partnerTier ? t(`priceBook.${pb.partnerTier.toLowerCase()}`) : t('common.none')}</Badge>
                       <span className="w-1 h-1 rounded-full bg-slate-200 dark:bg-slate-700" />
                       <span className="text-[10px] text-slate-400">{t(`priceBook.${pb.type}`)}</span>
                       <span className="w-1 h-1 rounded-full bg-slate-200 dark:bg-slate-700" />
-                      <span className="text-[10px] text-slate-400 uppercase font-bold text-indigo-600 dark:text-indigo-400">{pb.currency}</span>
+                      <span className="text-[10px] text-slate-400">{t(`priceBook.${pb.channel}`)}</span>
+                      <span className="w-1 h-1 rounded-full bg-slate-200 dark:bg-slate-700" />
+                      <span className="text-[10px] uppercase font-bold text-indigo-600 dark:text-indigo-400">{pb.currency}</span>
                     </div>
                   </div>
                   {pb.applicableRegions && pb.applicableRegions.length > 0 && (
@@ -395,7 +397,7 @@ export function PriceBooks() {
                         {sku ? t(`sku.${sku.billingTiming}`) : '-'}
                       </Td>
                       <Td className="text-xs">
-                        {sku?.uom || '-'}
+                        {sku ? t(`sku.${sku.uom.toLowerCase()}`) : '-'}
                       </Td>
                       <Td>
                         {sku ? (

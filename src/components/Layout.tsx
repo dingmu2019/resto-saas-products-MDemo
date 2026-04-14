@@ -44,7 +44,7 @@ export function Layout() {
             <span className="font-bold text-xl tracking-tight">RestoSuite</span>
           </div>
           <div className="text-[10px] text-slate-400 dark:text-slate-500 font-mono mt-1 ml-10 opacity-70">
-            v0.1.3-beat
+            v0.1.5-beat
           </div>
         </div>
         

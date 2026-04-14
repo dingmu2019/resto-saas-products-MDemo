@@ -512,6 +512,7 @@ export function Skus() {
                 <option value="daily">{t('sku.daily')}</option>
                 <option value="weekly">{t('sku.weekly')}</option>
                 <option value="biweekly">{t('sku.biweekly')}</option>
+                <option value="semimonthly">{t('sku.semimonthly')}</option>
                 <option value="monthly">{t('sku.monthly')}</option>
                 <option value="quarterly">{t('sku.quarterly')}</option>
                 <option value="semiannual">{t('sku.semiannual')}</option>
@@ -842,6 +843,7 @@ export function Skus() {
                 <option value="biweekly">{t('sku.biweekly')}</option>
                 <option value="monthly">{t('sku.monthly')}</option>
                 <option value="quarterly">{t('sku.quarterly')}</option>
+                <option value="semiannual">{t('sku.semiannual')}</option>
                 <option value="annual">{t('sku.annual')}</option>
                 <option value="biennial">{t('sku.biennial')}</option>
                 <option value="triennial">{t('sku.triennial')}</option>
