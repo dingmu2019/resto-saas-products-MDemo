@@ -1,0 +1,2084 @@
+{
+  "priceBookEntries": [
+    {
+      "id": 1,
+      "priceBookId": 1,
+      "skuId": 1001,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 100,
+      "minPrice": 90,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "priceBookId": 2,
+      "skuId": 1001,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 700,
+      "minPrice": 630,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 3,
+      "priceBookId": 1,
+      "skuId": 1002,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 110,
+      "minPrice": 100,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 4,
+      "priceBookId": 2,
+      "skuId": 1002,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 770,
+      "minPrice": 700,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 5,
+      "priceBookId": 1,
+      "skuId": 1003,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 160,
+      "minPrice": 150,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 6,
+      "priceBookId": 2,
+      "skuId": 1003,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1120,
+      "minPrice": 1050,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 7,
+      "priceBookId": 1,
+      "skuId": 1004,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 120,
+      "minPrice": 110,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 8,
+      "priceBookId": 2,
+      "skuId": 1004,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 840,
+      "minPrice": 770,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 9,
+      "priceBookId": 1,
+      "skuId": 1005,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 170,
+      "minPrice": 160,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 10,
+      "priceBookId": 2,
+      "skuId": 1005,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1190,
+      "minPrice": 1120,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 11,
+      "priceBookId": 1,
+      "skuId": 1006,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 220,
+      "minPrice": 210,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 12,
+      "priceBookId": 2,
+      "skuId": 1006,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1540,
+      "minPrice": 1470,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 13,
+      "priceBookId": 1,
+      "skuId": 1007,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 130,
+      "minPrice": 120,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 14,
+      "priceBookId": 2,
+      "skuId": 1007,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 910,
+      "minPrice": 840,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 15,
+      "priceBookId": 1,
+      "skuId": 1008,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 140,
+      "minPrice": 130,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 16,
+      "priceBookId": 2,
+      "skuId": 1008,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 980,
+      "minPrice": 910,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 17,
+      "priceBookId": 1,
+      "skuId": 1009,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 190,
+      "minPrice": 180,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 18,
+      "priceBookId": 2,
+      "skuId": 1009,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1330,
+      "minPrice": 1260,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 19,
+      "priceBookId": 1,
+      "skuId": 1010,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 150,
+      "minPrice": 140,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 20,
+      "priceBookId": 2,
+      "skuId": 1010,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1050,
+      "minPrice": 980,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 21,
+      "priceBookId": 1,
+      "skuId": 1011,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 200,
+      "minPrice": 190,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 22,
+      "priceBookId": 2,
+      "skuId": 1011,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1400,
+      "minPrice": 1330,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 23,
+      "priceBookId": 1,
+      "skuId": 1012,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 250,
+      "minPrice": 240,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 24,
+      "priceBookId": 2,
+      "skuId": 1012,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1750,
+      "minPrice": 1680,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 25,
+      "priceBookId": 1,
+      "skuId": 1013,
+      "pricingStrategy": "per_unit",
+      "listPrice": 160,
+      "minPrice": 150,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 26,
+      "priceBookId": 2,
+      "skuId": 1013,
+      "pricingStrategy": "per_unit",
+      "listPrice": 1120,
+      "minPrice": 1050,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 27,
+      "priceBookId": 1,
+      "skuId": 1014,
+      "pricingStrategy": "per_unit",
+      "listPrice": 170,
+      "minPrice": 160,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 28,
+      "priceBookId": 2,
+      "skuId": 1014,
+      "pricingStrategy": "per_unit",
+      "listPrice": 1190,
+      "minPrice": 1120,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 29,
+      "priceBookId": 1,
+      "skuId": 1015,
+      "pricingStrategy": "per_unit",
+      "listPrice": 220,
+      "minPrice": 210,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 30,
+      "priceBookId": 2,
+      "skuId": 1015,
+      "pricingStrategy": "per_unit",
+      "listPrice": 1540,
+      "minPrice": 1470,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 31,
+      "priceBookId": 1,
+      "skuId": 1016,
+      "pricingStrategy": "per_unit",
+      "listPrice": 180,
+      "minPrice": 170,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 32,
+      "priceBookId": 2,
+      "skuId": 1016,
+      "pricingStrategy": "per_unit",
+      "listPrice": 1260,
+      "minPrice": 1190,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 33,
+      "priceBookId": 1,
+      "skuId": 1017,
+      "pricingStrategy": "per_unit",
+      "listPrice": 230,
+      "minPrice": 220,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 34,
+      "priceBookId": 2,
+      "skuId": 1017,
+      "pricingStrategy": "per_unit",
+      "listPrice": 1610,
+      "minPrice": 1540,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 35,
+      "priceBookId": 1,
+      "skuId": 1018,
+      "pricingStrategy": "per_unit",
+      "listPrice": 280,
+      "minPrice": 270,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 36,
+      "priceBookId": 2,
+      "skuId": 1018,
+      "pricingStrategy": "per_unit",
+      "listPrice": 1960,
+      "minPrice": 1890,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 37,
+      "priceBookId": 1,
+      "skuId": 1019,
+      "pricingStrategy": "per_unit",
+      "listPrice": 190,
+      "minPrice": 180,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 38,
+      "priceBookId": 2,
+      "skuId": 1019,
+      "pricingStrategy": "per_unit",
+      "listPrice": 1330,
+      "minPrice": 1260,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 39,
+      "priceBookId": 1,
+      "skuId": 1020,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 200,
+      "minPrice": 190,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 40,
+      "priceBookId": 2,
+      "skuId": 1020,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1400,
+      "minPrice": 1330,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 41,
+      "priceBookId": 1,
+      "skuId": 1021,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 250,
+      "minPrice": 240,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 42,
+      "priceBookId": 2,
+      "skuId": 1021,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1750,
+      "minPrice": 1680,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 43,
+      "priceBookId": 1,
+      "skuId": 1022,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 210,
+      "minPrice": 200,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 44,
+      "priceBookId": 2,
+      "skuId": 1022,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1470,
+      "minPrice": 1400,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 45,
+      "priceBookId": 1,
+      "skuId": 1023,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 260,
+      "minPrice": 250,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 46,
+      "priceBookId": 2,
+      "skuId": 1023,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1820,
+      "minPrice": 1750,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 47,
+      "priceBookId": 1,
+      "skuId": 1024,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 310,
+      "minPrice": 300,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 48,
+      "priceBookId": 2,
+      "skuId": 1024,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2170,
+      "minPrice": 2100,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 49,
+      "priceBookId": 1,
+      "skuId": 1025,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 220,
+      "minPrice": 210,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 50,
+      "priceBookId": 2,
+      "skuId": 1025,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1540,
+      "minPrice": 1470,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 51,
+      "priceBookId": 1,
+      "skuId": 1026,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 230,
+      "minPrice": 220,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 52,
+      "priceBookId": 2,
+      "skuId": 1026,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1610,
+      "minPrice": 1540,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 53,
+      "priceBookId": 1,
+      "skuId": 1027,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 280,
+      "minPrice": 270,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 54,
+      "priceBookId": 2,
+      "skuId": 1027,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1960,
+      "minPrice": 1890,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 55,
+      "priceBookId": 1,
+      "skuId": 1028,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 240,
+      "minPrice": 230,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 56,
+      "priceBookId": 2,
+      "skuId": 1028,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1680,
+      "minPrice": 1610,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 57,
+      "priceBookId": 1,
+      "skuId": 1029,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 290,
+      "minPrice": 280,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 58,
+      "priceBookId": 2,
+      "skuId": 1029,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2030,
+      "minPrice": 1960,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 59,
+      "priceBookId": 1,
+      "skuId": 1030,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 340,
+      "minPrice": 330,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 60,
+      "priceBookId": 2,
+      "skuId": 1030,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2380,
+      "minPrice": 2310,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 61,
+      "priceBookId": 1,
+      "skuId": 1031,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 250,
+      "minPrice": 240,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 62,
+      "priceBookId": 2,
+      "skuId": 1031,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1750,
+      "minPrice": 1680,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 63,
+      "priceBookId": 1,
+      "skuId": 1032,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 260,
+      "minPrice": 250,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 64,
+      "priceBookId": 2,
+      "skuId": 1032,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1820,
+      "minPrice": 1750,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 65,
+      "priceBookId": 1,
+      "skuId": 1033,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 310,
+      "minPrice": 300,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 66,
+      "priceBookId": 2,
+      "skuId": 1033,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2170,
+      "minPrice": 2100,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 67,
+      "priceBookId": 1,
+      "skuId": 1034,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 270,
+      "minPrice": 260,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 68,
+      "priceBookId": 2,
+      "skuId": 1034,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1890,
+      "minPrice": 1820,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 69,
+      "priceBookId": 1,
+      "skuId": 1035,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 320,
+      "minPrice": 310,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 70,
+      "priceBookId": 2,
+      "skuId": 1035,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2240,
+      "minPrice": 2170,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 71,
+      "priceBookId": 1,
+      "skuId": 1036,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 370,
+      "minPrice": 360,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 72,
+      "priceBookId": 2,
+      "skuId": 1036,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2590,
+      "minPrice": 2520,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 73,
+      "priceBookId": 1,
+      "skuId": 1037,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 280,
+      "minPrice": 270,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 74,
+      "priceBookId": 2,
+      "skuId": 1037,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1960,
+      "minPrice": 1890,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 75,
+      "priceBookId": 1,
+      "skuId": 1038,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 290,
+      "minPrice": 280,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 76,
+      "priceBookId": 2,
+      "skuId": 1038,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2030,
+      "minPrice": 1960,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 77,
+      "priceBookId": 1,
+      "skuId": 1039,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 340,
+      "minPrice": 330,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 78,
+      "priceBookId": 2,
+      "skuId": 1039,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2380,
+      "minPrice": 2310,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 79,
+      "priceBookId": 1,
+      "skuId": 1040,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 300,
+      "minPrice": 290,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 80,
+      "priceBookId": 2,
+      "skuId": 1040,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2100,
+      "minPrice": 2030,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 81,
+      "priceBookId": 1,
+      "skuId": 1041,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 350,
+      "minPrice": 340,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 82,
+      "priceBookId": 2,
+      "skuId": 1041,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2450,
+      "minPrice": 2380,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 83,
+      "priceBookId": 1,
+      "skuId": 1042,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 400,
+      "minPrice": 390,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 84,
+      "priceBookId": 2,
+      "skuId": 1042,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2800,
+      "minPrice": 2730,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 85,
+      "priceBookId": 1,
+      "skuId": 1043,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 310,
+      "minPrice": 300,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 86,
+      "priceBookId": 2,
+      "skuId": 1043,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2170,
+      "minPrice": 2100,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 87,
+      "priceBookId": 1,
+      "skuId": 1044,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 320,
+      "minPrice": 310,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 88,
+      "priceBookId": 2,
+      "skuId": 1044,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2240,
+      "minPrice": 2170,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 89,
+      "priceBookId": 1,
+      "skuId": 1045,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 370,
+      "minPrice": 360,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 90,
+      "priceBookId": 2,
+      "skuId": 1045,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2590,
+      "minPrice": 2520,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 91,
+      "priceBookId": 1,
+      "skuId": 1046,
+      "pricingStrategy": "per_unit",
+      "listPrice": 330,
+      "minPrice": 320,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 92,
+      "priceBookId": 2,
+      "skuId": 1046,
+      "pricingStrategy": "per_unit",
+      "listPrice": 2310,
+      "minPrice": 2240,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 93,
+      "priceBookId": 1,
+      "skuId": 1047,
+      "pricingStrategy": "per_unit",
+      "listPrice": 380,
+      "minPrice": 370,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 94,
+      "priceBookId": 2,
+      "skuId": 1047,
+      "pricingStrategy": "per_unit",
+      "listPrice": 2660,
+      "minPrice": 2590,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 95,
+      "priceBookId": 1,
+      "skuId": 1048,
+      "pricingStrategy": "per_unit",
+      "listPrice": 430,
+      "minPrice": 420,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 96,
+      "priceBookId": 2,
+      "skuId": 1048,
+      "pricingStrategy": "per_unit",
+      "listPrice": 3010,
+      "minPrice": 2940,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 97,
+      "priceBookId": 1,
+      "skuId": 1049,
+      "pricingStrategy": "per_unit",
+      "listPrice": 340,
+      "minPrice": 330,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 98,
+      "priceBookId": 2,
+      "skuId": 1049,
+      "pricingStrategy": "per_unit",
+      "listPrice": 2380,
+      "minPrice": 2310,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 99,
+      "priceBookId": 1,
+      "skuId": 1050,
+      "pricingStrategy": "per_unit",
+      "listPrice": 350,
+      "minPrice": 340,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 100,
+      "priceBookId": 2,
+      "skuId": 1050,
+      "pricingStrategy": "per_unit",
+      "listPrice": 2450,
+      "minPrice": 2380,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 101,
+      "priceBookId": 1,
+      "skuId": 1051,
+      "pricingStrategy": "per_unit",
+      "listPrice": 400,
+      "minPrice": 390,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 102,
+      "priceBookId": 2,
+      "skuId": 1051,
+      "pricingStrategy": "per_unit",
+      "listPrice": 2800,
+      "minPrice": 2730,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 103,
+      "priceBookId": 1,
+      "skuId": 1052,
+      "pricingStrategy": "per_unit",
+      "listPrice": 360,
+      "minPrice": 350,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 104,
+      "priceBookId": 2,
+      "skuId": 1052,
+      "pricingStrategy": "per_unit",
+      "listPrice": 2520,
+      "minPrice": 2450,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 105,
+      "priceBookId": 1,
+      "skuId": 1053,
+      "pricingStrategy": "per_unit",
+      "listPrice": 410,
+      "minPrice": 400,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 106,
+      "priceBookId": 2,
+      "skuId": 1053,
+      "pricingStrategy": "per_unit",
+      "listPrice": 2870,
+      "minPrice": 2800,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 107,
+      "priceBookId": 1,
+      "skuId": 1054,
+      "pricingStrategy": "per_unit",
+      "listPrice": 460,
+      "minPrice": 450,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 108,
+      "priceBookId": 2,
+      "skuId": 1054,
+      "pricingStrategy": "per_unit",
+      "listPrice": 3220,
+      "minPrice": 3150,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 109,
+      "priceBookId": 1,
+      "skuId": 1055,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 370,
+      "minPrice": 360,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 110,
+      "priceBookId": 2,
+      "skuId": 1055,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2590,
+      "minPrice": 2520,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 111,
+      "priceBookId": 1,
+      "skuId": 1056,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 380,
+      "minPrice": 370,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 112,
+      "priceBookId": 2,
+      "skuId": 1056,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2660,
+      "minPrice": 2590,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 113,
+      "priceBookId": 1,
+      "skuId": 1057,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 430,
+      "minPrice": 420,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 114,
+      "priceBookId": 2,
+      "skuId": 1057,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3010,
+      "minPrice": 2940,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 115,
+      "priceBookId": 1,
+      "skuId": 1058,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 390,
+      "minPrice": 380,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 116,
+      "priceBookId": 2,
+      "skuId": 1058,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2730,
+      "minPrice": 2660,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 117,
+      "priceBookId": 1,
+      "skuId": 1059,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 440,
+      "minPrice": 430,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 118,
+      "priceBookId": 2,
+      "skuId": 1059,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3080,
+      "minPrice": 3010,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 119,
+      "priceBookId": 1,
+      "skuId": 1060,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 490,
+      "minPrice": 480,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 120,
+      "priceBookId": 2,
+      "skuId": 1060,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3430,
+      "minPrice": 3360,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 121,
+      "priceBookId": 1,
+      "skuId": 1061,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 400,
+      "minPrice": 390,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 122,
+      "priceBookId": 2,
+      "skuId": 1061,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2800,
+      "minPrice": 2730,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 123,
+      "priceBookId": 1,
+      "skuId": 1062,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 410,
+      "minPrice": 400,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 124,
+      "priceBookId": 2,
+      "skuId": 1062,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2870,
+      "minPrice": 2800,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 125,
+      "priceBookId": 1,
+      "skuId": 1063,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 460,
+      "minPrice": 450,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 126,
+      "priceBookId": 2,
+      "skuId": 1063,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3220,
+      "minPrice": 3150,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 127,
+      "priceBookId": 1,
+      "skuId": 1064,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 420,
+      "minPrice": 410,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 128,
+      "priceBookId": 2,
+      "skuId": 1064,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2940,
+      "minPrice": 2870,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 129,
+      "priceBookId": 1,
+      "skuId": 1065,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 470,
+      "minPrice": 460,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 130,
+      "priceBookId": 2,
+      "skuId": 1065,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3290,
+      "minPrice": 3220,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 131,
+      "priceBookId": 1,
+      "skuId": 1066,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 520,
+      "minPrice": 510,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 132,
+      "priceBookId": 2,
+      "skuId": 1066,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3640,
+      "minPrice": 3570,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 133,
+      "priceBookId": 1,
+      "skuId": 1067,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 430,
+      "minPrice": 420,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 134,
+      "priceBookId": 2,
+      "skuId": 1067,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3010,
+      "minPrice": 2940,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 135,
+      "priceBookId": 1,
+      "skuId": 1068,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 440,
+      "minPrice": 430,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 136,
+      "priceBookId": 2,
+      "skuId": 1068,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3080,
+      "minPrice": 3010,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 137,
+      "priceBookId": 1,
+      "skuId": 1069,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 490,
+      "minPrice": 480,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 138,
+      "priceBookId": 2,
+      "skuId": 1069,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3430,
+      "minPrice": 3360,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 139,
+      "priceBookId": 1,
+      "skuId": 1070,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 450,
+      "minPrice": 440,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 140,
+      "priceBookId": 2,
+      "skuId": 1070,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3150,
+      "minPrice": 3080,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 141,
+      "priceBookId": 1,
+      "skuId": 1071,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 500,
+      "minPrice": 490,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 142,
+      "priceBookId": 2,
+      "skuId": 1071,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3500,
+      "minPrice": 3430,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 143,
+      "priceBookId": 1,
+      "skuId": 1072,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 550,
+      "minPrice": 540,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 144,
+      "priceBookId": 2,
+      "skuId": 1072,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3850,
+      "minPrice": 3780,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 145,
+      "priceBookId": 1,
+      "skuId": 1073,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 460,
+      "minPrice": 450,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 146,
+      "priceBookId": 2,
+      "skuId": 1073,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3220,
+      "minPrice": 3150,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 147,
+      "priceBookId": 1,
+      "skuId": 1074,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 470,
+      "minPrice": 460,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 148,
+      "priceBookId": 2,
+      "skuId": 1074,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3290,
+      "minPrice": 3220,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 149,
+      "priceBookId": 1,
+      "skuId": 1075,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 520,
+      "minPrice": 510,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 150,
+      "priceBookId": 2,
+      "skuId": 1075,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3640,
+      "minPrice": 3570,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 151,
+      "priceBookId": 1,
+      "skuId": 1076,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 480,
+      "minPrice": 470,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 152,
+      "priceBookId": 2,
+      "skuId": 1076,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3360,
+      "minPrice": 3290,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 153,
+      "priceBookId": 1,
+      "skuId": 1077,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 530,
+      "minPrice": 520,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 154,
+      "priceBookId": 2,
+      "skuId": 1077,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3710,
+      "minPrice": 3640,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 155,
+      "priceBookId": 1,
+      "skuId": 1078,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 580,
+      "minPrice": 570,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 156,
+      "priceBookId": 2,
+      "skuId": 1078,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 4060,
+      "minPrice": 3990,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 157,
+      "priceBookId": 1,
+      "skuId": 1079,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 490,
+      "minPrice": 480,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 158,
+      "priceBookId": 2,
+      "skuId": 1079,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3430,
+      "minPrice": 3360,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 159,
+      "priceBookId": 1,
+      "skuId": 1080,
+      "pricingStrategy": "per_unit",
+      "listPrice": 500,
+      "minPrice": 490,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 160,
+      "priceBookId": 2,
+      "skuId": 1080,
+      "pricingStrategy": "per_unit",
+      "listPrice": 3500,
+      "minPrice": 3430,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 161,
+      "priceBookId": 1,
+      "skuId": 1081,
+      "pricingStrategy": "per_unit",
+      "listPrice": 550,
+      "minPrice": 540,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 162,
+      "priceBookId": 2,
+      "skuId": 1081,
+      "pricingStrategy": "per_unit",
+      "listPrice": 3850,
+      "minPrice": 3780,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 163,
+      "priceBookId": 1,
+      "skuId": 1082,
+      "pricingStrategy": "per_unit",
+      "listPrice": 510,
+      "minPrice": 500,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 164,
+      "priceBookId": 2,
+      "skuId": 1082,
+      "pricingStrategy": "per_unit",
+      "listPrice": 3570,
+      "minPrice": 3500,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 165,
+      "priceBookId": 1,
+      "skuId": 1083,
+      "pricingStrategy": "per_unit",
+      "listPrice": 560,
+      "minPrice": 550,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 166,
+      "priceBookId": 2,
+      "skuId": 1083,
+      "pricingStrategy": "per_unit",
+      "listPrice": 3920,
+      "minPrice": 3850,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 167,
+      "priceBookId": 1,
+      "skuId": 1084,
+      "pricingStrategy": "per_unit",
+      "listPrice": 610,
+      "minPrice": 600,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 168,
+      "priceBookId": 2,
+      "skuId": 1084,
+      "pricingStrategy": "per_unit",
+      "listPrice": 4270,
+      "minPrice": 4200,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 169,
+      "priceBookId": 1,
+      "skuId": 1085,
+      "pricingStrategy": "per_unit",
+      "listPrice": 520,
+      "minPrice": 510,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 170,
+      "priceBookId": 2,
+      "skuId": 1085,
+      "pricingStrategy": "per_unit",
+      "listPrice": 3640,
+      "minPrice": 3570,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 171,
+      "priceBookId": 1,
+      "skuId": 1086,
+      "pricingStrategy": "per_unit",
+      "listPrice": 530,
+      "minPrice": 520,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 172,
+      "priceBookId": 2,
+      "skuId": 1086,
+      "pricingStrategy": "per_unit",
+      "listPrice": 3710,
+      "minPrice": 3640,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 173,
+      "priceBookId": 1,
+      "skuId": 1087,
+      "pricingStrategy": "per_unit",
+      "listPrice": 580,
+      "minPrice": 570,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 174,
+      "priceBookId": 2,
+      "skuId": 1087,
+      "pricingStrategy": "per_unit",
+      "listPrice": 4060,
+      "minPrice": 3990,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 175,
+      "priceBookId": 1,
+      "skuId": 1088,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 540,
+      "minPrice": 530,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 176,
+      "priceBookId": 2,
+      "skuId": 1088,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3780,
+      "minPrice": 3710,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 177,
+      "priceBookId": 1,
+      "skuId": 1089,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 590,
+      "minPrice": 580,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 178,
+      "priceBookId": 2,
+      "skuId": 1089,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 4130,
+      "minPrice": 4060,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 179,
+      "priceBookId": 1,
+      "skuId": 1090,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 640,
+      "minPrice": 630,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 180,
+      "priceBookId": 2,
+      "skuId": 1090,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 4480,
+      "minPrice": 4410,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 181,
+      "priceBookId": 1,
+      "skuId": 1091,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 550,
+      "minPrice": 540,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 182,
+      "priceBookId": 2,
+      "skuId": 1091,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3850,
+      "minPrice": 3780,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 183,
+      "priceBookId": 1,
+      "skuId": 1092,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 560,
+      "minPrice": 550,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 184,
+      "priceBookId": 2,
+      "skuId": 1092,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3920,
+      "minPrice": 3850,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 185,
+      "priceBookId": 1,
+      "skuId": 1093,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 610,
+      "minPrice": 600,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 186,
+      "priceBookId": 2,
+      "skuId": 1093,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 4270,
+      "minPrice": 4200,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 187,
+      "priceBookId": 1,
+      "skuId": 1094,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 570,
+      "minPrice": 560,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 188,
+      "priceBookId": 2,
+      "skuId": 1094,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3990,
+      "minPrice": 3920,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 189,
+      "priceBookId": 1,
+      "skuId": 1095,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 620,
+      "minPrice": 610,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 190,
+      "priceBookId": 2,
+      "skuId": 1095,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 4340,
+      "minPrice": 4270,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 191,
+      "priceBookId": 1,
+      "skuId": 1096,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 670,
+      "minPrice": 660,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 192,
+      "priceBookId": 2,
+      "skuId": 1096,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 4690,
+      "minPrice": 4620,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 193,
+      "priceBookId": 1,
+      "skuId": 1097,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 580,
+      "minPrice": 570,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 194,
+      "priceBookId": 2,
+      "skuId": 1097,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 4060,
+      "minPrice": 3990,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 195,
+      "priceBookId": 1,
+      "skuId": 1098,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 590,
+      "minPrice": 580,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 196,
+      "priceBookId": 2,
+      "skuId": 1098,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 4130,
+      "minPrice": 4060,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 197,
+      "priceBookId": 1,
+      "skuId": 1099,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 640,
+      "minPrice": 630,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 198,
+      "priceBookId": 2,
+      "skuId": 1099,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 4480,
+      "minPrice": 4410,
+      "maxDiscountRate": 0.1,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 199,
+      "priceBookId": 1,
+      "skuId": 1100,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1000,
+      "minPrice": 900,
+      "maxDiscountRate": 0.15,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 200,
+      "priceBookId": 2,
+      "skuId": 1100,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 7000,
+      "minPrice": 6300,
+      "maxDiscountRate": 0.15,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 201,
+      "priceBookId": 1,
+      "skuId": 1101,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 1500,
+      "minPrice": 1400,
+      "maxDiscountRate": 0.15,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 202,
+      "priceBookId": 2,
+      "skuId": 1101,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 10500,
+      "minPrice": 9800,
+      "maxDiscountRate": 0.15,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 203,
+      "priceBookId": 1,
+      "skuId": 1102,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2000,
+      "minPrice": 1900,
+      "maxDiscountRate": 0.15,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 204,
+      "priceBookId": 2,
+      "skuId": 1102,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 14000,
+      "minPrice": 13300,
+      "maxDiscountRate": 0.15,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 205,
+      "priceBookId": 1,
+      "skuId": 1103,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 2500,
+      "minPrice": 2400,
+      "maxDiscountRate": 0.15,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 206,
+      "priceBookId": 2,
+      "skuId": 1103,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 17500,
+      "minPrice": 16800,
+      "maxDiscountRate": 0.15,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 207,
+      "priceBookId": 1,
+      "skuId": 1104,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 3000,
+      "minPrice": 2900,
+      "maxDiscountRate": 0.15,
+      "validFrom": "2026-01-01T00:00:00Z"
+    },
+    {
+      "id": 208,
+      "priceBookId": 2,
+      "skuId": 1104,
+      "pricingStrategy": "flat_fee",
+      "listPrice": 21000,
+      "minPrice": 20300,
+      "maxDiscountRate": 0.15,
+      "validFrom": "2026-01-01T00:00:00Z"
+    }
+  ]
+}

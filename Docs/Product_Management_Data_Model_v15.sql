@@ -1,0 +1,43 @@
+-- ==============================================================================
+-- 餐饮 SaaS 全球产品与定价中心 - 数据模型设计 V15.0 (Final Architecture)
+-- ==============================================================================
+-- 【项目背景与设计理念】
+-- 本模型是支撑全球化餐饮 SaaS (涵盖软件订阅、智能硬件、金融支付、专业服务) 商业流转的底层数据骨架。
+-- 旨在解决全球化业务中的三大难题：
+-- 1. 复杂定价 (CPQ)：支持不同国家、不同币种、不同销售渠道的差异化定价，支持基于客户身份与场景的精准路由。
+-- 2. 套餐灵活性与合规性：实现“组合逻辑”与“定价逻辑”的彻底解耦，支持 HaaS (硬件即服务) 模式。内置公允价值 (SSP) 与合约约束（强制在网期、违约金），满足 ASC 606 财务审计合规。
+-- 3. 全球税务合规：采用扁平化综合税率模型，结合邮编/省州精准匹配最终税率，避免多层级嵌套计算，支持多语言展示。
+--
+-- 【核心模块说明及物理文件映射】
+-- 鉴于系统复杂度的提升，V15.0 已将底层物理表拆分至 `tables_v15/` 目录下，以实现高内聚低耦合的架构管理。
+-- 
+-- 1. 基础维度 (`tables_v15/01_foundational_dimensions.sql`)：
+--    - `product_categories`: 构建支持无限层级的商品目录，支撑商城的导航与分类逻辑。
+--
+-- 2. 全球税务 (`tables_v15/02_global_tax_compliance.sql`)：
+--    - `tax_rates_flat`: 处理全球复杂的价外税 (Sales Tax) 与价内税 (VAT)，基于地理位置直接匹配最终税率。
+--
+-- 3. 核心资产 (`tables_v15/03_core_assets_and_media.sql`)：
+--    - `products`: SPU 定义产品族。
+--    - `product_skus`: SKU 销售规格，内置买断与租赁的资产状态标识。
+--    - `product_media`: 跨产品多媒体及技术手册管理。
+--
+-- 4. 权益管控与CPQ组合 (`tables_v15/04_entitlements_and_cpq.sql`)：
+--    - `product_entitlements`: 商业 SKU 到底层 Feature Code 的映射核销。
+--    - `bundle_groups` / `bundle_options`: 定义“M选N”套餐选择逻辑与物理构成。
+--    - `product_rules`: CPQ 销售防错配与营销推荐规则。
+--
+-- 5. 定价引擎 (`tables_v15/05_pricing_engine.sql`)：
+--    - `price_books`: 全球差异化定价、大客户协议价的顶级路由容器。
+--    - `price_book_entries`: 定义单价、SSP公允价值、阶梯费率、违约金策略及上下文明细价格。
+--
+-- ==============================================================================
+
+-- 【使用说明】
+-- 请直接进入 tables_v15/ 目录查看或执行相应的建表脚本。
+-- 推荐执行顺序：
+-- source tables_v15/01_foundational_dimensions.sql;
+-- source tables_v15/02_global_tax_compliance.sql;
+-- source tables_v15/03_core_assets_and_media.sql;
+-- source tables_v15/04_entitlements_and_cpq.sql;
+-- source tables_v15/05_pricing_engine.sql;

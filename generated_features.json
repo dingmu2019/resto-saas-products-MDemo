@@ -1,0 +1,80 @@
+{
+  "entitlements": [
+    {
+      "id": 1,
+      "skuId": 1001,
+      "featureCode": "FEAT_POS_CORE",
+      "entitlementType": "boolean",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "skuId": 1001,
+      "featureCode": "FEAT_INV_BASIC",
+      "entitlementType": "boolean",
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "skuId": 1001,
+      "featureCode": "LIMIT_STORES",
+      "entitlementType": "quota",
+      "quotaValue": 1,
+      "status": "active"
+    },
+    {
+      "id": 4,
+      "skuId": 1001,
+      "featureCode": "LIMIT_USERS",
+      "entitlementType": "quota",
+      "quotaValue": 5,
+      "status": "active"
+    },
+    {
+      "id": 5,
+      "skuId": 1001,
+      "featureCode": "SLA_LEVEL",
+      "entitlementType": "tier",
+      "tierValue": "Standard",
+      "status": "active"
+    },
+    {
+      "id": 6,
+      "skuId": 1002,
+      "featureCode": "FEAT_POS_CORE",
+      "entitlementType": "boolean",
+      "status": "active"
+    },
+    {
+      "id": 7,
+      "skuId": 1002,
+      "featureCode": "FEAT_INV_BASIC",
+      "entitlementType": "boolean",
+      "status": "active"
+    },
+    {
+      "id": 8,
+      "skuId": 1002,
+      "featureCode": "LIMIT_STORES",
+      "entitlementType": "quota",
+      "quotaValue": 1,
+      "status": "active"
+    },
+    {
+      "id": 9,
+      "skuId": 1002,
+      "featureCode": "LIMIT_USERS",
+      "entitlementType": "quota",
+      "quotaValue": 10,
+      "status": "active"
+    },
+    {
+      "id": 10,
+      "skuId": 1002,
+      "featureCode": "SLA_LEVEL",
+      "entitlementType": "tier",
+      "tierValue": "Silver",
+      "status": "active"
+    }
+  ]
+}

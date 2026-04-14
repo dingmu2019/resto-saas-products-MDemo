@@ -1,0 +1,576 @@
+{
+  "bundleGroups": [
+    {
+      "id": 1,
+      "bundleSkuId": 1100,
+      "name": "分组 1 - 核心软件",
+      "description": "请选择您的配置",
+      "selectN": 1,
+      "sortOrder": 1,
+      "allowMultipleQtyPerItem": false
+    },
+    {
+      "id": 2,
+      "bundleSkuId": 1100,
+      "name": "分组 2 - 配套硬件",
+      "description": "请选择您的配置",
+      "selectN": 2,
+      "sortOrder": 2,
+      "allowMultipleQtyPerItem": true
+    },
+    {
+      "id": 3,
+      "bundleSkuId": 1100,
+      "name": "分组 3 - 增值服务",
+      "description": "请选择您的配置",
+      "selectN": 1,
+      "sortOrder": 3,
+      "allowMultipleQtyPerItem": false
+    },
+    {
+      "id": 4,
+      "bundleSkuId": 1101,
+      "name": "分组 1 - 核心软件",
+      "description": "请选择您的配置",
+      "selectN": 1,
+      "sortOrder": 1,
+      "allowMultipleQtyPerItem": false
+    },
+    {
+      "id": 5,
+      "bundleSkuId": 1101,
+      "name": "分组 2 - 配套硬件",
+      "description": "请选择您的配置",
+      "selectN": 2,
+      "sortOrder": 2,
+      "allowMultipleQtyPerItem": true
+    },
+    {
+      "id": 6,
+      "bundleSkuId": 1101,
+      "name": "分组 3 - 增值服务",
+      "description": "请选择您的配置",
+      "selectN": 1,
+      "sortOrder": 3,
+      "allowMultipleQtyPerItem": false
+    },
+    {
+      "id": 7,
+      "bundleSkuId": 1102,
+      "name": "分组 1 - 核心软件",
+      "description": "请选择您的配置",
+      "selectN": 1,
+      "sortOrder": 1,
+      "allowMultipleQtyPerItem": false
+    },
+    {
+      "id": 8,
+      "bundleSkuId": 1102,
+      "name": "分组 2 - 配套硬件",
+      "description": "请选择您的配置",
+      "selectN": 2,
+      "sortOrder": 2,
+      "allowMultipleQtyPerItem": true
+    },
+    {
+      "id": 9,
+      "bundleSkuId": 1102,
+      "name": "分组 3 - 增值服务",
+      "description": "请选择您的配置",
+      "selectN": 1,
+      "sortOrder": 3,
+      "allowMultipleQtyPerItem": false
+    },
+    {
+      "id": 10,
+      "bundleSkuId": 1103,
+      "name": "分组 1 - 核心软件",
+      "description": "请选择您的配置",
+      "selectN": 1,
+      "sortOrder": 1,
+      "allowMultipleQtyPerItem": false
+    },
+    {
+      "id": 11,
+      "bundleSkuId": 1103,
+      "name": "分组 2 - 配套硬件",
+      "description": "请选择您的配置",
+      "selectN": 2,
+      "sortOrder": 2,
+      "allowMultipleQtyPerItem": true
+    },
+    {
+      "id": 12,
+      "bundleSkuId": 1103,
+      "name": "分组 3 - 增值服务",
+      "description": "请选择您的配置",
+      "selectN": 1,
+      "sortOrder": 3,
+      "allowMultipleQtyPerItem": false
+    },
+    {
+      "id": 13,
+      "bundleSkuId": 1104,
+      "name": "分组 1 - 核心软件",
+      "description": "请选择您的配置",
+      "selectN": 1,
+      "sortOrder": 1,
+      "allowMultipleQtyPerItem": false
+    },
+    {
+      "id": 14,
+      "bundleSkuId": 1104,
+      "name": "分组 2 - 配套硬件",
+      "description": "请选择您的配置",
+      "selectN": 2,
+      "sortOrder": 2,
+      "allowMultipleQtyPerItem": true
+    },
+    {
+      "id": 15,
+      "bundleSkuId": 1104,
+      "name": "分组 3 - 增值服务",
+      "description": "请选择您的配置",
+      "selectN": 1,
+      "sortOrder": 3,
+      "allowMultipleQtyPerItem": false
+    }
+  ],
+  "bundleOptions": [
+    {
+      "id": 1,
+      "bundleSkuId": 1100,
+      "groupId": 1,
+      "componentSkuId": 1001,
+      "isDefault": true,
+      "pricingType": "included",
+      "sortOrder": 1
+    },
+    {
+      "id": 2,
+      "bundleSkuId": 1100,
+      "groupId": 1,
+      "componentSkuId": 1002,
+      "isDefault": false,
+      "pricingType": "included",
+      "sortOrder": 2
+    },
+    {
+      "id": 3,
+      "bundleSkuId": 1100,
+      "groupId": 1,
+      "componentSkuId": 1003,
+      "isDefault": false,
+      "pricingType": "included",
+      "sortOrder": 3
+    },
+    {
+      "id": 4,
+      "bundleSkuId": 1100,
+      "groupId": 2,
+      "componentSkuId": 1018,
+      "isDefault": true,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 1
+    },
+    {
+      "id": 5,
+      "bundleSkuId": 1100,
+      "groupId": 2,
+      "componentSkuId": 1019,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 2
+    },
+    {
+      "id": 6,
+      "bundleSkuId": 1100,
+      "groupId": 2,
+      "componentSkuId": 1046,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 3
+    },
+    {
+      "id": 7,
+      "bundleSkuId": 1100,
+      "groupId": 3,
+      "componentSkuId": 1030,
+      "isDefault": true,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 1
+    },
+    {
+      "id": 8,
+      "bundleSkuId": 1100,
+      "groupId": 3,
+      "componentSkuId": 1031,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 2
+    },
+    {
+      "id": 9,
+      "bundleSkuId": 1100,
+      "groupId": 3,
+      "componentSkuId": 1032,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 3
+    },
+    {
+      "id": 10,
+      "bundleSkuId": 1101,
+      "groupId": 4,
+      "componentSkuId": 1011,
+      "isDefault": true,
+      "pricingType": "included",
+      "sortOrder": 1
+    },
+    {
+      "id": 11,
+      "bundleSkuId": 1101,
+      "groupId": 4,
+      "componentSkuId": 1012,
+      "isDefault": false,
+      "pricingType": "included",
+      "sortOrder": 2
+    },
+    {
+      "id": 12,
+      "bundleSkuId": 1101,
+      "groupId": 4,
+      "componentSkuId": 1034,
+      "isDefault": false,
+      "pricingType": "included",
+      "sortOrder": 3
+    },
+    {
+      "id": 13,
+      "bundleSkuId": 1101,
+      "groupId": 5,
+      "componentSkuId": 1054,
+      "isDefault": true,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 1
+    },
+    {
+      "id": 14,
+      "bundleSkuId": 1101,
+      "groupId": 5,
+      "componentSkuId": 1080,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 2
+    },
+    {
+      "id": 15,
+      "bundleSkuId": 1101,
+      "groupId": 5,
+      "componentSkuId": 1081,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 3
+    },
+    {
+      "id": 16,
+      "bundleSkuId": 1101,
+      "groupId": 6,
+      "componentSkuId": 1061,
+      "isDefault": true,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 1
+    },
+    {
+      "id": 17,
+      "bundleSkuId": 1101,
+      "groupId": 6,
+      "componentSkuId": 1062,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 2
+    },
+    {
+      "id": 18,
+      "bundleSkuId": 1101,
+      "groupId": 6,
+      "componentSkuId": 1063,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 3
+    },
+    {
+      "id": 19,
+      "bundleSkuId": 1102,
+      "groupId": 7,
+      "componentSkuId": 1042,
+      "isDefault": true,
+      "pricingType": "included",
+      "sortOrder": 1
+    },
+    {
+      "id": 20,
+      "bundleSkuId": 1102,
+      "groupId": 7,
+      "componentSkuId": 1043,
+      "isDefault": false,
+      "pricingType": "included",
+      "sortOrder": 2
+    },
+    {
+      "id": 21,
+      "bundleSkuId": 1102,
+      "groupId": 7,
+      "componentSkuId": 1044,
+      "isDefault": false,
+      "pricingType": "included",
+      "sortOrder": 3
+    },
+    {
+      "id": 22,
+      "bundleSkuId": 1102,
+      "groupId": 8,
+      "componentSkuId": 1014,
+      "isDefault": true,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 1
+    },
+    {
+      "id": 23,
+      "bundleSkuId": 1102,
+      "groupId": 8,
+      "componentSkuId": 1015,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 2
+    },
+    {
+      "id": 24,
+      "bundleSkuId": 1102,
+      "groupId": 8,
+      "componentSkuId": 1016,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 3
+    },
+    {
+      "id": 25,
+      "bundleSkuId": 1102,
+      "groupId": 9,
+      "componentSkuId": 1091,
+      "isDefault": true,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 1
+    },
+    {
+      "id": 26,
+      "bundleSkuId": 1102,
+      "groupId": 9,
+      "componentSkuId": 1092,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 2
+    },
+    {
+      "id": 27,
+      "bundleSkuId": 1102,
+      "groupId": 9,
+      "componentSkuId": 1093,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 3
+    },
+    {
+      "id": 28,
+      "bundleSkuId": 1103,
+      "groupId": 10,
+      "componentSkuId": 1074,
+      "isDefault": true,
+      "pricingType": "included",
+      "sortOrder": 1
+    },
+    {
+      "id": 29,
+      "bundleSkuId": 1103,
+      "groupId": 10,
+      "componentSkuId": 1075,
+      "isDefault": false,
+      "pricingType": "included",
+      "sortOrder": 2
+    },
+    {
+      "id": 30,
+      "bundleSkuId": 1103,
+      "groupId": 10,
+      "componentSkuId": 1076,
+      "isDefault": false,
+      "pricingType": "included",
+      "sortOrder": 3
+    },
+    {
+      "id": 31,
+      "bundleSkuId": 1103,
+      "groupId": 11,
+      "componentSkuId": 1050,
+      "isDefault": true,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 1
+    },
+    {
+      "id": 32,
+      "bundleSkuId": 1103,
+      "groupId": 11,
+      "componentSkuId": 1051,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 2
+    },
+    {
+      "id": 33,
+      "bundleSkuId": 1103,
+      "groupId": 11,
+      "componentSkuId": 1052,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 3
+    },
+    {
+      "id": 34,
+      "bundleSkuId": 1103,
+      "groupId": 12,
+      "componentSkuId": 1021,
+      "isDefault": true,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 1
+    },
+    {
+      "id": 35,
+      "bundleSkuId": 1103,
+      "groupId": 12,
+      "componentSkuId": 1022,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 2
+    },
+    {
+      "id": 36,
+      "bundleSkuId": 1103,
+      "groupId": 12,
+      "componentSkuId": 1023,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 3
+    },
+    {
+      "id": 37,
+      "bundleSkuId": 1104,
+      "groupId": 13,
+      "componentSkuId": 1005,
+      "isDefault": true,
+      "pricingType": "included",
+      "sortOrder": 1
+    },
+    {
+      "id": 38,
+      "bundleSkuId": 1104,
+      "groupId": 13,
+      "componentSkuId": 1006,
+      "isDefault": false,
+      "pricingType": "included",
+      "sortOrder": 2
+    },
+    {
+      "id": 39,
+      "bundleSkuId": 1104,
+      "groupId": 13,
+      "componentSkuId": 1007,
+      "isDefault": false,
+      "pricingType": "included",
+      "sortOrder": 3
+    },
+    {
+      "id": 40,
+      "bundleSkuId": 1104,
+      "groupId": 14,
+      "componentSkuId": 1085,
+      "isDefault": true,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 1
+    },
+    {
+      "id": 41,
+      "bundleSkuId": 1104,
+      "groupId": 14,
+      "componentSkuId": 1086,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 2
+    },
+    {
+      "id": 42,
+      "bundleSkuId": 1104,
+      "groupId": 14,
+      "componentSkuId": 1087,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 3
+    },
+    {
+      "id": 43,
+      "bundleSkuId": 1104,
+      "groupId": 15,
+      "componentSkuId": 1031,
+      "isDefault": true,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 1
+    },
+    {
+      "id": 44,
+      "bundleSkuId": 1104,
+      "groupId": 15,
+      "componentSkuId": 1032,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 2
+    },
+    {
+      "id": 45,
+      "bundleSkuId": 1104,
+      "groupId": 15,
+      "componentSkuId": 1033,
+      "isDefault": false,
+      "pricingType": "fixed_override",
+      "pricingValue": 99,
+      "sortOrder": 3
+    }
+  ]
+}
