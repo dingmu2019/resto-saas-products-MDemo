@@ -241,7 +241,7 @@ export function PriceBooks() {
                   {pb.applicableRegions && pb.applicableRegions.length > 0 && (
                     <div className="flex items-center gap-1 mt-2 text-[10px] text-slate-500">
                       <Globe className="w-3 h-3" />
-                      <span className="truncate">{pb.applicableRegions.join(', ')}</span>
+                      <span>{pb.applicableRegions.join(', ')}</span>
                     </div>
                   )}
                 </div>
@@ -311,7 +311,7 @@ export function PriceBooks() {
                   
                   return (
                     <Tr key={entry.id} className="group hover:bg-slate-50/30 dark:hover:bg-slate-800/20 transition-colors">
-                      <Td className="max-w-[200px] truncate">
+                      <Td className="max-w-[200px]">
                         <span className="text-sm font-medium text-slate-900 dark:text-white">
                           {sku ? getTranslatedField(sku, 'name', currentLang) : '-'}
                         </span>

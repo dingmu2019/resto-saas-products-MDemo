@@ -204,8 +204,8 @@ export function Bundles() {
                 )} />
               </div>
               <div className="flex-1 overflow-hidden">
-                <div className="font-semibold text-sm truncate">{getTranslatedField(sku, 'name', currentLang)}</div>
-                <div className="text-[10px] font-mono opacity-60 truncate tracking-tighter">{sku.skuCode}</div>
+                <div className="font-semibold text-sm">{getTranslatedField(sku, 'name', currentLang)}</div>
+                <div className="text-[10px] font-mono opacity-60 tracking-tighter">{sku.skuCode}</div>
               </div>
               <ChevronRight className={cn(
                 "w-4 h-4 transition-all",

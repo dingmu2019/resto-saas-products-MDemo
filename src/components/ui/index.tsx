@@ -106,7 +106,7 @@ export function Th({ children, className, ...props }: React.ThHTMLAttributes<HTM
 }
 
 export function Td({ children, className, ...props }: React.TdHTMLAttributes<HTMLTableCellElement>) {
-  return <td className={cn("px-8 py-5 whitespace-nowrap text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-200 transition-colors", className)} {...props}>{children}</td>;
+  return <td className={cn("px-8 py-5 text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-200 transition-colors break-words", className)} {...props}>{children}</td>;
 }
 
 export function Input({ className, ...props }: React.InputHTMLAttributes<HTMLInputElement>) {

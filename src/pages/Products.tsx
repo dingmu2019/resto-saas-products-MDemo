@@ -195,7 +195,7 @@ export function Products() {
                     >
                       {getTranslatedField(product, 'name', currentLang)}
                     </button>
-                    <span className="text-[11px] text-slate-400 line-clamp-1 mt-0.5">{getTranslatedField(product, 'description', currentLang)}</span>
+                    <span className="text-[11px] text-slate-400 mt-0.5">{getTranslatedField(product, 'description', currentLang)}</span>
                   </div>
                 </Td>
                 <Td>

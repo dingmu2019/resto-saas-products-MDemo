@@ -277,7 +277,7 @@ export function Skus() {
                     <div className="flex flex-col">
                       <Link 
                         to={`/products/${sku.productId}`}
-                        className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline truncate max-w-[200px]" 
+                        className="text-sm text-indigo-600 dark:text-indigo-400 hover:underline max-w-[200px]" 
                         title={getProductName(sku.productId)}
                       >
                         {getProductName(sku.productId)}

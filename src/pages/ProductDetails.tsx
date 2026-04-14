@@ -478,7 +478,7 @@ export function ProductDetails() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                         <div className="text-white w-full">
-                          <p className="font-bold text-xs truncate">{item.title}</p>
+                          <p className="font-bold text-xs">{item.title}</p>
                           <p className="text-[9px] opacity-70 uppercase tracking-widest mt-0.5">{t(`media.${item.mediaType}`)}</p>
                           <div className="flex justify-end gap-2 mt-2">
                             <button onClick={() => handleOpenMediaModal(item)} className="p-1.5 bg-white/20 hover:bg-white/40 rounded-lg transition-colors">

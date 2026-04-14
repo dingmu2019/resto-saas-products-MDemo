@@ -145,7 +145,7 @@ export function Categories() {
                     {cat.code}
                   </span>
                 </Td>
-                <Td className="text-slate-500 text-xs max-w-xs truncate">{getTranslatedField(cat, 'description', currentLang)}</Td>
+                <Td className="text-slate-500 text-xs max-w-xs">{getTranslatedField(cat, 'description', currentLang)}</Td>
                 <Td>
                   <Badge variant="outline" className="text-[10px] font-mono">L{cat.level}</Badge>
                 </Td>
