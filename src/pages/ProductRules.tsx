@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, ConfirmModal } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Pagination, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, Edit2, Trash2 } from 'lucide-react';
 import { ProductRule } from '../types';
@@ -12,6 +12,10 @@ export function ProductRules() {
   const currentLang = i18n.language;
   const { skus, rules, setRules } = useProductContext();
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,6 +45,11 @@ export function ProductRules() {
     const query = searchQuery.toLowerCase();
     return sourceName.includes(query) || targetName.includes(query) || message.includes(query);
   });
+
+  const paginatedRules = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredRules.slice(start, start + pageSize);
+  }, [filteredRules, currentPage, pageSize]);
 
   const handleSaveRule = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -111,8 +120,8 @@ export function ProductRules() {
             </Tr>
           </Thead>
           <Tbody>
-            {filteredRules.map((rule) => (
-              <Tr key={rule.id}>
+            {paginatedRules.map((rule) => (
+              <Tr key={rule.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/10 transition-colors group">
                 <Td className="font-medium text-slate-900 dark:text-slate-100">{getSkuName(rule.sourceSkuId)}</Td>
                 <Td>{getRuleBadge(rule.ruleType)}</Td>
                 <Td className="font-medium text-slate-900 dark:text-slate-100">{getSkuName(rule.targetSkuId)}</Td>
@@ -131,6 +140,16 @@ export function ProductRules() {
             ))}
           </Tbody>
         </Table>
+        <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30">
+          <Pagination
+            currentPage={currentPage}
+            totalItems={filteredRules.length}
+            totalPages={Math.ceil(filteredRules.length / pageSize)}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={setPageSize}
+          />
+        </div>
       </Card>
 
       <Modal 

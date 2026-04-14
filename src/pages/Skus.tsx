@@ -76,7 +76,7 @@ export function Skus() {
     switch (status) {
       case 'active': return <Badge variant="success" className="text-[10px] uppercase tracking-wider">{t('sku.active')}</Badge>;
       case 'draft': return <Badge variant="warning" className="text-[10px] uppercase tracking-wider">{t('sku.draft')}</Badge>;
-      case 'eos': return <Badge variant="error" className="text-[10px] uppercase tracking-wider">{t('sku.eos')}</Badge>;
+      case 'eos': return <Badge variant="warning" className="text-[10px] uppercase tracking-wider">{t('sku.eos')}</Badge>;
       case 'eol': return <Badge variant="error" className="text-[10px] uppercase tracking-wider">{t('sku.eol')}</Badge>;
       case 'retired': return <Badge variant="outline" className="text-[10px] uppercase tracking-wider">{t('sku.retired')}</Badge>;
       default: return <Badge className="text-[10px] uppercase tracking-wider">{status}</Badge>;
@@ -149,15 +149,20 @@ export function Skus() {
       billingModel: formData.get('billingModel') as any,
       billingTerm: formData.get('billingTerm') as any,
       billingTiming: formData.get('billingTiming') as any,
-      trialDays: parseInt(formData.get('trialDays') as string) || 0,
+      trialDays: parseInt(formData.get('trialDays') as string),
       uom: formData.get('uom') as string,
       lifecycleStatus: formData.get('lifecycleStatus') as any,
       isShippable: formData.get('isShippable') === 'on',
       isSerialized: formData.get('isSerialized') === 'on',
-      weightKg: formData.get('weightKg') ? parseFloat(formData.get('weightKg') as string) : undefined,
+      weightKg: parseFloat(formData.get('weightKg') as string),
+      lengthCm: parseFloat(formData.get('lengthCm') as string),
+      widthCm: parseFloat(formData.get('widthCm') as string),
+      heightCm: parseFloat(formData.get('heightCm') as string),
       hsCode: formData.get('hsCode') as string,
       countryOfOrigin: formData.get('countryOfOrigin') as string,
       provisioningHandler: formData.get('provisioningHandler') as string,
+      launchDate: formData.get('launchDate') as string,
+      eosDate: formData.get('eosDate') as string,
       translations: {
         en: { 
           name: formData.get('name_en') as string,
@@ -294,7 +299,11 @@ export function Skus() {
                   <Td>
                     <span className="text-xs font-medium text-slate-600 dark:text-slate-300">{sku.uom}</span>
                   </Td>
-                  <Td>{getLifecycleBadge(sku.lifecycleStatus)}</Td>
+                  <Td>
+                    <div title={t(`sku.${sku.lifecycleStatus}Desc`)}>
+                      {getLifecycleBadge(sku.lifecycleStatus)}
+                    </div>
+                  </Td>
                   <Td>
                     <div className="flex flex-wrap gap-1">
                       {skuEntitlements.length > 0 ? (
@@ -367,7 +376,12 @@ export function Skus() {
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white">{viewingSku.name}</h3>
                 <p className="text-sm text-slate-500 font-mono mt-1">{viewingSku.skuCode}</p>
               </div>
-              {getLifecycleBadge(viewingSku.lifecycleStatus)}
+              <div className="flex flex-col items-end gap-1.5">
+                {getLifecycleBadge(viewingSku.lifecycleStatus)}
+                <p className="text-[10px] text-slate-400 dark:text-slate-500 italic max-w-[200px] text-right">
+                  {t(`sku.${viewingSku.lifecycleStatus}Desc`)}
+                </p>
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-6">
@@ -477,6 +491,7 @@ export function Skus() {
                 <option value="one_time">{t('sku.one_time')}</option>
                 <option value="recurring">{t('sku.recurring')}</option>
                 <option value="usage_based">{t('sku.usage_based')}</option>
+                <option value="hybrid">{t('sku.hybrid')}</option>
               </Select>
             </div>
             <div className="space-y-1.5">
@@ -485,9 +500,13 @@ export function Skus() {
                 <option value="none">{t('sku.none')}</option>
                 <option value="daily">{t('sku.daily')}</option>
                 <option value="weekly">{t('sku.weekly')}</option>
+                <option value="biweekly">{t('sku.biweekly')}</option>
                 <option value="monthly">{t('sku.monthly')}</option>
                 <option value="quarterly">{t('sku.quarterly')}</option>
                 <option value="annual">{t('sku.annual')}</option>
+                <option value="biennial">{t('sku.biennial')}</option>
+                <option value="triennial">{t('sku.triennial')}</option>
+                <option value="custom">{t('sku.custom')}</option>
               </Select>
             </div>
           </div>
@@ -513,11 +532,12 @@ export function Skus() {
             </div>
             <div className="space-y-1.5">
               <Label>{t('sku.lifecycle')}</Label>
-              <Select name="lifecycleStatus" required defaultValue={editingSku?.lifecycleStatus || 'draft'}>
-                <option value="draft">{t('sku.draft')}</option>
-                <option value="active">{t('sku.active')}</option>
-                <option value="eos">{t('sku.eos')}</option>
-                <option value="eol">{t('sku.eol')}</option>
+              <Select name="lifecycleStatus" required defaultValue={editingSku?.lifecycleStatus || 'active'}>
+                <option value="active" title={t('sku.activeDesc')}>{t('sku.active')}</option>
+                <option value="draft" title={t('sku.draftDesc')}>{t('sku.draft')}</option>
+                <option value="eos" title={t('sku.eosDesc')}>{t('sku.eos')}</option>
+                <option value="eol" title={t('sku.eolDesc')}>{t('sku.eol')}</option>
+                <option value="retired" title={t('sku.retiredDesc')}>{t('sku.retired')}</option>
               </Select>
             </div>
           </div>
@@ -543,18 +563,41 @@ export function Skus() {
             </label>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-4 gap-4">
             <div className="space-y-1.5">
               <Label>{t('sku.weightKg')}</Label>
-              <Input type="number" step="0.01" name="weightKg" defaultValue={editingSku?.weightKg} />
+              <Input type="number" name="weightKg" step="0.01" defaultValue={editingSku?.weightKg || 0} />
             </div>
             <div className="space-y-1.5">
-              <Label>{t('sku.hsCode')}</Label>
-              <Input name="hsCode" defaultValue={editingSku?.hsCode} />
+              <Label>{t('sku.length')}</Label>
+              <Input type="number" name="lengthCm" step="0.1" defaultValue={(editingSku as any)?.lengthCm || 0} />
+            </div>
+            <div className="space-y-1.5">
+              <Label>{t('sku.width')}</Label>
+              <Input type="number" name="widthCm" step="0.1" defaultValue={(editingSku as any)?.widthCm || 0} />
+            </div>
+            <div className="space-y-1.5">
+              <Label>{t('sku.height')}</Label>
+              <Input type="number" name="heightCm" step="0.1" defaultValue={(editingSku as any)?.heightCm || 0} />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label>{t('sku.launchDate')}</Label>
+              <Input type="date" name="launchDate" defaultValue={(editingSku as any)?.launchDate} />
+            </div>
+            <div className="space-y-1.5">
+              <Label>{t('sku.eosDate')}</Label>
+              <Input type="date" name="eosDate" defaultValue={(editingSku as any)?.eosDate} />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <Label>{t('sku.hsCode')}</Label>
+              <Input name="hsCode" defaultValue={editingSku?.hsCode} />
+            </div>
             <div className="space-y-1.5">
               <Label>{t('sku.countryOfOrigin')}</Label>
               <Input name="countryOfOrigin" defaultValue={editingSku?.countryOfOrigin} placeholder="e.g. US, CN" />

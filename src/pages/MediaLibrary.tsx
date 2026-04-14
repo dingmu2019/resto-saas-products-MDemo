@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Badge, Button, Modal, Input, Select, Label, Textarea, ConfirmModal } from '../components/ui';
+import { Card, Badge, Button, Modal, Input, Select, Label, Textarea, Pagination, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, Image as ImageIcon, FileText, Video, Box, Edit2, Trash2, ExternalLink } from 'lucide-react';
 import { ProductMedia } from '../types';
@@ -12,6 +12,10 @@ export function MediaLibrary() {
   const currentLang = i18n.language;
   const { media, setMedia, products, skus } = useProductContext();
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
   
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,12 +38,18 @@ export function MediaLibrary() {
     m.url.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const paginatedMedia = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredMedia.slice(start, start + pageSize);
+  }, [filteredMedia, currentPage, pageSize]);
+
   const handleSaveMedia = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const mediaData: Partial<ProductMedia> = {
       title: formData.get('title_en') as string || formData.get('title') as string,
       url: formData.get('url') as string,
+      thumbnailUrl: formData.get('thumbnailUrl') as string,
       mediaType: formData.get('mediaType') as any,
       productId: formData.get('productId') ? parseInt(formData.get('productId') as string) : undefined,
       skuId: formData.get('skuId') ? parseInt(formData.get('skuId') as string) : undefined,
@@ -98,7 +108,7 @@ export function MediaLibrary() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredMedia.map((m) => (
+        {paginatedMedia.map((m) => (
           <Card key={m.id} className="overflow-hidden flex flex-col group border-slate-200/60 dark:border-slate-800/60 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 transition-all hover:shadow-xl hover:shadow-indigo-500/5 bg-white dark:bg-slate-900/50">
             <div className="aspect-video bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
               {m.mediaType === 'image' ? (
@@ -162,6 +172,17 @@ export function MediaLibrary() {
         ))}
       </div>
 
+      <div className="mt-8 flex justify-center border-t border-slate-200 dark:border-slate-800 pt-6">
+        <Pagination
+          currentPage={currentPage}
+          totalItems={filteredMedia.length}
+          totalPages={Math.ceil(filteredMedia.length / pageSize)}
+          pageSize={pageSize}
+          onPageChange={setCurrentPage}
+          onPageSizeChange={setPageSize}
+        />
+      </div>
+
       <Modal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
@@ -180,34 +201,11 @@ export function MediaLibrary() {
           </div>
           <div className="space-y-2">
             <Label>{t('media.mediaUrl')}</Label>
-            <div className="flex gap-2">
-              <Input name="url" defaultValue={editingMedia?.url} required className="flex-1" />
-              <div className="relative">
-                <input 
-                  type="file" 
-                  id="media-upload" 
-                  className="hidden" 
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      // In a real app, we would upload the file here.
-                      // For now, we'll just use a placeholder or createObjectURL
-                      const url = URL.createObjectURL(file);
-                      const urlInput = document.querySelector('input[name="url"]') as HTMLInputElement;
-                      if (urlInput) urlInput.value = url;
-                    }
-                  }}
-                />
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  onClick={() => document.getElementById('media-upload')?.click()}
-                  className="whitespace-nowrap"
-                >
-                  {t('media.upload')}
-                </Button>
-              </div>
-            </div>
+            <Input name="url" defaultValue={editingMedia?.url} required placeholder="Full URL" />
+          </div>
+          <div className="space-y-2">
+            <Label>{t('sku.thumbnailUrl')}</Label>
+            <Input name="thumbnailUrl" defaultValue={editingMedia?.thumbnailUrl} placeholder="Thumbnail URL" />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">

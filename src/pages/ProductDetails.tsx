@@ -50,8 +50,9 @@ export function ProductDetails() {
     switch (status) {
       case 'active': return <Badge variant="success" className="text-[10px] uppercase tracking-wider">{t('sku.active')}</Badge>;
       case 'draft': return <Badge variant="warning" className="text-[10px] uppercase tracking-wider">{t('sku.draft')}</Badge>;
-      case 'eos': return <Badge variant="error" className="text-[10px] uppercase tracking-wider">{t('sku.eos')}</Badge>;
+      case 'eos': return <Badge variant="warning" className="text-[10px] uppercase tracking-wider">{t('sku.eos')}</Badge>;
       case 'eol': return <Badge variant="error" className="text-[10px] uppercase tracking-wider">{t('sku.eol')}</Badge>;
+      case 'retired': return <Badge variant="outline" className="text-[10px] uppercase tracking-wider">{t('sku.retired')}</Badge>;
       default: return <Badge className="text-[10px] uppercase tracking-wider">{status}</Badge>;
     }
   };
@@ -338,7 +339,11 @@ export function ProductDetails() {
                         )}
                       </Td>
                       <Td className="text-slate-500 text-xs font-medium">{sku.uom}</Td>
-                      <Td>{getLifecycleBadge(sku.lifecycleStatus)}</Td>
+                      <Td>
+                        <div title={t(`sku.${sku.lifecycleStatus}Desc`)}>
+                          {getLifecycleBadge(sku.lifecycleStatus)}
+                        </div>
+                      </Td>
                       <Td className="text-right">
                         <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                           <Button variant="ghost" size="sm" onClick={() => handleOpenSkuModal(sku)}>
@@ -625,11 +630,11 @@ export function ProductDetails() {
             <div className="space-y-1.5">
               <Label>{t('sku.lifecycle')}</Label>
               <Select name="lifecycleStatus" defaultValue={editingSku?.lifecycleStatus || 'active'}>
-                <option value="active">{t('sku.active')}</option>
-                <option value="draft">{t('sku.draft')}</option>
-                <option value="eos">{t('sku.eos')}</option>
-                <option value="eol">{t('sku.eol')}</option>
-                <option value="retired">{t('sku.retired')}</option>
+                <option value="active" title={t('sku.activeDesc')}>{t('sku.active')}</option>
+                <option value="draft" title={t('sku.draftDesc')}>{t('sku.draft')}</option>
+                <option value="eos" title={t('sku.eosDesc')}>{t('sku.eos')}</option>
+                <option value="eol" title={t('sku.eolDesc')}>{t('sku.eol')}</option>
+                <option value="retired" title={t('sku.retiredDesc')}>{t('sku.retired')}</option>
               </Select>
             </div>
           </div>

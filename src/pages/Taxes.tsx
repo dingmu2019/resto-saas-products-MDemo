@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, ConfirmModal } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Pagination, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, Edit2, Trash2 } from 'lucide-react';
 import { TaxRateFlat } from '../types';
@@ -12,6 +12,10 @@ export function Taxes() {
   const currentLang = i18n.language;
   const { taxRates, setTaxRates } = useProductContext();
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,12 +30,18 @@ export function Taxes() {
     return regionName.includes(query) || taxName.includes(query);
   });
 
+  const paginatedRates = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredRates.slice(start, start + pageSize);
+  }, [filteredRates, currentPage, pageSize]);
+
   const handleSaveRate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const rateData: Partial<TaxRateFlat> = {
       countryCode: formData.get('countryCode') as string,
       stateCode: formData.get('stateCode') as string,
+      postalCodePattern: formData.get('postalCodePattern') as string,
       taxName: formData.get('taxName') as string,
       productType: formData.get('productType') as any,
       taxType: formData.get('taxType') as any,
@@ -101,8 +111,8 @@ export function Taxes() {
             </Tr>
           </Thead>
           <Tbody>
-            {filteredRates.map((rate) => (
-              <Tr key={rate.id}>
+            {paginatedRates.map((rate) => (
+              <Tr key={rate.id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/10 transition-colors group">
                 <Td className="font-medium">{rate.countryCode}{rate.stateCode ? ` - ${rate.stateCode}` : ''}</Td>
                 <Td>{rate.taxName}</Td>
                 <Td className="capitalize text-slate-500 dark:text-slate-400">{rate.productType}</Td>
@@ -128,6 +138,16 @@ export function Taxes() {
             ))}
           </Tbody>
         </Table>
+        <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30">
+          <Pagination
+            currentPage={currentPage}
+            totalItems={filteredRates.length}
+            totalPages={Math.ceil(filteredRates.length / pageSize)}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={setPageSize}
+          />
+        </div>
       </Card>
 
       <Modal 
@@ -138,16 +158,20 @@ export function Taxes() {
         <form onSubmit={handleSaveRate} className="space-y-4">
           <div className="space-y-2">
             
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label>{t('taxes.countryCode')}</Label>
-                <Input name="countryCode" defaultValue={editingRate?.countryCode} required placeholder="e.g. US" />
-              </div>
-              <div className="space-y-2">
-                <Label>{t('taxes.stateCode')}</Label>
-                <Input name="stateCode" defaultValue={editingRate?.stateCode} placeholder="e.g. CA" />
-              </div>
+            <div className="grid grid-cols-3 gap-4">
+            <div className="space-y-1.5">
+              <Label>{t('taxes.countryCode')}</Label>
+              <Input name="countryCode" defaultValue={editingRate?.countryCode} required placeholder="e.g. US" />
             </div>
+            <div className="space-y-1.5">
+              <Label>{t('taxes.stateCode')}</Label>
+              <Input name="stateCode" defaultValue={editingRate?.stateCode} placeholder="e.g. CA" />
+            </div>
+            <div className="space-y-1.5">
+              <Label>{t('sku.postalCodePattern')}</Label>
+              <Input name="postalCodePattern" defaultValue={editingRate?.postalCodePattern} placeholder="e.g. 9[0-9]{4}" />
+            </div>
+          </div>
               
           </div>
           <div className="space-y-2">

@@ -1,8 +1,33 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card } from '../components/ui';
-import { Database, Table as TableIcon } from 'lucide-react';
+import { Database, Table as TableIcon, Info } from 'lucide-react';
 import schemaSql from '../data/schema.sql?raw';
+
+const OVERVIEW_SQL = `-- ============================================================================== 
+-- 餐饮 SaaS 全球产品与定价中心 - 数据模型设计 V15.0 
+-- ============================================================================== 
+-- 【项目背景与设计理念】 
+-- 本模型是支撑全球化餐饮 SaaS (涵盖软件订阅、智能硬件、金融支付、专业服务) 商业流转的底层数据骨架。 
+-- 旨在解决全球化业务中的三大难题： 
+-- 1. 复杂定价 (CPQ)：支持不同国家、不同币种、不同销售渠道的差异化定价，支持基于客户身份与场景的精准路由。 
+-- 2. 套餐灵活性与合规性：实现“组合逻辑”与“定价逻辑”的彻底解耦，支持 HaaS (硬件即服务) 模式。内置公允价值 (SSP) 与合约约束（强制在网期、违约金），满足 ASC 606 财务审计合规。 
+-- 3. 全球税务合规：采用扁平化综合税率模型，结合邮编/省州精准匹配最终税率，避免多层级嵌套计算，支持多语言展示。 
+-- 
+-- 【核心模块说明】 
+-- 1. 基础维度 (\`product_categories\`)：构建支持无限层级的商品目录，支撑商城的导航与分类逻辑。 
+-- 2. 全球税务 (\`tax_rates_flat\`)：处理全球复杂的价外税 (Sales Tax) 与价内税 (VAT)，基于地理位置直接匹配最终税率。 
+-- 3. 核心资产 (\`products\`, \`product_skus\`)： 
+--    - SPU (Standard Product Unit)：定义产品族（如：POS系统、收银机）。 
+--    - SKU (Stock Keeping Unit)：定义具体的销售规格（如：专业版月付、白色收银机），内置买断与租赁的资产状态标识。 
+-- 4. 权益管控 (\`product_entitlements\`)：将商业 SKU 映射为系统底层的 Feature Code，驱动自动化开通。 
+-- 5. 组合套餐 (\`bundle_groups\`, \`bundle_options\`)：定义“M选N”的选择逻辑，支持多语言分组指引，不涉及价格。 
+-- 6. 定价引擎 (\`price_books\`, \`price_book_entries\`)：核心商业枢纽。 
+--    - 支持“上下文定价”：同一个 iPad，单独买是一个价，在套餐里买是另一个价（或免费）。 
+--    - 支持“合约与违约控制”：内置最低承诺期 (Minimum Commitment) 与提前解约金 (ETF) 策略。 
+--    - 支持“财务合规拆账”：独立维护公允价值 (Standalone Selling Price)，确保 0 元硬件套餐的合规收入分摊。 
+--    - 支持“毛利估算”：内置预估成本字段，帮助销售在报价时实时掌握盈利情况。 
+-- ==============================================================================`;
 
 const schemaData = [
   {
@@ -242,10 +267,13 @@ const schemaData = [
 
 export function DataModels() {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<string>(schemaData[0].name);
+  const [activeTab, setActiveTab] = useState<string>('overview');
   const [viewMode, setViewMode] = useState<'table' | 'script'>('script');
 
-  const tabs = schemaData.map(s => ({ id: s.name, label: s.name }));
+  const tabs = useMemo(() => [
+    { id: 'overview', label: t('dataModels.overview'), icon: Info },
+    ...schemaData.map(s => ({ id: s.name, label: s.name, icon: TableIcon }))
+  ], [t]);
 
   const activeModel = useMemo(() => schemaData.find(s => s.name === activeTab), [activeTab]);
 
@@ -255,6 +283,12 @@ export function DataModels() {
     const match = schemaSql.match(regex);
     return match ? match[1].trim() : `-- SQL script for ${model.name} not found in schema.sql`;
   };
+
+  const currentSql = useMemo(() => {
+    if (activeTab === 'overview') return OVERVIEW_SQL;
+    if (activeModel) return generateSql(activeModel);
+    return '';
+  }, [activeTab, activeModel]);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -291,16 +325,18 @@ export function DataModels() {
             key={tab.id}
             onClick={() => {
               setActiveTab(tab.id);
-              setViewMode('script');
+              if (tab.id === 'overview') {
+                setViewMode('script');
+              }
             }}
             className={`
-              px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors
+              px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors flex items-center gap-2
               ${activeTab === tab.id 
                 ? 'bg-indigo-600 text-white shadow-sm' 
                 : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700'}
             `}
           >
-            <TableIcon className="w-4 h-4 inline-block mr-2" />
+            <tab.icon className="w-4 h-4" />
             {tab.label}
           </button>
         ))}
@@ -308,46 +344,56 @@ export function DataModels() {
 
       <Card className="min-h-[600px] flex flex-col">
         <div className="p-6 flex-1 flex flex-col">
-          {activeModel && (
+          {(activeTab === 'overview' || activeModel) && (
             <div className="space-y-6 flex-1 flex flex-col">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
                   <div className="flex items-center gap-2">
-                    <TableIcon className="w-5 h-5 text-indigo-500" />
+                    {activeTab === 'overview' ? (
+                      <Info className="w-5 h-5 text-indigo-500" />
+                    ) : (
+                      <TableIcon className="w-5 h-5 text-indigo-500" />
+                    )}
                     <div>
-                      <h2 className="text-xl font-semibold">{activeModel.name}</h2>
-                      {activeModel.description && (
+                      <h2 className="text-xl font-semibold">
+                        {activeTab === 'overview' ? t('dataModels.overview') : activeModel?.name}
+                      </h2>
+                      {(activeTab === 'overview' || activeModel?.description) && (
                          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-                           {t(`dataModels.descriptions.${activeModel.name}`)}
+                           {activeTab === 'overview' 
+                             ? '餐饮 SaaS 全球产品与定价中心数据模型概览' 
+                             : t(`dataModels.descriptions.${activeModel?.name}`)}
                          </p>
                       )}
                     </div>
                   </div>
                   
-                  <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg self-start">
-                    <button
-                      onClick={() => setViewMode('table')}
-                      className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
-                        viewMode === 'table'
-                          ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm'
-                          : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
-                      }`}
-                    >
-                      {t('dataModels.tableView')}
-                    </button>
-                    <button
-                      onClick={() => setViewMode('script')}
-                      className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
-                        viewMode === 'script'
-                          ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm'
-                          : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
-                      }`}
-                    >
-                      {t('dataModels.scriptView')}
-                    </button>
-                  </div>
+                  {activeTab !== 'overview' && (
+                    <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg self-start">
+                      <button
+                        onClick={() => setViewMode('table')}
+                        className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
+                          viewMode === 'table'
+                            ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm'
+                            : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                        }`}
+                      >
+                        {t('dataModels.tableView')}
+                      </button>
+                      <button
+                        onClick={() => setViewMode('script')}
+                        className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${
+                          viewMode === 'script'
+                            ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm'
+                            : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                        }`}
+                      >
+                        {t('dataModels.scriptView')}
+                      </button>
+                    </div>
+                  )}
                 </div>
 
-                {viewMode === 'table' ? (
+                {viewMode === 'table' && activeModel ? (
                   <div className="overflow-x-auto">
                     <table className="w-full text-left text-sm">
                       <thead>
@@ -405,10 +451,12 @@ export function DataModels() {
                           <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
                           <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
                         </div>
-                        <span className="text-xs font-mono text-[#cccccc] ml-3">{activeModel.name}.sql</span>
+                        <span className="text-xs font-mono text-[#cccccc] ml-3">
+                          {activeTab === 'overview' ? 'overview' : activeModel?.name}.sql
+                        </span>
                       </div>
                       <button 
-                        onClick={() => copyToClipboard(generateSql(activeModel))}
+                        onClick={() => copyToClipboard(currentSql)}
                         className="text-xs font-medium text-[#cccccc] hover:text-white transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded hover:bg-[#3e3e42]"
                       >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
@@ -418,11 +466,11 @@ export function DataModels() {
                     <div className="flex-1 p-4 overflow-auto custom-scrollbar bg-[#1e1e1e]">
                       <pre className="font-mono text-[13px] leading-relaxed text-[#d4d4d4] flex">
                         <div className="flex flex-col text-right pr-4 select-none text-[#858585] border-r border-[#404040] mr-4 min-w-[2.5rem]">
-                          {generateSql(activeModel).split('\n').map((_, i) => (
+                          {currentSql.split('\n').map((_, i) => (
                             <span key={i}>{i + 1}</span>
                           ))}
                         </div>
-                        <code dangerouslySetInnerHTML={{ __html: highlightSql(generateSql(activeModel)) }} />
+                        <code dangerouslySetInnerHTML={{ __html: highlightSql(currentSql) }} />
                       </pre>
                     </div>
                   </div>
@@ -433,4 +481,4 @@ export function DataModels() {
         </Card>
       </div>
     );
-  }
+}

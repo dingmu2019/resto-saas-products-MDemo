@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Textarea, ConfirmModal } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Textarea, Pagination, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
 import { Plus, Search, CheckCircle2, BarChart3, Layers, Edit2, Trash2 } from 'lucide-react';
 import { ProductFeature } from '../types';
@@ -12,6 +12,10 @@ export function Features() {
   const currentLang = i18n.language;
   const { features, setFeatures } = useProductContext();
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -50,6 +54,11 @@ export function Features() {
     getTranslatedField(feature, 'name', currentLang).toLowerCase().includes(searchQuery.toLowerCase()) || 
     feature.code.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const paginatedFeatures = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredFeatures.slice(start, start + pageSize);
+  }, [filteredFeatures, currentPage, pageSize]);
 
   const handleSaveFeature = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -128,7 +137,7 @@ export function Features() {
             </Tr>
           </Thead>
           <Tbody>
-            {filteredFeatures.map((feature) => (
+            {paginatedFeatures.map((feature) => (
               <Tr key={feature.id} className="group hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
                 <Td>
                   <span className="font-mono text-[11px] tracking-tight text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 bg-indigo-50 dark:bg-indigo-900/20 rounded border border-indigo-100 dark:border-indigo-800/50">
@@ -158,6 +167,16 @@ export function Features() {
             ))}
           </Tbody>
         </Table>
+        <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30">
+          <Pagination
+            currentPage={currentPage}
+            totalItems={filteredFeatures.length}
+            totalPages={Math.ceil(filteredFeatures.length / pageSize)}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={setPageSize}
+          />
+        </div>
       </Card>
 
       <Modal 

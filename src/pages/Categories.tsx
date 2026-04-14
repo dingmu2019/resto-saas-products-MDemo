@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Textarea, ConfirmModal } from '../components/ui';
+import { Card, Table, Thead, Tbody, Tr, Th, Td, Badge, Button, Modal, Input, Select, Label, Textarea, Pagination, ConfirmModal } from '../components/ui';
 import { useProductContext } from '../contexts/ProductProvider';
 import { Layers, Plus, Search, Edit2, Trash2, ChevronRight, Globe } from 'lucide-react';
 import { cn } from '../components/Layout';
@@ -18,10 +18,24 @@ export function Categories() {
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [categoryToDelete, setCategoryToDelete] = useState<number | null>(null);
 
-  // Sort categories by path to ensure parents come before children
-  const sortedCategories = [...categories]
-    .filter(cat => cat.name.toLowerCase().includes(searchQuery.toLowerCase()) || cat.code.toLowerCase().includes(searchQuery.toLowerCase()))
-    .sort((a, b) => a.path.localeCompare(b.path));
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
+  // Sort and filter categories
+  const filteredCategories = useMemo(() => {
+    return [...categories]
+      .filter(cat => 
+        getTranslatedField(cat, 'name', currentLang).toLowerCase().includes(searchQuery.toLowerCase()) || 
+        cat.code.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .sort((a, b) => a.path.localeCompare(b.path));
+  }, [categories, searchQuery, currentLang]);
+
+  const paginatedCategories = useMemo(() => {
+    const start = (currentPage - 1) * pageSize;
+    return filteredCategories.slice(start, start + pageSize);
+  }, [filteredCategories, currentPage, pageSize]);
 
   const handleOpenModal = (category?: Category) => {
     if (category) {
@@ -125,7 +139,7 @@ export function Categories() {
             </Tr>
           </Thead>
           <Tbody>
-            {sortedCategories.map((cat) => (
+            {paginatedCategories.map((cat) => (
               <Tr key={cat.id} className="group hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
                 <Td>
                   <div className="flex items-center" style={{ paddingLeft: `${(cat.level - 1) * 24}px` }}>
@@ -178,6 +192,16 @@ export function Categories() {
             ))}
           </Tbody>
         </Table>
+        <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-900/30">
+          <Pagination
+            currentPage={currentPage}
+            totalItems={filteredCategories.length}
+            totalPages={Math.ceil(filteredCategories.length / pageSize)}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={setPageSize}
+          />
+        </div>
       </Card>
 
       <Modal 
@@ -189,10 +213,14 @@ export function Categories() {
           <div className="space-y-1.5">
             <Label>{t('category.parentCategory')}</Label>
             <Select name="parentId" defaultValue={editingCategory?.parentId || ''}>
-              <option value="">{t('category.none')}</option>
-              {categories.map(c => (
-                <option key={c.id} value={c.id}>{c.name}</option>
-              ))}
+              <option value="">{t('common.none')}</option>
+              {categories
+                .filter(c => c.id !== editingCategory?.id)
+                .map(c => (
+                  <option key={c.id} value={c.id}>
+                    {getTranslatedField(c, 'name', currentLang)} ({c.code})
+                  </option>
+                ))}
             </Select>
           </div>
 
